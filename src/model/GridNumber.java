@@ -86,19 +86,23 @@ public class GridNumber {
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
-            for (int j = numbers[0].length - 2; j >= 0; j--) {
+            for (int j =0;j<numbers[0].length; j++)  {
                 if (numbers[i][j]==0){
                     emptySpaces.add(new int[]{i,j});
                 }
             }
         }
-        int index=random.nextInt(emptySpaces.size());
-        int[] randomEmptySpace= emptySpaces.get(index);
-        int rand=random.nextInt(2);
-        if (rand==0){
-            numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
+        if (emptySpaces.isEmpty()){
+            throw new IllegalStateException("No empty spaces in the grid.");
         }else {
-            numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+            int index=random.nextInt(emptySpaces.size());
+            int[] randomEmptySpace= emptySpaces.get(index);
+            int rand=random.nextInt(2);
+            if (rand==0){
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
+            }else {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+            }
         }
     }
     public void moveLeft() {
@@ -146,19 +150,23 @@ public class GridNumber {
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
-            for (int j = numbers[0].length - 2; j >= 0; j--) {
+            for (int j =0;j<numbers[0].length; j++) {
                 if (numbers[i][j]==0){
                     emptySpaces.add(new int[]{i,j});
                 }
             }
         }
-        int index=random.nextInt(emptySpaces.size());
-        int[] randomEmptySpace= emptySpaces.get(index);
-        int rand=random.nextInt(2);
-        if (rand==0){
-            numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
-        }else {
-            numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+        if (emptySpaces.isEmpty()){
+            throw new IllegalStateException("No empty spaces in the grid.");
+        }else{
+            int index=random.nextInt(emptySpaces.size());
+            int[] randomEmptySpace= emptySpaces.get(index);
+            int rand=random.nextInt(2);
+            if (rand==0){
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
+            }else {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+            }
         }
     }
     public void moveUp() {
@@ -206,19 +214,23 @@ public class GridNumber {
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
-            for (int j = numbers[0].length - 2; j >= 0; j--) {
+            for (int j =0;j<numbers[0].length; j++) {
                 if (numbers[i][j]==0){
                     emptySpaces.add(new int[]{i,j});
                 }
             }
         }
-        int index=random.nextInt(emptySpaces.size());
-        int[] randomEmptySpace= emptySpaces.get(index);
-        int rand=random.nextInt(2);
-        if (rand==0){
-            numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
+        if (emptySpaces.isEmpty()){
+            throw new IllegalStateException("No empty spaces in the grid.");
         }else {
-            numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+            int index=random.nextInt(emptySpaces.size());
+            int[] randomEmptySpace= emptySpaces.get(index);
+            int rand=random.nextInt(2);
+            if (rand==0){
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
+            }else {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+            }
         }
     }
     public void moveDown() {
@@ -266,19 +278,23 @@ public class GridNumber {
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
-            for (int j = numbers[0].length - 2; j >= 0; j--) {
+            for (int j =0;j<numbers[0].length; j++) {
                 if (numbers[i][j]==0){
                     emptySpaces.add(new int[]{i,j});
                 }
             }
         }
-        int index=random.nextInt(emptySpaces.size());
-        int[] randomEmptySpace= emptySpaces.get(index);
-        int rand=random.nextInt(2);
-        if (rand==0){
-            numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
+        if (emptySpaces.isEmpty()){
+            throw new IllegalStateException("No empty spaces in the grid.");
         }else {
-            numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+            int index=random.nextInt(emptySpaces.size());
+            int[] randomEmptySpace= emptySpaces.get(index);
+            int rand=random.nextInt(2);
+            if (rand==0){
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
+            }else {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+            }
         }
     }
 

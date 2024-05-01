@@ -22,11 +22,17 @@ public abstract class ListenerPanel extends JPanel {
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_RIGHT -> doMoveRight();
                 //todo: complete other move event
+                case KeyEvent.VK_LEFT -> doMoveLeft();
+                case KeyEvent.VK_UP -> doMoveUp();
+                case KeyEvent.VK_DOWN -> doMoveDown();
             }
         }
     }
 
 
     public abstract void doMoveRight();
+    public abstract void doMoveLeft();
+    public abstract void doMoveUp();
+    public abstract void doMoveDown();
 
 }

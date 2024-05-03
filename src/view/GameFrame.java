@@ -16,7 +16,7 @@ public class GameFrame extends JFrame {
     private GamePanel gamePanel;
 
     public GameFrame(int width, int height) {
-        this.setTitle("2024 CS109 Project Demo");
+        this.setTitle("2048");
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
@@ -31,6 +31,7 @@ public class GameFrame extends JFrame {
         gamePanel.setStepLabel(stepLabel);
 
         this.restartBtn.addActionListener(e -> {
+            setVisible(false);
             controller.restartGame();
             gamePanel.requestFocusInWindow();//enable key listener
         });

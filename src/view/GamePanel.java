@@ -96,4 +96,5 @@ public class GamePanel extends ListenerPanel {
     public void setStepLabel(JLabel stepLabel) {
         this.stepLabel = stepLabel;
     }
+
 }

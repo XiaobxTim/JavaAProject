@@ -21,22 +21,31 @@ public class GridNumber {
     }
 
     public void initialNumbers() {
+        List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
-            for (int j = 0; j < numbers[i].length; j++) {
-                //todo: update generate numbers method
+            for (int j =0;j<numbers[0].length; j++)  {
                 if (numbers[i][j]==0){
-                    int randIndex=random.nextInt(3);
-                    switch (randIndex){
-                        case 0:
-                            numbers[i][j]=0;
-                            break;
-                        case 1:
-                            numbers[i][j]=2;
-                            break;
-                        default:
-                            numbers[i][j]=4;
-                    }
+                    emptySpaces.add(new int[]{i,j});
                 }
+            }
+        }
+        if (emptySpaces.isEmpty()){
+            throw new IllegalStateException("No empty spaces in the grid.");
+        }else {
+            int index1=random.nextInt(emptySpaces.size());
+            int index2=random.nextInt(emptySpaces.size());
+            while (index2==index1){
+                index2=random.nextInt(emptySpaces.size());
+            }
+            int[] randomEmptySpace1 = emptySpaces.get(index1);
+            int[] randomEmptySpace2= emptySpaces.get(index2);
+            int rand=random.nextInt(2);
+            if (rand==0){
+                numbers[randomEmptySpace1[0]][randomEmptySpace1[1]]=2;
+                numbers[randomEmptySpace2[0]][randomEmptySpace2[1]]=4;
+            }else {
+                numbers[randomEmptySpace1[0]][randomEmptySpace1[1]]=4;
+                numbers[randomEmptySpace2[0]][randomEmptySpace2[1]]=2;
             }
         }
     }

@@ -20,36 +20,28 @@ public class GridNumber {
         this.initialNumbers();
     }
     public boolean gameEnd() {
-        boolean EmptySpace = false;
         for (int i = 0; i < numbers.length; i++) {
-            for (int j = 0; j < numbers.length; j++) {
-                if(numbers[i][j] == 0){
-                    EmptySpace = true;
-                    break;
+            for (int j = 0; j < numbers[i].length - 1; j++) {
+                if (canMergeHorizontally(i, j)) {
+                    return false;
                 }
-            }
-            if(EmptySpace){
-
-                break;
             }
         }
-        if(!EmptySpace){
-            for (int i = 0; i < numbers.length; i++) {
-                for (int j = 0; j < numbers.length - 1; j++) {
-                    if(numbers[i][j] == numbers[i][j + 1]){
-                        return false;
-                    }
-                }
-            }
+        for (int j = 0; j < numbers[0].length; j++) {
             for (int i = 0; i < numbers.length - 1; i++) {
-                for (int j = 0; j < numbers.length; j++) {
-                    if(numbers[i][j] == numbers[i + 1][j]){
-                        return false;
-                    }
+                if (canMergeVertically(i, j)) {
+                    return false;
                 }
             }
-            return true;
-        } else return false;
+        }
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = 0; j < numbers[i].length; j++) {
+                if (canSlide(i, j)) {
+                    return false; // 如果可以滑动，则游戏没有结束
+                }
+            }
+        }
+        return true;
     }
     public void initialNumbers() {
         List<int[]> emptySpaces = new ArrayList<>();
@@ -61,7 +53,7 @@ public class GridNumber {
             }
         }
         if (emptySpaces.isEmpty()){
-            throw new IllegalStateException("No empty spaces in the grid.");
+            System.out.println("No empty spaces in the grid.");
         }else {
             int index1=random.nextInt(emptySpaces.size());
             int index2=random.nextInt(emptySpaces.size());
@@ -133,7 +125,7 @@ public class GridNumber {
             }
         }
         if (emptySpaces.isEmpty()){
-            throw new IllegalStateException("No empty spaces in the grid.");
+            System.out.println("doMoveRight is unachievable.");
         }else {
             int index=random.nextInt(emptySpaces.size());
             int[] randomEmptySpace= emptySpaces.get(index);
@@ -144,6 +136,7 @@ public class GridNumber {
                 numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
             }
         }
+        gameEnd();
     }
     public void moveLeft() {
         for (int i = 0; i < numbers.length; i++) {
@@ -197,7 +190,7 @@ public class GridNumber {
             }
         }
         if (emptySpaces.isEmpty()){
-            throw new IllegalStateException("No empty spaces in the grid.");
+            System.out.println("doMoveLeft is unachievable.");
         }else{
             int index=random.nextInt(emptySpaces.size());
             int[] randomEmptySpace= emptySpaces.get(index);
@@ -208,6 +201,7 @@ public class GridNumber {
                 numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
             }
         }
+        gameEnd();
     }
     public void moveUp() {
         for (int j = 0; j < numbers[0].length; j++) {
@@ -261,7 +255,7 @@ public class GridNumber {
             }
         }
         if (emptySpaces.isEmpty()){
-            throw new IllegalStateException("No empty spaces in the grid.");
+            System.out.println("doMoveUp is unachievable.");
         }else {
             int index=random.nextInt(emptySpaces.size());
             int[] randomEmptySpace= emptySpaces.get(index);
@@ -272,6 +266,7 @@ public class GridNumber {
                 numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
             }
         }
+        gameEnd();
     }
     public void moveDown() {
         for (int j = 0; j < numbers[0].length; j++) {
@@ -325,7 +320,7 @@ public class GridNumber {
             }
         }
         if (emptySpaces.isEmpty()){
-            throw new IllegalStateException("No empty spaces in the grid.");
+            System.out.println("doMoveDown is unachievable.");
         }else {
             int index=random.nextInt(emptySpaces.size());
             int[] randomEmptySpace= emptySpaces.get(index);
@@ -336,6 +331,7 @@ public class GridNumber {
                 numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
             }
         }
+        gameEnd();
     }
 
     public int getNumber(int i, int j) {
@@ -346,5 +342,23 @@ public class GridNumber {
         for (int[] line : numbers) {
             System.out.println(Arrays.toString(line));
         }
+    }
+    private boolean canMergeHorizontally(int row, int col) {
+        if (col < numbers[row].length - 1 && numbers[row][col] != 0 && numbers[row][col] == numbers[row][col + 1]) {
+            return true;
+        }
+        return false;
+    }
+    private boolean canMergeVertically(int row, int col) {
+        if (row < numbers.length - 1 && numbers[row][col] != 0 && numbers[row][col] == numbers[row + 1][col]) {
+            return true;
+        }
+        return false;
+    }
+    private boolean canSlide(int row, int col) {
+        if (numbers[row][col] == 0) {
+            return true;
+        }
+        return false;
     }
 }

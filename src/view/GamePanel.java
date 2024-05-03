@@ -14,8 +14,10 @@ public class GamePanel extends ListenerPanel {
     private JLabel stepLabel;
     private int steps;
     private final int GRID_SIZE;
+    private boolean gameEnded;
 
     public GamePanel(int size) {
+        this.gameEnded = false;
         this.setVisible(true);
         this.setFocusable(true);
         this.setLayout(null);
@@ -33,6 +35,7 @@ public class GamePanel extends ListenerPanel {
     }
 
     public void initialGame() {
+        this.gameEnded = false;
         this.steps = 0;
         for (int i = 0; i < grids.length; i++) {
             for (int j = 0; j < grids[i].length; j++) {
@@ -61,36 +64,52 @@ public class GamePanel extends ListenerPanel {
      */
     @Override
     public void doMoveRight() {
+        if (gameEnded) {
+            return;
+        }
         System.out.println("Click VK_RIGHT");
-        this.afterMove();
         this.model.moveRight();
         this.updateGridsNumber();
+        this.afterMove();
     }
     @Override
     public void doMoveLeft() {
+        if (gameEnded) {
+            return;
+        }
         System.out.println("Click VK_Left");
-        this.afterMove();
         this.model.moveLeft();
         this.updateGridsNumber();
+        this.afterMove();
     }
     @Override
     public void doMoveUp() {
+        if (gameEnded) {
+            return;
+        }
         System.out.println("Click VK_UP");
-        this.afterMove();
         this.model.moveUp();
         this.updateGridsNumber();
+        this.afterMove();
     }
     @Override
     public void doMoveDown() {
+        if (gameEnded) {
+            return;
+        }
         System.out.println("Click VK_DOWN");
-        this.afterMove();
         this.model.moveDown();
         this.updateGridsNumber();
+        this.afterMove();
     }
 
     public void afterMove() {
         this.steps++;
         this.stepLabel.setText(String.format("Step: %d", this.steps));
+        // check whether the game has ended
+
+        if (model.gameEnd())
+            gameEnded = true;
     }
 
     public void setStepLabel(JLabel stepLabel) {

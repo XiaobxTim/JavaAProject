@@ -19,7 +19,38 @@ public class GridNumber {
         this.numbers = new int[this.X_COUNT][this.Y_COUNT];
         this.initialNumbers();
     }
+    public boolean gameEnd() {
+        boolean EmptySpace = false;
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = 0; j < numbers.length; j++) {
+                if(numbers[i][j] == 0){
+                    EmptySpace = true;
+                    break;
+                }
+            }
+            if(EmptySpace){
 
+                break;
+            }
+        }
+        if(!EmptySpace){
+            for (int i = 0; i < numbers.length; i++) {
+                for (int j = 0; j < numbers.length - 1; j++) {
+                    if(numbers[i][j] == numbers[i][j + 1]){
+                        return false;
+                    }
+                }
+            }
+            for (int i = 0; i < numbers.length - 1; i++) {
+                for (int j = 0; j < numbers.length; j++) {
+                    if(numbers[i][j] == numbers[i + 1][j]){
+                        return false;
+                    }
+                }
+            }
+            return true;
+        } else return false;
+    }
     public void initialNumbers() {
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {

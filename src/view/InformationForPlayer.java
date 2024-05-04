@@ -12,16 +12,41 @@ public class InformationForPlayer extends JFrame{
     private JButton Login;
     private JButton Register;
     public InformationForPlayer(int width,int height){
+        SpringLayout springLayout=new SpringLayout();
+        Container container=getContentPane();
         this.setTitle("Information");
-        this.setLayout(null);
+        this.setLayout(springLayout);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        this.Account=createLabel("Account",new Font("serif", Font.ITALIC,20),new Point(50,50),110,50);
-        this.Password=createLabel("Password",new Font("serif", Font.ITALIC,20),new Point(50,100),110,50);
-        Account.setHorizontalAlignment(0);
-        Password.setHorizontalAlignment(0);
-        this.Login=createButton("Login",new Point(200,300),100,50);
-        this.Register=createButton("Register",new Point(400,300),100,50);
+        this.Account=new JLabel("Account:");
+        this.Password=new JLabel("Password:");
+        this.add(Account);
+        this.add(Password);
+        springLayout.putConstraint(SpringLayout.NORTH,Account,100,SpringLayout.NORTH,container);
+        springLayout.putConstraint(SpringLayout.WEST,Account,20,SpringLayout.WEST,container);
+        JTextField AccountField=new JTextField();
+        this.add(AccountField);
+        springLayout.putConstraint(SpringLayout.NORTH,AccountField,100,SpringLayout.NORTH,container);
+        springLayout.putConstraint(SpringLayout.WEST,AccountField,20,SpringLayout.EAST,Account);
+        springLayout.putConstraint(SpringLayout.EAST,AccountField,-20,SpringLayout.EAST,container);
+        springLayout.putConstraint(SpringLayout.NORTH,Password,20,SpringLayout.SOUTH,Account);
+        springLayout.putConstraint(SpringLayout.WEST,Password,20,SpringLayout.WEST,container);
+        JTextField PasswordField=new JTextField();
+        this.add(PasswordField);
+        springLayout.putConstraint(SpringLayout.NORTH,PasswordField,20,SpringLayout.SOUTH,AccountField);
+        springLayout.putConstraint(SpringLayout.WEST,PasswordField,20,SpringLayout.EAST,Password);
+        springLayout.putConstraint(SpringLayout.EAST,PasswordField,-20,SpringLayout.EAST,container);
+
+        this.Login=new JButton("Login");
+        this.Register=new JButton("Register");
+        this.add(Login);
+        this.add(Register);
+        springLayout.putConstraint(SpringLayout.SOUTH,Login,-125,SpringLayout.SOUTH,container);
+        springLayout.putConstraint(SpringLayout.SOUTH,Register,-125,SpringLayout.SOUTH,container);
+        springLayout.putConstraint(SpringLayout.EAST,Register,-200,SpringLayout.EAST,container);
+        springLayout.putConstraint(SpringLayout.SOUTH,PasswordField,-150,SpringLayout.NORTH,Register);
+        springLayout.putConstraint(SpringLayout.EAST,Login,-100,SpringLayout.WEST,Register);
+
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }

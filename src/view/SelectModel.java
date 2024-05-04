@@ -12,7 +12,7 @@ public class SelectModel extends JFrame {
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        this.ClassicModel= createButton("Classic Model",new Point(295,200),110,50);
+        this.ClassicModel= createButton("Classic Model",new Point(100,200),500,50);
         this.ClassicModel.addActionListener(e ->{
             setVisible(false);
             GameFrame gameFrame=new GameFrame(700,500);

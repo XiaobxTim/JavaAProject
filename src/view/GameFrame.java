@@ -14,6 +14,11 @@ public class GameFrame extends JFrame {
 
     private JLabel stepLabel;
     private GamePanel gamePanel;
+    private JButton Right;
+    private JButton Left;
+    private JButton Up;
+    private JButton Down;
+
 
     public GameFrame(int width, int height) {
         this.setTitle("2048");
@@ -41,6 +46,24 @@ public class GameFrame extends JFrame {
             gamePanel.requestFocusInWindow();//enable key listener
         });
         //todo: add other button here
+        this.Right=createButton("→",new Point(605,350),50,50);
+        this.Left=createButton("←",new Point(505,350),50,50);
+        this.Up=createButton("↑",new Point(555,300),50,50);
+        this.Down=createButton("↓",new Point(555,350),50,50);
+
+        this.Right.addActionListener(e -> {
+            gamePanel.doMoveRight();
+        });
+        this.Left.addActionListener(e -> {
+            gamePanel.doMoveLeft();
+        });
+        this.Up.addActionListener(e -> {
+            gamePanel.doMoveUp();
+        });
+        this.Down.addActionListener(e -> {
+            gamePanel.doMoveDown();
+        });
+
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }

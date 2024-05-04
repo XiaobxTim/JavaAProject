@@ -9,6 +9,7 @@ import java.awt.*;
 public class LoginFrame extends JFrame{
     private GameController controller;
     private JButton VisitorLogin;
+    private JButton PlayerLogin;
     private JLabel NameLabel;
     public LoginFrame(int width,int height){
         this.setTitle("Login Interface");
@@ -16,11 +17,18 @@ public class LoginFrame extends JFrame{
         this.setSize(width, height);
         ColorMap.InitialColorMap();
         this.NameLabel=createLabel("2048",new Font("serif", Font.ITALIC,45),new Point(295,100),110,50);
-        this.VisitorLogin=createButton("VisitorLogin",new Point(295,200),110,50);
+        NameLabel.setHorizontalAlignment((int) CENTER_ALIGNMENT);
+        this.VisitorLogin=createButton("VisitorLogin",new Point(100,200),500,50);
         this.VisitorLogin.addActionListener(e -> {
             setVisible(false);
             SelectModelForVistor selectModelForVistor=new SelectModelForVistor(700,500);
             selectModelForVistor.setVisible(true);
+        });
+        this.PlayerLogin=createButton("PlayerLogin",new Point(100,300),500,50);
+        this.PlayerLogin.addActionListener(e -> {
+            setVisible(true);
+            InformationForPlayer informationForPlayer=new InformationForPlayer(700,500);
+            informationForPlayer.setVisible(true);
         });
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

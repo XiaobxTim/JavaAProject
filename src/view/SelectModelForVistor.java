@@ -18,6 +18,8 @@ public class SelectModelForVistor extends JFrame {
             GameFrameForVisitor gameFrameForVisitor=new GameFrameForVisitor(700,500);
             gameFrameForVisitor.setVisible(true);
         });
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
     private JButton createButton(String name, Point location, int width, int height) {
         JButton button = new JButton(name);

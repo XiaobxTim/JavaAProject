@@ -1,4 +1,4 @@
-import view.GameFrame;
+import view.LoginFrame;
 
 import javax.swing.*;
 
@@ -6,8 +6,8 @@ public class Main {
     public static void main(String[] args) {
 
         SwingUtilities.invokeLater(() -> {
-            GameFrame gameFrame = new GameFrame(700, 500);
-            gameFrame.setVisible(true);
+            LoginFrame loginframe = new LoginFrame(700, 500);
+            loginframe.setVisible(true);
         });
     }
 }

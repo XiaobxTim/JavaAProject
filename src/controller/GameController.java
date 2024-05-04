@@ -2,7 +2,9 @@ package controller;
 
 import model.GridNumber;
 import view.GameFrame;
+import view.GameFrameForVisitor;
 import view.GamePanel;
+import view.SelectModelForVistor;
 
 import javax.swing.*;
 
@@ -27,7 +29,10 @@ public class GameController {
         GameFrame gameFrame = new GameFrame(700, 500);
         gameFrame.setVisible(true);
     }
-
+    public void restartGameForVisitor() {
+        SelectModelForVistor selectModelForVistor=new SelectModelForVistor(700,500);
+        selectModelForVistor.setVisible(true);
+    }
     //todo: add other methods such as loadGame, saveGame...
 
 }

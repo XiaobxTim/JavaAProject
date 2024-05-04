@@ -1,21 +1,17 @@
 package view;
-
 import controller.GameController;
 import util.ColorMap;
 
 import javax.swing.*;
 import java.awt.*;
-
-public class GameFrame extends JFrame {
-
+public class GameFrameForVisitor extends JFrame{
     private GameController controller;
     private JButton restartBtn;
-    private JButton loadBtn;
 
     private JLabel stepLabel;
     private GamePanel gamePanel;
 
-    public GameFrame(int width, int height) {
+    public GameFrameForVisitor(int width, int height) {
         this.setTitle("2048");
         this.setLayout(null);
         this.setSize(width, height);
@@ -26,18 +22,12 @@ public class GameFrame extends JFrame {
 
         this.controller = new GameController(gamePanel, gamePanel.getModel());
         this.restartBtn = createButton("Restart", new Point(500, 150), 110, 50);
-        this.loadBtn = createButton("Load", new Point(500, 220), 110, 50);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 50), 180, 50);
         gamePanel.setStepLabel(stepLabel);
 
         this.restartBtn.addActionListener(e -> {
             setVisible(false);
-            controller.restartGame();
-            gamePanel.requestFocusInWindow();//enable key listener
-        });
-        this.loadBtn.addActionListener(e -> {
-            String string = JOptionPane.showInputDialog(this, "Input path:");
-            System.out.println(string);
+            controller.restartGameForVisitor();
             gamePanel.requestFocusInWindow();//enable key listener
         });
         //todo: add other button here
@@ -62,5 +52,4 @@ public class GameFrame extends JFrame {
         this.add(label);
         return label;
     }
-
 }

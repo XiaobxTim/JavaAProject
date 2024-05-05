@@ -19,7 +19,7 @@ public class SelectModel extends JFrame {
             gameFrame.setVisible(true);
         });
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
     private JButton createButton(String name, Point location, int width, int height) {
         JButton button = new JButton(name);

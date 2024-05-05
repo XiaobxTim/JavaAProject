@@ -12,7 +12,9 @@ public class GamePanel extends ListenerPanel {
 
     private GridNumber model;
     private JLabel stepLabel;
+    private JLabel scoreLabel;
     private int steps;
+    private int score;
     private final int GRID_SIZE;
 
     public GamePanel(int size) {
@@ -62,7 +64,7 @@ public class GamePanel extends ListenerPanel {
     @Override
     public void doMoveRight() {
         if (model.gameEnd()) {
-            System.out.println("fail");
+            JOptionPane.showMessageDialog(null,"fail");
         }else {
             System.out.println("Click VK_RIGHT");
             this.model.moveRight();
@@ -73,7 +75,7 @@ public class GamePanel extends ListenerPanel {
     @Override
     public void doMoveLeft() {
         if (model.gameEnd()) {
-            System.out.println("fail");
+            JOptionPane.showMessageDialog(null,"fail");
         }else {
             System.out.println("Click VK_Left");
             this.model.moveLeft();
@@ -84,7 +86,7 @@ public class GamePanel extends ListenerPanel {
     @Override
     public void doMoveUp() {
         if (model.gameEnd()) {
-            System.out.println("fail");
+            JOptionPane.showMessageDialog(null,"fail");
         }else {
             System.out.println("Click VK_UP");
             this.model.moveUp();
@@ -95,7 +97,7 @@ public class GamePanel extends ListenerPanel {
     @Override
     public void doMoveDown() {
         if (model.gameEnd()) {
-            System.out.println("fail");
+            JOptionPane.showMessageDialog(null,"fail");
         }else {
             System.out.println("Click VK_DOWN");
             this.model.moveDown();

@@ -2,7 +2,6 @@ package controller;
 
 import model.GridNumber;
 import view.GameFrame;
-import view.GameFrameForVisitor;
 import view.GamePanel;
 import view.SelectModelForVistor;
 

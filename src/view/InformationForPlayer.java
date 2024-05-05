@@ -47,6 +47,12 @@ public class InformationForPlayer extends JFrame{
         springLayout.putConstraint(SpringLayout.SOUTH,PasswordField,-150,SpringLayout.NORTH,Register);
         springLayout.putConstraint(SpringLayout.EAST,Login,-100,SpringLayout.WEST,Register);
 
+        Register.addActionListener(e -> {
+            setVisible(false);
+            RegisterFrame registerFrame=new RegisterFrame(700,500);
+            registerFrame.setVisible(true);
+        });
+
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }

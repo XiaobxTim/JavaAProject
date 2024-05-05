@@ -41,20 +41,28 @@ public class GameFrameForVisitor extends JFrame{
         this.Down=createButton("↓",new Point(555,350),50,50);
 
         this.Right.addActionListener(e -> {
+            Right.setFocusable(true);
             gamePanel.doMoveRight();
+            Right.setFocusable(false);
         });
         this.Left.addActionListener(e -> {
+            Left.setFocusable(true);
             gamePanel.doMoveLeft();
+            Left.setFocusable(false);
         });
         this.Up.addActionListener(e -> {
+            Up.setFocusable(true);
             gamePanel.doMoveUp();
+            Up.setFocusable(false);
         });
         this.Down.addActionListener(e -> {
+            Down.setFocusable(true);
             gamePanel.doMoveDown();
+            Down.setFocusable(false);
         });
 
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
 

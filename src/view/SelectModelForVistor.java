@@ -6,20 +6,22 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SelectModelForVistor extends JFrame {
-    private JButton ClassicModel;
+    private JButton ClassicMode;
+    private JButton AdventureMode;
     public SelectModelForVistor(int width, int height){
         this.setTitle("Select Model");
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        this.ClassicModel= createButton("Classic Model",new Point(100,200),500,50);
-        this.ClassicModel.addActionListener(e ->{
+        this.ClassicMode= createButton("Classic Mode",new Point(100,200),500,50);
+        this.ClassicMode.addActionListener(e ->{
             setVisible(false);
             GameFrameForVisitor gameFrameForVisitor=new GameFrameForVisitor(700,500);
             gameFrameForVisitor.setVisible(true);
         });
+
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
     private JButton createButton(String name, Point location, int width, int height) {
         JButton button = new JButton(name);

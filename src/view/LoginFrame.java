@@ -20,7 +20,7 @@ public class LoginFrame extends JFrame{
         NameLabel.setHorizontalAlignment((int) CENTER_ALIGNMENT);
         this.VisitorLogin=createButton("VisitorLogin",new Point(100,200),500,50);
         this.VisitorLogin.addActionListener(e -> {
-            setVisible(false);
+            setVisible(true);
             SelectModelForVistor selectModelForVistor=new SelectModelForVistor(700,500);
             selectModelForVistor.setVisible(true);
         });

@@ -48,8 +48,8 @@ public class RegisterFrame extends JFrame {
 
         Cancel.addActionListener(e -> {
             setVisible(false);
-            InformationForPlayer informationForPlayer=new InformationForPlayer(700,500);
-            informationForPlayer.setVisible(true);
+            LoginFrame loginFrame=new LoginFrame(700,500);
+            loginFrame.setVisible(true);
         });
 
         this.setLocationRelativeTo(null);

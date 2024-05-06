@@ -64,7 +64,7 @@ public class GamePanel extends ListenerPanel {
     @Override
     public void doMoveRight() {
         if (model.gameEnd()) {
-            JOptionPane.showMessageDialog(null,"fail");
+            JOptionPane.showMessageDialog(null,"You fail");
         }else {
             System.out.println("Click VK_RIGHT");
             this.model.moveRight();
@@ -75,7 +75,7 @@ public class GamePanel extends ListenerPanel {
     @Override
     public void doMoveLeft() {
         if (model.gameEnd()) {
-            JOptionPane.showMessageDialog(null,"fail");
+            JOptionPane.showMessageDialog(null,"You fail");
         }else {
             System.out.println("Click VK_Left");
             this.model.moveLeft();
@@ -86,7 +86,7 @@ public class GamePanel extends ListenerPanel {
     @Override
     public void doMoveUp() {
         if (model.gameEnd()) {
-            JOptionPane.showMessageDialog(null,"fail");
+            JOptionPane.showMessageDialog(null,"You fail");
         }else {
             System.out.println("Click VK_UP");
             this.model.moveUp();
@@ -97,7 +97,7 @@ public class GamePanel extends ListenerPanel {
     @Override
     public void doMoveDown() {
         if (model.gameEnd()) {
-            JOptionPane.showMessageDialog(null,"fail");
+            JOptionPane.showMessageDialog(null,"You fail");
         }else {
             System.out.println("Click VK_DOWN");
             this.model.moveDown();

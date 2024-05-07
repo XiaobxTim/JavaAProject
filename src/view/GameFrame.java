@@ -14,6 +14,8 @@ public class GameFrame extends JFrame {
     private JButton saveBtn;
 
     private JLabel stepLabel;
+    private JLabel scoreLabel;
+    private JLabel maxscoreLabel;
     private GamePanel gamePanel;
     private JButton Right;
     private JButton Left;
@@ -34,8 +36,12 @@ public class GameFrame extends JFrame {
         this.restartBtn = createButton("Restart", new Point(500, 150), 110, 50);
         this.loadBtn = createButton("Load", new Point(500, 220), 110, 50);
         this.saveBtn = createButton("Save", new Point(500,280),110,50);
-        this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 50), 180, 50);
+        this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 60), 180, 50);
+        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC, 22), new Point(480, 120), 180, 50);
+        this.maxscoreLabel = createLabel("Maxscore", new Font("serif", Font.ITALIC, 22), new Point(480, 0), 180, 50);
         gamePanel.setStepLabel(stepLabel);
+        gamePanel.setScoreLabel(scoreLabel);
+        gamePanel.setMaxscoreLabel(maxscoreLabel);
 
         this.restartBtn.addActionListener(e -> {
             restartBtn.setFocusable(true);

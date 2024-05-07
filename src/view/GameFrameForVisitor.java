@@ -27,8 +27,8 @@ public class GameFrameForVisitor extends JFrame{
 
         this.controller = new GameController(gamePanel, gamePanel.getModel());
         this.restartBtn = createButton("Restart", new Point(500, 170), 110, 50);
-        this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 50), 180, 50);
-        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC, 22), new Point(480, 110), 180, 50);
+        this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 60), 180, 50);
+        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC, 22), new Point(480, 120), 180, 50);
         gamePanel.setStepLabel(stepLabel);
         gamePanel.setScoreLabel(scoreLabel);
 

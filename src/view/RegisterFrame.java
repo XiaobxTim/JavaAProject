@@ -47,9 +47,14 @@ public class RegisterFrame extends JFrame {
         springLayout.putConstraint(SpringLayout.EAST, OK, -100, SpringLayout.WEST, Cancel);
 
         Cancel.addActionListener(e -> {
+            Cancel.setFocusable(true);
             setVisible(false);
             LoginFrame loginFrame=new LoginFrame(700,500);
             loginFrame.setVisible(true);
+            Cancel.setFocusable(false);
+        });
+        OK.addActionListener(e -> {
+
         });
 
         this.setLocationRelativeTo(null);

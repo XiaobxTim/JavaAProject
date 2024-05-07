@@ -110,11 +110,12 @@ public class GamePanel extends ListenerPanel {
         if (!model.gameEnd()) {
             this.steps++;
             this.stepLabel.setText(String.format("Step: %d", this.steps));
+            this.scoreLabel.setText(String.format("Score: %d", model.getScore()));
         }
     }
 
     public void setStepLabel(JLabel stepLabel) {
         this.stepLabel = stepLabel;
     }
-
+    public void setScoreLabel(JLabel scoreLabel){ this.scoreLabel = scoreLabel; };
 }

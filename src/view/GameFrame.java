@@ -11,6 +11,7 @@ public class GameFrame extends JFrame {
     private GameController controller;
     private JButton restartBtn;
     private JButton loadBtn;
+    private JButton saveBtn;
 
     private JLabel stepLabel;
     private GamePanel gamePanel;
@@ -32,18 +33,24 @@ public class GameFrame extends JFrame {
         this.controller = new GameController(gamePanel, gamePanel.getModel());
         this.restartBtn = createButton("Restart", new Point(500, 150), 110, 50);
         this.loadBtn = createButton("Load", new Point(500, 220), 110, 50);
+        this.saveBtn = createButton("Save", new Point(500,280),110,50);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 50), 180, 50);
         gamePanel.setStepLabel(stepLabel);
 
         this.restartBtn.addActionListener(e -> {
-            setVisible(false);
-            controller.restartGame();
-            gamePanel.requestFocusInWindow();//enable key listener
+            restartBtn.setFocusable(true);
+            setVisible(true);
+            RestartFrame restartFrame=new RestartFrame(700,500, controller, gamePanel, this);
+            restartFrame.setVisible(true);
+            restartBtn.setFocusable(false);
         });
         this.loadBtn.addActionListener(e -> {
             String string = JOptionPane.showInputDialog(this, "Input path:");
             System.out.println(string);
             gamePanel.requestFocusInWindow();//enable key listener
+        });
+        this.saveBtn.addActionListener(e -> {
+
         });
         //todo: add other button here
         this.Right=createButton("→",new Point(605,350),50,50);

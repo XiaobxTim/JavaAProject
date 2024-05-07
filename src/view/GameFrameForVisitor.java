@@ -9,6 +9,7 @@ public class GameFrameForVisitor extends JFrame{
     private JButton restartBtn;
 
     private JLabel stepLabel;
+    private JLabel scoreLabel;
     private GamePanel gamePanel;
     private JButton Right;
     private JButton Left;
@@ -25,14 +26,18 @@ public class GameFrameForVisitor extends JFrame{
         this.add(gamePanel);
 
         this.controller = new GameController(gamePanel, gamePanel.getModel());
-        this.restartBtn = createButton("Restart", new Point(500, 150), 110, 50);
+        this.restartBtn = createButton("Restart", new Point(500, 170), 110, 50);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 50), 180, 50);
+        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC, 22), new Point(480, 110), 180, 50);
         gamePanel.setStepLabel(stepLabel);
+        gamePanel.setScoreLabel(scoreLabel);
 
         this.restartBtn.addActionListener(e -> {
-            setVisible(false);
-            controller.restartGameForVisitor();
-            gamePanel.requestFocusInWindow();//enable key listener
+            restartBtn.setFocusable(true);
+            setVisible(true);
+            RestartFrameForVisitor restartFrameForVisitor=new RestartFrameForVisitor(700,500, controller, gamePanel, this);
+            restartFrameForVisitor.setVisible(true);
+            restartBtn.setFocusable(false);
         });
         //todo: add other button here
         this.Right=createButton("→",new Point(605,350),50,50);

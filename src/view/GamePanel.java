@@ -13,6 +13,7 @@ public class GamePanel extends ListenerPanel {
     private GridNumber model;
     private JLabel stepLabel;
     private JLabel scoreLabel;
+    private JLabel maxscoreLabel;
     private int steps;
     private int score;
     private final int GRID_SIZE;
@@ -110,11 +111,13 @@ public class GamePanel extends ListenerPanel {
         if (!model.gameEnd()) {
             this.steps++;
             this.stepLabel.setText(String.format("Step: %d", this.steps));
+            this.scoreLabel.setText(String.format("Score: %d", model.getScore()));
         }
     }
 
     public void setStepLabel(JLabel stepLabel) {
         this.stepLabel = stepLabel;
     }
-
+    public void setScoreLabel(JLabel scoreLabel){ this.scoreLabel = scoreLabel; }
+    public void setMaxscoreLabel(JLabel maxscoreLabel){ this.maxscoreLabel = maxscoreLabel;}
 }

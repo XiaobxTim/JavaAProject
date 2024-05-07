@@ -51,9 +51,14 @@ public class LoginFrame extends JFrame{
         springLayout.putConstraint(SpringLayout.EAST,Login,-100,SpringLayout.WEST,Register);
 
         Register.addActionListener(e -> {
+            Register.setFocusable(true);
             setVisible(false);
             RegisterFrame registerFrame=new RegisterFrame(700,500);
             registerFrame.setVisible(true);
+            Register.setFocusable(false);
+        });
+        Login.addActionListener(e -> {
+
         });
         //监听login
         Login.addActionListener(e ->{

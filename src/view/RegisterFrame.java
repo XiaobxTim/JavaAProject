@@ -4,6 +4,10 @@ import util.ColorMap;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.util.Scanner;
 
 public class RegisterFrame extends JFrame {
     private JLabel Account;
@@ -54,6 +58,33 @@ public class RegisterFrame extends JFrame {
             Cancel.setFocusable(false);
         });
         OK.addActionListener(e -> {
+            // AccountField.getText()
+//            PasswordField.getText()
+            String account;
+            String password;
+//            Scanner input = new Scanner(System.in);
+            account = AccountField.getText();
+            password = PasswordField.getText();
+
+
+            if (account.isEmpty()) {
+                return;
+            }
+
+            File file = new File("src/" + account + "_password.txt");
+            try {
+                if (file.createNewFile()) {
+                    FileWriter fileWriter = new FileWriter(file);
+                    fileWriter.write(password);
+                    fileWriter.close();
+                    JOptionPane.showMessageDialog(this, "OK!");
+                } else {
+                    System.out.println("create failed");
+                    JOptionPane.showMessageDialog(this, "Fail!");
+                }
+            } catch (Exception exception){
+                exception.printStackTrace();
+            }
 
         });
 

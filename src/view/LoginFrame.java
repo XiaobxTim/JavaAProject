@@ -5,6 +5,9 @@ import util.ColorMap;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 public class LoginFrame extends JFrame{
     private JLabel Account;
@@ -54,8 +57,29 @@ public class LoginFrame extends JFrame{
             registerFrame.setVisible(true);
             Register.setFocusable(false);
         });
-        Login.addActionListener(e -> {
+        //监听login
+        Login.addActionListener(e ->{
+            String account;
+            String password;
 
+            account = AccountField.getText();
+            password = PasswordField.getText();
+            File file = new File("src/" + account + "_password.txt");
+            if(file.exists()){
+                try{
+                    Scanner in = new Scanner(file);
+//                    while(in.hasNext()){
+//                        System.out.println(in.next());
+//                    }
+                    if (in.nextLine().equals(password)) {
+                        JOptionPane.showMessageDialog(this, "login Successfully");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Fail to Login");
+                    }
+                } catch (FileNotFoundException err){
+                    err.printStackTrace();
+                }
+            }
         });
 
         this.setLocationRelativeTo(null);

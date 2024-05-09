@@ -34,6 +34,13 @@ public class SelectModel extends JFrame {
         });
         this.CustomMode.addActionListener(e -> {
             setVisible(false);
+            int size = Integer.parseInt(JOptionPane.showInputDialog(this, "Input Size:"));
+            if (size<=10){
+                CustomFrame customFrame=new CustomFrame(700,500,size);
+                customFrame.setVisible(true);
+            }else {
+                JOptionPane.showMessageDialog(null,"Please input again");
+            }
         });
         this.AIMode.addActionListener(e -> {
             setVisible(false);

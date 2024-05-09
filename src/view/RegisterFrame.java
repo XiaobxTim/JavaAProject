@@ -9,7 +9,7 @@ public class RegisterFrame extends JFrame {
     private JLabel Account;
     private JLabel Password;
     private JButton OK;
-    private JButton Cancel;
+    private JButton Cancel; //daafege
     public RegisterFrame(int width,int height) {
         SpringLayout springLayout = new SpringLayout();
         Container container = getContentPane();

@@ -17,12 +17,12 @@ public class SelectModel extends JFrame {
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        this.ClassicMode= createButton("Classic Mode",new Point(100,100),500,50);
-        this.AdventureMode= createButton("Adventure Mode",new Point(100,160),500,50);
-        this.AIMode= createButton("AI Mode",new Point(100,220),500,50);
-        this.CustomMode= createButton("Custom Mode",new Point(100,280),500,50);
-        this.TimeLimitMode= createButton("TimeLimit Mode",new Point(100,340),500,50);
-        this.EntertainingMode= createButton("Entertaining Mode",new Point(100,400),500,50);
+        this.ClassicMode= createButton("Classic Mode",new Point(100,50),500,50);
+        this.AdventureMode= createButton("Adventure Mode",new Point(100,110),500,50);
+        this.AIMode= createButton("AI Mode",new Point(100,170),500,50);
+        this.CustomMode= createButton("Custom Mode",new Point(100,230),500,50);
+        this.TimeLimitMode= createButton("TimeLimit Mode",new Point(100,290),500,50);
+        this.EntertainingMode= createButton("Entertaining Mode",new Point(100,350),500,50);
 
         this.ClassicMode.addActionListener(e ->{
             setVisible(false);

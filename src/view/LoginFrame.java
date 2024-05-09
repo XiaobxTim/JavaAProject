@@ -73,6 +73,9 @@ public class LoginFrame extends JFrame{
 //                    }
                     if (in.nextLine().equals(password)) {
                         JOptionPane.showMessageDialog(this, "login Successfully");
+                        setVisible(false);
+                        SelectModel selectModel=new SelectModel(700,500);
+                        selectModel.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(this, "Fail to Login");
                     }

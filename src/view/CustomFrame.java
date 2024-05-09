@@ -27,7 +27,9 @@ public class CustomFrame extends JFrame{
         this.add(gamePanel);
 
         this.controller = new CustomController(gamePanel, gamePanel.getModel());
-        this.restartBtn = createButton("Restart", new Point(500, 170), 110, 50);
+        this.restartBtn = createButton("Restart", new Point(500, 170), 110, 30);
+        this.loadBtn = createButton("Load", new Point(500, 210), 110, 30);
+        this.saveBtn = createButton("Save", new Point(500, 250), 110, 30);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 60), 180, 50);
         this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC, 22), new Point(480, 120), 180, 50);
         gamePanel.setStepLabel(stepLabel);

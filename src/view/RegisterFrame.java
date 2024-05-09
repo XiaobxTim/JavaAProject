@@ -53,6 +53,8 @@ public class RegisterFrame extends JFrame {
             loginFrame.setVisible(true);
             Cancel.setFocusable(false);
         });
+
+        //ff
         OK.addActionListener(e -> {
 
         });

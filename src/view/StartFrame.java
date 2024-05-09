@@ -49,4 +49,6 @@ public class StartFrame extends JFrame {
         this.add(label);
         return label;
     }
+
+
 }

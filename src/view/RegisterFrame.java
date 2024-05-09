@@ -9,7 +9,7 @@ public class RegisterFrame extends JFrame {
     private JLabel Account;
     private JLabel Password;
     private JButton OK;
-    private JButton Cancel; //daafege
+    private JButton Cancel;
     public RegisterFrame(int width,int height) {
         SpringLayout springLayout = new SpringLayout();
         Container container = getContentPane();
@@ -53,8 +53,6 @@ public class RegisterFrame extends JFrame {
             loginFrame.setVisible(true);
             Cancel.setFocusable(false);
         });
-
-        //ff
         OK.addActionListener(e -> {
 
         });

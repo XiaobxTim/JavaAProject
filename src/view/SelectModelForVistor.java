@@ -24,8 +24,12 @@ public class SelectModelForVistor extends JFrame {
         this.CustomMode.addActionListener(e -> {
             setVisible(false);
             int size = Integer.parseInt(JOptionPane.showInputDialog(this, "Input Size:"));
-            CustomFrameForVisitor customFrameForVisitor=new CustomFrameForVisitor(700,500,size);
-            customFrameForVisitor.setVisible(true);
+            if (size<=10){
+                CustomFrameForVisitor customFrameForVisitor=new CustomFrameForVisitor(700,500,size);
+                customFrameForVisitor.setVisible(true);
+            }else {
+                JOptionPane.showMessageDialog(null,"Please input again");
+            }
         });
 
         this.setLocationRelativeTo(null);

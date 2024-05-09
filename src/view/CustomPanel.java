@@ -4,7 +4,6 @@ import model.GridNumber;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Scanner;
 
 
 public class CustomPanel extends ListenerPanel {

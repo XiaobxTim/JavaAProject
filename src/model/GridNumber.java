@@ -88,35 +88,33 @@ public class GridNumber {
             }
         }
         for (int i = 0; i < numbers.length; i++) {
-            if (numbers[i][0]==numbers[i][1] && numbers[i][2]==numbers[i][3]){
-                numbers[i][3]+=numbers[i][2];
-                numbers[i][2]=0;
-                score+=numbers[i][3];
-                numbers[i][1]+=numbers[i][0];
-                numbers[i][0]=0;
-                score+=numbers[i][1];
-                for (int j=numbers[0].length-2;j>=0;j--){
-                    int k=1;
-                    while ((j+k)<=(numbers[0].length-1) && numbers[i][j+k]==0){
-                        k++;
-                    }
-                    if (k>1){
-                        numbers[i][j+k-1]=numbers[i][j];
-                        numbers[i][j]=0;
-                    }
+            for (int j=numbers[0].length-1;j>=1;j--) {
+                if (numbers[i][j]==numbers[i][j-1]){
+                    numbers[i][j]+=numbers[i][j-1];
+                    numbers[i][j-1]=0;
+                    score+=numbers[i][j];
                 }
-            }else {
-                for (int j = numbers[0].length - 2; j >= 0; j--) {
-                    if (numbers[i][j+1]!=0){
-                        if (numbers[i][j]==numbers[i][j+1]){
-                            numbers[i][j+1]+=numbers[i][j];
-                            numbers[i][j]=0;
-                            score+=numbers[i][j+1];
-                        }
-                    }else {
-                        numbers[i][j+1]=numbers[i][j];
+            }
+            for (int j=numbers[0].length-2;j>=0;j--){
+                int k=1;
+                while ((j+k)<=(numbers[0].length-1) && numbers[i][j+k]==0){
+                    k++;
+                }
+                if (k>1){
+                    numbers[i][j+k-1]=numbers[i][j];
+                    numbers[i][j]=0;
+                }
+            }
+            for (int j = numbers[0].length - 2; j >= 0; j--) {
+                if (numbers[i][j+1]!=0){
+                    if (numbers[i][j]==numbers[i][j+1]){
+                        numbers[i][j+1]+=numbers[i][j];
                         numbers[i][j]=0;
+                        score+=numbers[i][j+1];
                     }
+                }else {
+                    numbers[i][j+1]=numbers[i][j];
+                    numbers[i][j]=0;
                 }
             }
         }
@@ -156,35 +154,33 @@ public class GridNumber {
             }
         }
         for (int i = 0; i < numbers.length; i++) {
-            if (numbers[i][0]==numbers[i][1] && numbers[i][2]==numbers[i][3]){
-                numbers[i][3]+=numbers[i][2];
-                numbers[i][2]=0;
-                score+=numbers[i][3];
-                numbers[i][1]+=numbers[i][0];
-                numbers[i][0]=0;
-                score+=numbers[i][1];
-                for (int j=1;j<numbers[0].length;j++){
-                    int k=1;
-                    while ((j-k)>=0 && numbers[i][j-k]==0){
-                        k++;
-                    }
-                    if (k>1){
-                        numbers[i][j-k+1]=numbers[i][j];
-                        numbers[i][j]=0;
-                    }
+            for (int j=0;j<numbers[0].length-1;j++) {
+                if (numbers[i][j] == numbers[i][j + 1]) {
+                    numbers[i][j] += numbers[i][j + 1];
+                    numbers[i][j + 1] = 0;
+                    score += numbers[i][j];
                 }
-            }else {
-                for (int j = 1; j<numbers[0].length; j++) {
-                    if (numbers[i][j-1]!=0){
-                        if (numbers[i][j]==numbers[i][j-1]){
-                            numbers[i][j-1]+=numbers[i][j];
-                            numbers[i][j]=0;
-                            score+=numbers[i][j-1];
-                        }
-                    }else {
-                        numbers[i][j-1]=numbers[i][j];
+            }
+            for (int j=1;j<numbers[0].length;j++){
+                int k=1;
+                while ((j-k)>=0 && numbers[i][j-k]==0){
+                    k++;
+                }
+                if (k>1){
+                    numbers[i][j-k+1]=numbers[i][j];
+                    numbers[i][j]=0;
+                }
+            }
+            for (int j = 1; j<numbers[0].length; j++) {
+                if (numbers[i][j-1]!=0){
+                    if (numbers[i][j]==numbers[i][j-1]){
+                        numbers[i][j-1]+=numbers[i][j];
                         numbers[i][j]=0;
+                        score+=numbers[i][j-1];
                     }
+                }else {
+                    numbers[i][j-1]=numbers[i][j];
+                    numbers[i][j]=0;
                 }
             }
         }
@@ -224,35 +220,33 @@ public class GridNumber {
             }
         }
         for (int j = 0; j < numbers[0].length; j++) {
-            if (numbers[0][j]==numbers[1][j] && numbers[2][j]==numbers[3][j]){
-                numbers[3][j]+=numbers[2][j];
-                numbers[2][j]=0;
-                score+=numbers[3][j];
-                numbers[1][j]+=numbers[0][j];
-                numbers[0][j]=0;
-                score+=numbers[1][j];
-                for (int i=1;i<numbers.length;i++){
-                    int k=1;
-                    while ((i-k)>=0 && numbers[i-k][j]==0){
-                        k++;
-                    }
-                    if (k>1){
-                        numbers[i-k+1][j]=numbers[i][j];
-                        numbers[i][j]=0;
-                    }
+            for (int i=0;i<numbers.length-1;i++){
+                if (numbers[i][j]==numbers[i+1][j]){
+                    numbers[i][j]+=numbers[i][j+1];
+                    numbers[i][j+1]=0;
+                    score+=numbers[i][j];
                 }
-            }else {
-                for (int i =1;i<numbers.length;i++) {
-                    if (numbers[i-1][j]!=0){
-                        if (numbers[i][j]==numbers[i-1][j]){
-                            numbers[i-1][j]+=numbers[i][j];
-                            numbers[i][j]=0;
-                            score+=numbers[i-1][j];
-                        }
-                    }else {
-                        numbers[i-1][j]=numbers[i][j];
+            }
+            for (int i=1;i<numbers.length;i++){
+                int k=1;
+                while ((i-k)>=0 && numbers[i-k][j]==0){
+                    k++;
+                }
+                if (k>1){
+                    numbers[i-k+1][j]=numbers[i][j];
+                    numbers[i][j]=0;
+                }
+            }
+            for (int i =1;i<numbers.length;i++) {
+                if (numbers[i-1][j]!=0){
+                    if (numbers[i][j]==numbers[i-1][j]){
+                        numbers[i-1][j]+=numbers[i][j];
                         numbers[i][j]=0;
+                        score+=numbers[i-1][j];
                     }
+                }else {
+                    numbers[i-1][j]=numbers[i][j];
+                    numbers[i][j]=0;
                 }
             }
         }
@@ -292,35 +286,33 @@ public class GridNumber {
             }
         }
         for (int j = 0; j < numbers[0].length; j++) {
-            if (numbers[0][j]==numbers[1][j] && numbers[2][j]==numbers[3][j]){
-                numbers[3][j]+=numbers[2][j];
-                numbers[2][j]=0;
-                score+=numbers[3][j];
-                numbers[1][j]+=numbers[0][j];
-                numbers[0][j]=0;
-                score+=numbers[1][j];
-                for (int i=numbers.length-2;i>=0;i--){
-                    int k=1;
-                    while ((i+k)<=(numbers[0].length-1) && numbers[i+k][j]==0){
-                        k++;
-                    }
-                    if (k>1){
-                        numbers[i+k-1][j]=numbers[i][j];
-                        numbers[i][j]=0;
-                    }
+            for (int i=numbers.length-1;i>=1;i--){
+                if (numbers[i][j]==numbers[i-1][j]){
+                    numbers[i][j]+=numbers[i-1][j];
+                    numbers[i-1][j]=0;
+                    score+=numbers[i][j];
                 }
-            }else {
-                for (int i=numbers.length-2;i>=0;i--) {
-                    if (numbers[i+1][j]!=0){
-                        if (numbers[i][j]==numbers[i+1][j]){
-                            numbers[i+1][j]+=numbers[i][j];
-                            numbers[i][j]=0;
-                            score+=numbers[i+1][j];
-                        }
-                    }else {
-                        numbers[i+1][j]=numbers[i][j];
+            }
+            for (int i=numbers.length-2;i>=0;i--){
+                int k=1;
+                while ((i+k)<=(numbers[0].length-1) && numbers[i+k][j]==0){
+                    k++;
+                }
+                if (k>1){
+                    numbers[i+k-1][j]=numbers[i][j];
+                    numbers[i][j]=0;
+                }
+            }
+            for (int i=numbers.length-2;i>=0;i--) {
+                if (numbers[i+1][j]!=0){
+                    if (numbers[i][j]==numbers[i+1][j]){
+                        numbers[i+1][j]+=numbers[i][j];
                         numbers[i][j]=0;
+                        score+=numbers[i+1][j];
                     }
+                }else {
+                    numbers[i+1][j]=numbers[i][j];
+                    numbers[i][j]=0;
                 }
             }
         }

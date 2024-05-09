@@ -31,7 +31,7 @@ public class LoginFrame extends JFrame{
         springLayout.putConstraint(SpringLayout.EAST,AccountField,-20,SpringLayout.EAST,container);
         springLayout.putConstraint(SpringLayout.NORTH,Password,20,SpringLayout.SOUTH,Account);
         springLayout.putConstraint(SpringLayout.WEST,Password,20,SpringLayout.WEST,container);
-        JTextField PasswordField=new JTextField();
+        JPasswordField PasswordField=new JPasswordField();
         this.add(PasswordField);
         springLayout.putConstraint(SpringLayout.NORTH,PasswordField,20,SpringLayout.SOUTH,AccountField);
         springLayout.putConstraint(SpringLayout.WEST,PasswordField,20,SpringLayout.EAST,Password);

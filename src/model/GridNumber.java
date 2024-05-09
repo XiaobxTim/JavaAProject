@@ -382,4 +382,15 @@ public class GridNumber {
     public int getScore(){
         return score;
     }
+    public int FindMaxNumber(){
+        int number=numbers[0][0];
+        for (int i=0;i<numbers.length;i++){
+            for (int j=0;j<numbers[0].length;j++){
+                if (numbers[i][j]>=number){
+                    number=numbers[i][j];
+                }
+            }
+        }
+        return number;
+    }
 }

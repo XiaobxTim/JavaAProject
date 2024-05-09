@@ -1,14 +1,14 @@
 package view;
 import controller.AdventureController;
-import controller.GameController;
 import util.ColorMap;
 
 import javax.swing.*;
 import java.awt.*;
-public class AdventureModeForVisitor extends JFrame{
+public class AdventureFrame extends JFrame{
     private AdventureController controller;
     private JButton restartBtn;
-
+    private JButton loadBtn;
+    private JButton saveBtn;
     private JLabel stepLabel;
     private JLabel scoreLabel;
     private AdventurePanel adventurePanel;
@@ -17,7 +17,7 @@ public class AdventureModeForVisitor extends JFrame{
     private JButton Up;
     private JButton Down;
 
-    public AdventureModeForVisitor(int width, int height) {
+    public AdventureFrame(int width, int height) {
         this.setTitle("2048");
         this.setLayout(null);
         this.setSize(width, height);
@@ -28,6 +28,8 @@ public class AdventureModeForVisitor extends JFrame{
 
         this.controller = new AdventureController(adventurePanel, adventurePanel.getModel());
         this.restartBtn = createButton("Restart", new Point(500, 170), 110, 50);
+        this.loadBtn = createButton("Load", new Point(500, 220), 110, 50);
+        this.saveBtn = createButton("Save", new Point(500, 280), 110, 50);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 60), 180, 50);
         this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC, 22), new Point(480, 120), 180, 50);
         adventurePanel.setStepLabel(stepLabel);
@@ -39,6 +41,14 @@ public class AdventureModeForVisitor extends JFrame{
             RestartAdventureForVisitor restartAdventureForVisitor=new RestartAdventureForVisitor(700,500, controller, adventurePanel, this);
             restartAdventureForVisitor.setVisible(true);
             restartBtn.setFocusable(false);
+        });
+        this.loadBtn.addActionListener(e -> {
+            String string = JOptionPane.showInputDialog(this, "Input path:");
+            System.out.println(string);
+            adventurePanel.requestFocusInWindow();//enable key listener
+        });
+        this.saveBtn.addActionListener(e -> {
+
         });
         //todo: add other button here
         this.Right=createButton("→",new Point(605,350),50,50);

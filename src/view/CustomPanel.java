@@ -4,10 +4,10 @@ import model.GridNumber;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Scanner;
 
 
-public class GamePanel extends ListenerPanel {
-    private final int COUNT = 4;
+public class CustomPanel extends ListenerPanel {
     private GridComponent[][] grids;
 
     private GridNumber model;
@@ -18,7 +18,7 @@ public class GamePanel extends ListenerPanel {
     private int score;
     private final int GRID_SIZE;
 
-    public GamePanel(int size) {
+    public CustomPanel(int size,int COUNT) {
         this.setVisible(true);
         this.setFocusable(true);
         this.setLayout(null);

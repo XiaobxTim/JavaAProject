@@ -18,7 +18,7 @@ public class AdventurePanel extends ListenerPanel {
     private int score;
     private final int GRID_SIZE;
     private int AimScore=30;
-    private int CurrentScore;
+    private static int CurrentScore;
 
     public AdventurePanel(int size) {
         this.setVisible(true);
@@ -69,9 +69,10 @@ public class AdventurePanel extends ListenerPanel {
         if (model.gameEnd()) {
             if (model.getScore()>=AimScore){
                 CurrentScore=model.getScore();
-                setVisible(false);
-                AdventureModeForVisitor adventureModeForVisitor=new AdventureModeForVisitor(700,500);
-                adventureModeForVisitor.setVisible(true);
+                this.getParent().setVisible(false);
+                AdventureFrame adventureFrame=new AdventureFrame(700,500);
+                adventureFrame.setVisible(true);
+                this.getModel().setScore(CurrentScore);
             }else {
                 JOptionPane.showMessageDialog(null,"You fail");
             }
@@ -87,9 +88,10 @@ public class AdventurePanel extends ListenerPanel {
         if (model.gameEnd()) {
             if (model.getScore()>=AimScore){
                 CurrentScore=model.getScore();
-                setVisible(false);
-                AdventureModeForVisitor adventureModeForVisitor=new AdventureModeForVisitor(700,500);
-                adventureModeForVisitor.setVisible(true);
+                this.getParent().setVisible(false);
+                AdventureFrame adventureFrame=new AdventureFrame(700,500);
+                adventureFrame.setVisible(true);
+                this.getModel().setScore(CurrentScore);
             }else {
                 JOptionPane.showMessageDialog(null,"You fail");
             }
@@ -105,9 +107,10 @@ public class AdventurePanel extends ListenerPanel {
         if (model.gameEnd()) {
             if (model.getScore()>=AimScore){
                 CurrentScore=model.getScore();
-                setVisible(false);
-                AdventureModeForVisitor adventureModeForVisitor=new AdventureModeForVisitor(700,500);
-                adventureModeForVisitor.setVisible(true);
+                this.getParent().setVisible(false);
+                AdventureFrame adventureFrame=new AdventureFrame(700,500);
+                adventureFrame.setVisible(true);
+                this.getModel().setScore(CurrentScore);
             }else {
                 JOptionPane.showMessageDialog(null,"You fail");
             }
@@ -123,10 +126,10 @@ public class AdventurePanel extends ListenerPanel {
         if (model.gameEnd()) {
             if (model.getScore()>=AimScore){
                 CurrentScore=model.getScore();
-                setVisible(false);
-                AdventureModeForVisitor adventureModeForVisitor=new AdventureModeForVisitor(700,500);
-                adventureModeForVisitor.setVisible(true);
-                this.model.setScore(CurrentScore);
+                this.getParent().setVisible(false);
+                AdventureFrame adventureFrame=new AdventureFrame(700,500);
+                adventureFrame.setVisible(true);
+                this.getModel().setScore(CurrentScore);
             }else {
                 JOptionPane.showMessageDialog(null,"You fail");
             }

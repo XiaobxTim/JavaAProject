@@ -1,10 +1,7 @@
 package controller;
 
 import model.GridNumber;
-import view.CustomPanel;
-import view.GameFrame;
-import view.GamePanel;
-import view.SelectModelForVistor;
+import view.*;
 
 import javax.swing.*;
 
@@ -23,11 +20,8 @@ public class CustomController {
 
     }
     public void restartGame() {
-        model.initialNumbers();
-        view.updateGridsNumber();
-        view.initialGame();
-        GameFrame gameFrame = new GameFrame(700, 500);
-        gameFrame.setVisible(true);
+        SelectModel selectModel=new SelectModel(700,500);
+        selectModel.setVisible(false);
     }
     public void restartGameForVisitor() {
         SelectModelForVistor selectModelForVistor=new SelectModelForVistor(700,500);

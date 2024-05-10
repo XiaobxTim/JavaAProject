@@ -1,10 +1,7 @@
 package controller;
 
 import model.GridNumber;
-import view.GameFrame;
-import view.GamePanel;
-import view.SelectModel;
-import view.SelectModelForVistor;
+import view.*;
 
 import javax.swing.*;
 
@@ -12,12 +9,12 @@ import javax.swing.*;
 /**
  * This class is used for interactive with JButton in GameFrame.
  */
-public class GameController {
-    private GamePanel view;
+public class TimeLimitController {
+    private TimeLimitPanel view;
     private GridNumber model;
 
 
-    public GameController(GamePanel view, GridNumber model) {
+    public TimeLimitController(TimeLimitPanel view, GridNumber model) {
         this.view = view;
         this.model = model;
 

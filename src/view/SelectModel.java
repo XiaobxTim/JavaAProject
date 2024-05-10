@@ -106,6 +106,11 @@ public class SelectModel extends JFrame {
                             JOptionPane.showMessageDialog(null,"Please input again");
                         }
                     }
+                    if (str.equals("TimeLimit Mode")){
+                        setVisible(false);
+                        TimeLimitFrame timeLimitFrame=new TimeLimitFrame(700,500);
+                        timeLimitFrame.setVisible(true);
+                    }
                 }
             }
         });

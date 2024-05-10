@@ -1,5 +1,6 @@
 package view;
 import controller.CustomController;
+import controller.GameController;
 import util.ColorMap;
 
 import javax.swing.*;
@@ -11,6 +12,7 @@ public class CustomFrame extends JFrame{
     private JButton saveBtn;
     private JLabel stepLabel;
     private JLabel scoreLabel;
+    private JLabel maxscoreLabel;
     private CustomPanel gamePanel;
     private JButton Right;
     private JButton Left;
@@ -32,8 +34,10 @@ public class CustomFrame extends JFrame{
         this.saveBtn = createButton("Save", new Point(500, 250), 110, 30);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 60), 180, 50);
         this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC, 22), new Point(480, 120), 180, 50);
+        this.maxscoreLabel = createLabel("Maxscore", new Font("serif", Font.ITALIC, 22), new Point(480, 0), 180, 50);
         gamePanel.setStepLabel(stepLabel);
         gamePanel.setScoreLabel(scoreLabel);
+        gamePanel.setMaxscoreLabel(maxscoreLabel);
 
         this.restartBtn.addActionListener(e -> {
             restartBtn.setFocusable(true);

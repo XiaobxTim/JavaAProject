@@ -8,12 +8,16 @@ import java.awt.*;
 public class SelectModelForVistor extends JFrame {
     private JButton ClassicMode;
     private JButton CustomMode;
-    public SelectModelForVistor(int width, int height){
+    public SelectModelForVistor(int width, int height) {
         this.setTitle("Select Model");
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        this.ClassicMode= createButton("Classic Mode",new Point(100,170),500,50);
+        JList<String> jl=new JList<>(new MyListModel());
+        JScrollPane js=new JScrollPane(jl);
+        js.setBounds(10,10,340,240);
+        this.add(js);
+        /*this.ClassicMode= createButton("Classic Mode",new Point(100,170),500,50);
         this.CustomMode= createButton("Custom Mode",new Point(100,230),500,50);
 
         this.ClassicMode.addActionListener(e ->{
@@ -50,5 +54,22 @@ public class SelectModelForVistor extends JFrame {
         label.setSize(width, height);
         this.add(label);
         return label;
+    }*/
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    }
+
+}
+class MyListModel extends AbstractListModel<String> {
+    private String[] contents = {"ClassicMode", "CustomMode"};
+    public String  getElementAt(int index) {
+        if (index<contents.length){
+            return contents[index];
+        }else {
+            return null;
+        }
+    }
+    public int getSize() {
+        return contents.length;
     }
 }

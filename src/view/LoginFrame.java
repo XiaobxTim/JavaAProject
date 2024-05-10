@@ -5,6 +5,8 @@ import util.ColorMap;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -84,7 +86,14 @@ public class LoginFrame extends JFrame{
                 }
             }
         });
-
+        PasswordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e){
+                if (e.getKeyCode()==KeyEvent.VK_ENTER){
+                    Login.doClick();
+                }
+            }
+        });
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }

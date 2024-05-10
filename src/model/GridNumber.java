@@ -222,8 +222,8 @@ public class GridNumber {
         for (int j = 0; j < numbers[0].length; j++) {
             for (int i=0;i<numbers.length-1;i++){
                 if (numbers[i][j]==numbers[i+1][j]){
-                    numbers[i][j]+=numbers[i][j+1];
-                    numbers[i][j+1]=0;
+                    numbers[i][j]+=numbers[i+1][j];
+                    numbers[i+1][j]=0;
                     score+=numbers[i][j];
                 }
             }

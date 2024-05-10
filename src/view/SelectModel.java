@@ -16,6 +16,7 @@ public class SelectModel extends JFrame {
     public JButton CustomMode;
     public JButton TimeLimitMode;
     public JButton EntertainingMode;
+    private JLabel selectMode;
     public SelectModel(int width, int height){
         this.setTitle("Select Model");
         this.setLayout(null);
@@ -23,8 +24,10 @@ public class SelectModel extends JFrame {
         ColorMap.InitialColorMap();
         JList<String> jl=new JList<>(new MyListMode());
         JScrollPane js=new JScrollPane(jl);
-        js.setBounds(10,10,340,240);
+        js.setBounds(10,100,340,240);
         this.add(js);
+        jl.setFixedCellHeight(50);
+        jl.setFont(jl.getFont().deriveFont(22.0f));
         /*this.ClassicMode= createButton("Classic Mode",new Point(100,50),500,50);
         this.AdventureMode= createButton("Adventure Mode",new Point(100,110),500,50);
         this.AIMode= createButton("AI Mode",new Point(100,170),500,50);
@@ -79,6 +82,7 @@ public class SelectModel extends JFrame {
         this.add(label);
         return label;
     }*/
+        this.selectMode = createLabel("Please Select Mode", new Font("serif", Font.ITALIC, 45), new Point(150, 10), 500, 50);
         jl.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -87,12 +91,12 @@ public class SelectModel extends JFrame {
                     int index=list.getSelectedIndex();
                     Object obj=list.getModel().getElementAt(index);
                     String str=obj.toString();
-                    if (str.equals("ClassicMode")){
+                    if (str.equals("Classic Mode")){
                         setVisible(false);
                         GameFrame gameFrame=new GameFrame(700,500);
                         gameFrame.setVisible(true);
                     }
-                    if (str.equals("CustomMode")){
+                    if (str.equals("Custom Mode")){
                         setVisible(false);
                         int size = Integer.parseInt(JOptionPane.showInputDialog(this, "Input Size:"));
                         if (size<=10){
@@ -105,12 +109,21 @@ public class SelectModel extends JFrame {
                 }
             }
         });
+
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
+    private JLabel createLabel(String name, Font font, Point location, int width, int height) {
+        JLabel label = new JLabel(name);
+        label.setFont(font);
+        label.setLocation(location);
+        label.setSize(width, height);
+        this.add(label);
+        return label;
+    }
 }
 class MyListMode extends AbstractListModel<String> {
-    private String[] contents = {"ClassicMode", "AdventureMode", "AIMode", "CustomMode", "TimeLimitMode", "EntertainingMode"};
+    private String[] contents = {"Classic Mode", "Adventure Mode", "AI Mode", "Custom Mode", "TimeLimit Mode", "Entertaining Mode"};
     public String  getElementAt(int index) {
         if (index<contents.length){
             return contents[index];

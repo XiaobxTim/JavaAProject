@@ -19,7 +19,8 @@ public class CustomFrame extends JFrame{
     private JButton Up;
     private JButton Down;
 
-    public CustomFrame(int width, int height,int size) {
+    public CustomFrame(int width, int height,int size,JFrame jFrame) {
+        JFrame gameFrame=this;
         this.setTitle("2048");
         this.setLayout(null);
         this.setSize(width, height);
@@ -42,7 +43,7 @@ public class CustomFrame extends JFrame{
         this.restartBtn.addActionListener(e -> {
             restartBtn.setFocusable(true);
             setVisible(true);
-            RestartCustom restartFrame=new RestartCustom(700,500, controller, gamePanel, this);
+            RestartCustom restartFrame=new RestartCustom(700,500, controller, gamePanel, gameFrame,jFrame);
             restartFrame.setVisible(true);
             restartBtn.setFocusable(false);
         });

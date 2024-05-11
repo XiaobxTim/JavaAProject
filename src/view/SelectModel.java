@@ -28,6 +28,7 @@ public class SelectModel extends JFrame {
         this.add(js);
         jl.setFixedCellHeight(50);
         jl.setFont(jl.getFont().deriveFont(22.0f));
+        JFrame jFrame=this;
         /*this.ClassicMode= createButton("Classic Mode",new Point(100,50),500,50);
         this.AdventureMode= createButton("Adventure Mode",new Point(100,110),500,50);
         this.AIMode= createButton("AI Mode",new Point(100,170),500,50);
@@ -93,14 +94,14 @@ public class SelectModel extends JFrame {
                     String str=obj.toString();
                     if (str.equals("Classic Mode")){
                         setVisible(false);
-                        GameFrame gameFrame=new GameFrame(700,500);
+                        GameFrame gameFrame=new GameFrame(700,500,jFrame);
                         gameFrame.setVisible(true);
                     }
                     if (str.equals("Custom Mode")){
                         setVisible(false);
                         int size = Integer.parseInt(JOptionPane.showInputDialog(this, "Input Size:"));
                         if (size<=10){
-                            CustomFrame customFrame=new CustomFrame(700,500,size);
+                            CustomFrame customFrame=new CustomFrame(700,500,size,jFrame);
                             customFrame.setVisible(true);
                         }else {
                             JOptionPane.showMessageDialog(null,"Please input again");
@@ -108,13 +109,11 @@ public class SelectModel extends JFrame {
                     }
                     if (str.equals("TimeLimit Mode")){
                         setVisible(false);
-                        TimeLimitFrame timeLimitFrame=new TimeLimitFrame(700,500);
+                        TimeLimitFrame timeLimitFrame=new TimeLimitFrame(700,500,jFrame);
                         timeLimitFrame.setVisible(true);
                     }
                     if (str.equals("Adventure Mode")){
-                        setVisible(false);
-                        AdventureFrame adventureFrame=new AdventureFrame(700,500);
-                        adventureFrame.setVisible(true);
+                        
                     }
                 }
             }

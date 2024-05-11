@@ -23,7 +23,8 @@ public class GameFrame extends JFrame {
     private JButton Down;
 
 
-    public GameFrame(int width, int height) {
+    public GameFrame(int width, int height,JFrame jFrame) {
+        JFrame gameFrame=this;
         this.setTitle("2048");
         this.setLayout(null);
         this.setSize(width, height);
@@ -46,7 +47,7 @@ public class GameFrame extends JFrame {
         this.restartBtn.addActionListener(e -> {
             restartBtn.setFocusable(true);
             setVisible(true);
-            RestartFrame restartFrame=new RestartFrame(700,500, controller, gamePanel, this);
+            RestartFrame restartFrame=new RestartFrame(700,500, controller, gamePanel, gameFrame,jFrame);
             restartFrame.setVisible(true);
             restartBtn.setFocusable(false);
         });

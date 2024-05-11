@@ -26,7 +26,8 @@ public class TimeLimitFrame extends JFrame{
     private JButton Up;
     private JButton Down;
 
-    public TimeLimitFrame(int width, int height) {
+    public TimeLimitFrame(int width, int height,JFrame jFrame) {
+        JFrame gameFrame=this;
         this.setTitle("2048");
         this.setLayout(null);
         this.setSize(width, height);
@@ -50,7 +51,7 @@ public class TimeLimitFrame extends JFrame{
         this.restartBtn.addActionListener(e -> {
             restartBtn.setFocusable(true);
             setVisible(true);
-            RestartTimeLimit restartTimeLimit=new RestartTimeLimit(700,500, controller, gamePanel, this);
+            RestartTimeLimit restartTimeLimit=new RestartTimeLimit(700,500, controller, gamePanel, gameFrame,jFrame);
             restartTimeLimit.setVisible(true);
             restartBtn.setFocusable(false);
         });

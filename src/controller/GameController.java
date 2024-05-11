@@ -22,9 +22,8 @@ public class GameController {
         this.model = model;
 
     }
-    public void restartGame() {
-        SelectModel selectModel=new SelectModel(700,500);
-        selectModel.setVisible(false);
+    public void restartGame(JFrame jFrame) {
+        jFrame.setVisible(true);
     }
     public void restartGameForVisitor() {
         SelectModelForVistor selectModelForVistor=new SelectModelForVistor(700,500);

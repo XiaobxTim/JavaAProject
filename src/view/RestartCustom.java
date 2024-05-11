@@ -9,7 +9,7 @@ import java.awt.*;
 public class RestartCustom extends JFrame{
     private JButton CancelBtn;
     private JButton ConfirmBtn;
-    public RestartCustom(int width, int height, CustomController controller, CustomPanel gamePanel, JFrame jFrame){
+    public RestartCustom(int width, int height, CustomController controller, CustomPanel gamePanel, JFrame gameFrame,JFrame jFrame){
         this.setTitle("2048");
         this.setLayout(null);
         this.setSize(width, height);
@@ -20,8 +20,8 @@ public class RestartCustom extends JFrame{
         ConfirmBtn.addActionListener(e -> {
             ConfirmBtn.setFocusable(true);
             this.dispose();
-            jFrame.setVisible(false);
-            controller.restartGame();
+            gameFrame.setVisible(false);
+            controller.restartGame(jFrame);
             gamePanel.requestFocusInWindow();
             ConfirmBtn.setFocusable(false);
         });

@@ -11,6 +11,7 @@ public class AdventureFrame extends JFrame{
     private JButton saveBtn;
     private JLabel stepLabel;
     private JLabel scoreLabel;
+    private JLabel maxscoreLabel;
     private AdventurePanel adventurePanel;
     private JButton Right;
     private JButton Left;
@@ -27,19 +28,21 @@ public class AdventureFrame extends JFrame{
         this.add(adventurePanel);
 
         this.controller = new AdventureController(adventurePanel, adventurePanel.getModel());
-        this.restartBtn = createButton("Restart", new Point(500, 170), 110, 50);
-        this.loadBtn = createButton("Load", new Point(500, 220), 110, 50);
-        this.saveBtn = createButton("Save", new Point(500, 280), 110, 50);
+        this.restartBtn = createButton("Restart", new Point(500, 170), 110, 30);
+        this.loadBtn = createButton("Load", new Point(500, 210), 110, 30);
+        this.saveBtn = createButton("Save", new Point(500, 250), 110, 30);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 60), 180, 50);
         this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC, 22), new Point(480, 120), 180, 50);
+        this.maxscoreLabel = createLabel("Maxscore", new Font("serif", Font.ITALIC, 22), new Point(480, 0), 180, 50);
         adventurePanel.setStepLabel(stepLabel);
         adventurePanel.setScoreLabel(scoreLabel);
+        adventurePanel.setMaxscoreLabel(maxscoreLabel);
 
         this.restartBtn.addActionListener(e -> {
             restartBtn.setFocusable(true);
             setVisible(true);
-            RestartAdventureForVisitor restartAdventureForVisitor=new RestartAdventureForVisitor(700,500, controller, adventurePanel, this);
-            restartAdventureForVisitor.setVisible(true);
+            RestartAdventure restartAdventure=new RestartAdventure(700,500, controller, adventurePanel, this);
+            restartAdventure.setVisible(true);
             restartBtn.setFocusable(false);
         });
         this.loadBtn.addActionListener(e -> {

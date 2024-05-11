@@ -111,6 +111,11 @@ public class SelectModel extends JFrame {
                         TimeLimitFrame timeLimitFrame=new TimeLimitFrame(700,500);
                         timeLimitFrame.setVisible(true);
                     }
+                    if (str.equals("Adventure Mode")){
+                        setVisible(false);
+                        AdventureFrame adventureFrame=new AdventureFrame(700,500);
+                        adventureFrame.setVisible(true);
+                    }
                 }
             }
         });

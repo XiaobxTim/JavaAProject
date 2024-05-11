@@ -1,16 +1,15 @@
 package view;
 
 import controller.AdventureController;
-import controller.GameController;
 import util.ColorMap;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class RestartAdventureForVisitor extends JFrame{
+public class RestartAdventure extends JFrame{
     private JButton CancelBtn;
     private JButton ConfirmBtn;
-    public RestartAdventureForVisitor(int width, int height, AdventureController controller, AdventurePanel adventurePanel, JFrame jFrame){
+    public RestartAdventure(int width, int height, AdventureController controller, AdventurePanel gamePanel, JFrame jFrame){
         this.setTitle("2048");
         this.setLayout(null);
         this.setSize(width, height);
@@ -23,7 +22,7 @@ public class RestartAdventureForVisitor extends JFrame{
             this.dispose();
             jFrame.setVisible(false);
             controller.restartGameForVisitor();
-            adventurePanel.requestFocusInWindow();
+            gamePanel.requestFocusInWindow();
             ConfirmBtn.setFocusable(false);
         });
         CancelBtn.addActionListener(e -> {

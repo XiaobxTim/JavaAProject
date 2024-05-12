@@ -28,7 +28,6 @@ public class GamePanel extends ListenerPanel {
         this.grids = new GridComponent[COUNT][COUNT];
         this.model = new GridNumber(COUNT, COUNT);
         initialGame();
-
     }
 
     public GridNumber getModel() {

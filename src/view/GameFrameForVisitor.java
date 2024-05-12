@@ -7,71 +7,58 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class GameFrameForVisitor extends JFrame{
     private GridNumber model;
     private final int TotalTime=3600;
     private int countdownSeconds=TotalTime;
     private GameController controller;
-    private JButton restartBtn;
-
-    private JLabel stepLabel;
     private JLabel scoreLabel;
+    private JLabel stepLabel;
+    private JLabel jl1;
+    private JLabel jl2;
     private GamePanel gamePanel;
-    private JButton Right;
-    private JButton Left;
-    private JButton Up;
-    private JButton Down;
+    private JMenuBar menuBar;
 
     public GameFrameForVisitor(int width, int height) {
-        this.setTitle("2048");
+        this.setTitle("Classic");
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        gamePanel = new GamePanel((int) (this.getHeight() * 0.8));
-        gamePanel.setLocation(this.getHeight() / 15, this.getWidth() / 15);
+        gamePanel = new GamePanel((int) (this.getHeight() * 0.65));
+        gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
 
-        this.controller = new GameController(gamePanel, gamePanel.getModel());
-        this.restartBtn = createButton("Restart", new Point(500, 170), 110, 50);
-        this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC, 22), new Point(480, 60), 180, 50);
-        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC, 22), new Point(480, 120), 180, 50);
-        gamePanel.setStepLabel(stepLabel);
-        gamePanel.setScoreLabel(scoreLabel);
-
-        this.restartBtn.addActionListener(e -> {
-            restartBtn.setFocusable(true);
+        menuBar=new JMenuBar();
+        setJMenuBar(menuBar);
+        JMenu menu=new JMenu("菜单");
+        menuBar.add(menu);
+        JMenuItem menuItem=new JMenuItem("调出方向小键盘");
+        JMenuItem restart=new JMenuItem("restart");
+        menu.add(menuItem);
+        menu.add(restart);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
+        restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
+        restart.addActionListener(e -> {
             setVisible(true);
             RestartFrameForVisitor restartFrameForVisitor=new RestartFrameForVisitor(700,500, controller, gamePanel, this);
             restartFrameForVisitor.setVisible(true);
-            restartBtn.setFocusable(false);
         });
-        //todo: add other button here
-        this.Right=createButton("→",new Point(605,350),50,50);
-        this.Left=createButton("←",new Point(505,350),50,50);
-        this.Up=createButton("↑",new Point(555,300),50,50);
-        this.Down=createButton("↓",new Point(555,350),50,50);
+        menuItem.addActionListener(e -> {
+            setVisible(true);
+            DirectionFrame directionFrame=new DirectionFrame(300,300,gamePanel);
+            directionFrame.setVisible(true);
+        });
 
-        this.Right.addActionListener(e -> {
-            Right.setFocusable(true);
-            gamePanel.doMoveRight();
-            Right.setFocusable(false);
-        });
-        this.Left.addActionListener(e -> {
-            Left.setFocusable(true);
-            gamePanel.doMoveLeft();
-            Left.setFocusable(false);
-        });
-        this.Up.addActionListener(e -> {
-            Up.setFocusable(true);
-            gamePanel.doMoveUp();
-            Up.setFocusable(false);
-        });
-        this.Down.addActionListener(e -> {
-            Down.setFocusable(true);
-            gamePanel.doMoveDown();
-            Down.setFocusable(false);
-        });
+        this.controller = new GameController(gamePanel, gamePanel.getModel());
+        this.jl1=createLabel("2048",new Font("serif",Font.ITALIC|Font.BOLD,42),new Point(20,20),100,50);
+        this.jl2=createLabel("Join the numbers and get to the 2048 tile!",new Font("serif",Font.PLAIN,16),new Point(30,65),270,50);
+        this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC|Font.BOLD, 20), new Point(300, 20), 150, 50);
+        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC|Font.BOLD, 20), new Point(130, 20), 150, 50);
+        gamePanel.setStepLabel(stepLabel);
+        gamePanel.setScoreLabel(scoreLabel);
+
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

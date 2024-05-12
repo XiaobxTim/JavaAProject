@@ -105,7 +105,7 @@ public class GridNumber {
                     numbers[i][j]=0;
                 }
             }
-            for (int j = numbers[0].length - 2; j >= 0; j--) {
+            /*for (int j = numbers[0].length - 2; j >= 0; j--) {
                 if (numbers[i][j+1]!=0){
                     if (numbers[i][j]==numbers[i][j+1]){
                         numbers[i][j+1]+=numbers[i][j];
@@ -116,7 +116,7 @@ public class GridNumber {
                     numbers[i][j+1]=numbers[i][j];
                     numbers[i][j]=0;
                 }
-            }
+            }*/
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
@@ -171,7 +171,7 @@ public class GridNumber {
                     numbers[i][j]=0;
                 }
             }
-            for (int j = 1; j<numbers[0].length; j++) {
+            /*for (int j = 1; j<numbers[0].length; j++) {
                 if (numbers[i][j-1]!=0){
                     if (numbers[i][j]==numbers[i][j-1]){
                         numbers[i][j-1]+=numbers[i][j];
@@ -182,7 +182,7 @@ public class GridNumber {
                     numbers[i][j-1]=numbers[i][j];
                     numbers[i][j]=0;
                 }
-            }
+            }*/
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
@@ -237,7 +237,7 @@ public class GridNumber {
                     numbers[i][j]=0;
                 }
             }
-            for (int i =1;i<numbers.length;i++) {
+            /*for (int i =1;i<numbers.length;i++) {
                 if (numbers[i-1][j]!=0){
                     if (numbers[i][j]==numbers[i-1][j]){
                         numbers[i-1][j]+=numbers[i][j];
@@ -248,7 +248,7 @@ public class GridNumber {
                     numbers[i-1][j]=numbers[i][j];
                     numbers[i][j]=0;
                 }
-            }
+            }*/
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
@@ -303,7 +303,7 @@ public class GridNumber {
                     numbers[i][j]=0;
                 }
             }
-            for (int i=numbers.length-2;i>=0;i--) {
+            /*for (int i=numbers.length-2;i>=0;i--) {
                 if (numbers[i+1][j]!=0){
                     if (numbers[i][j]==numbers[i+1][j]){
                         numbers[i+1][j]+=numbers[i][j];
@@ -314,7 +314,7 @@ public class GridNumber {
                     numbers[i+1][j]=numbers[i][j];
                     numbers[i][j]=0;
                 }
-            }
+            }*/
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {

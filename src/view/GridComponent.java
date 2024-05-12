@@ -29,9 +29,13 @@ public class GridComponent extends JComponent {
     public void paintComponent(Graphics g) {
         super.printComponents(g);
         if (number > 0) {
-            g.setColor(Color.white);
-            g.fillRect(1, 1, getWidth() - 2, getHeight() - 2);
             g.setColor(ColorMap.getColor(number));
+            g.fillRoundRect(1, 1, getWidth() - 3, getHeight() - 3,15,15);
+            if (number<=2048){
+                g.setColor(Color.BLACK);
+            }else {
+                g.setColor(Color.WHITE);
+            }
             g.setFont(font);
             FontMetrics metrics = g.getFontMetrics(g.getFont());
             int textWidth = metrics.stringWidth(String.valueOf(number));
@@ -40,7 +44,7 @@ public class GridComponent extends JComponent {
             g.drawString(String.valueOf(number), x, y);
         } else {
             g.setColor(Color.LIGHT_GRAY);
-            g.fillRect(1, 1, getWidth() - 2, getHeight() - 2);
+            g.fillRoundRect(1, 1, getWidth() - 3, getHeight() - 3,15,15);
         }
     }
 

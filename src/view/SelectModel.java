@@ -80,7 +80,7 @@ public class SelectModel extends JFrame {
     }
 }
 class MyListMode extends AbstractListModel<String> {
-    private String[] contents = {"Classic Mode", "Adventure Mode", "AI Mode", "Custom Mode", "TimeLimit Mode", "Entertaining Mode"};
+    private String[] contents = {"Classic Mode", "AI Mode", "Custom Mode", "TimeLimit Mode", "Entertaining Mode"};
     public String  getElementAt(int index) {
         if (index<contents.length){
             return contents[index];

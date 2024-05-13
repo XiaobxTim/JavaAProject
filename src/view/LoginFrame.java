@@ -3,54 +3,140 @@ package view;
 import controller.GameController;
 import util.ColorMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class LoginFrame extends JFrame{
     private JLabel Account;
     private JLabel Password;
+    private JLabel jl;
     private JButton Login;
     private JButton Register;
+    private Image image;
+    private ImageIcon icon;
     public LoginFrame(int width,int height){
-        SpringLayout springLayout=new SpringLayout();
-        Container container=getContentPane();
-        this.setTitle("Information");
-        this.setLayout(springLayout);
+        setFocusable(true);
+        try {
+            image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
+        }catch (IOException e){
+            e.getStackTrace();
+        }
+        setContentPane(new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        });
+
+        this.setTitle("Login");
+        this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        this.Account=new JLabel("Account:");
-        this.Password=new JLabel("Password:");
+        this.Account=createLabel("Account:",new Font("serif",Font.BOLD,20),new Point(30,220),100,50);
+        this.Password=createLabel("Password:",new Font("serif",Font.BOLD,20),new Point(30,280),100,50);
         this.add(Account);
         this.add(Password);
-        springLayout.putConstraint(SpringLayout.NORTH,Account,100,SpringLayout.NORTH,container);
-        springLayout.putConstraint(SpringLayout.WEST,Account,20,SpringLayout.WEST,container);
+
+        icon=null;
+        try{
+            icon = new ImageIcon(ImageIO.read(new File("src/屏幕截图 2024-05-13 182603.png")));
+        }catch (IOException e){
+            e.getStackTrace();
+        }
+        JLabel jLabel=createLabel1(icon,new Point(270,10),150,160);
+        this.add(jLabel);
+
+
         JTextField AccountField=new JTextField();
         this.add(AccountField);
-        springLayout.putConstraint(SpringLayout.NORTH,AccountField,100,SpringLayout.NORTH,container);
-        springLayout.putConstraint(SpringLayout.WEST,AccountField,20,SpringLayout.EAST,Account);
-        springLayout.putConstraint(SpringLayout.EAST,AccountField,-20,SpringLayout.EAST,container);
-        springLayout.putConstraint(SpringLayout.NORTH,Password,20,SpringLayout.SOUTH,Account);
-        springLayout.putConstraint(SpringLayout.WEST,Password,20,SpringLayout.WEST,container);
+        AccountField.setBounds(120,235,550,30);
+        JLabel jl1=new JLabel("Please input your account");
+        jl1.setForeground(Color.DARK_GRAY);
+        jl1.setVisible(true);
+        this.add(jl1);
+        jl1.setBounds(120,265,550,20);
+
         JPasswordField PasswordField=new JPasswordField();
         this.add(PasswordField);
-        springLayout.putConstraint(SpringLayout.NORTH,PasswordField,20,SpringLayout.SOUTH,AccountField);
-        springLayout.putConstraint(SpringLayout.WEST,PasswordField,20,SpringLayout.EAST,Password);
-        springLayout.putConstraint(SpringLayout.EAST,PasswordField,-20,SpringLayout.EAST,container);
+        PasswordField.setBounds(120,295,550,30);
+        JLabel jl2=new JLabel("Please input your password");
+        jl2.setForeground(Color.DARK_GRAY);
+        jl2.setVisible(true);
+        this.add(jl2);
+        jl2.setBounds(120,325,550,30);
 
-        this.Login=new JButton("Login");
-        this.Register=new JButton("Register");
+        JButton jl3=new JButton("Forget Your Password?");
+        jl3.setFont(new Font("serif",Font.BOLD,15));
+        jl3.setBounds(450,325,200,30);
+        this.add(jl3);
+        jl3.setForeground(Color.BLACK);
+        jl3.setOpaque(false);
+        jl3.setContentAreaFilled(false);
+        jl3.setBorderPainted(false);
+
+        this.jl=createLabel("Login",new Font("serif", Font.ITALIC|Font.BOLD,40),new Point(295,170),130,50);
+        this.Login=createButton("Login",new Point(150,370),110,50);
+        this.Register=createButton("Register",new Point(430,370),110,50);
         this.add(Login);
         this.add(Register);
-        springLayout.putConstraint(SpringLayout.SOUTH,Login,-125,SpringLayout.SOUTH,container);
-        springLayout.putConstraint(SpringLayout.SOUTH,Register,-125,SpringLayout.SOUTH,container);
-        springLayout.putConstraint(SpringLayout.EAST,Register,-200,SpringLayout.EAST,container);
-        springLayout.putConstraint(SpringLayout.SOUTH,PasswordField,-150,SpringLayout.NORTH,Register);
-        springLayout.putConstraint(SpringLayout.EAST,Login,-100,SpringLayout.WEST,Register);
+        Font font=new Font("serif",Font.BOLD,20);
+        Login.setFont(font);
+        Login.setForeground(Color.BLACK);
+        Login.setOpaque(false);
+        Login.setContentAreaFilled(false);
+        Register.setFont(font);
+        Register.setForeground(Color.BLACK);
+        Register.setOpaque(false);
+        Register.setContentAreaFilled(false);
+
+        AccountField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+            public void update(){
+                jl1.setVisible(AccountField.getText().trim().isEmpty());
+            }
+        });
+        PasswordField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                update();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+
+            }
+            public void update(){
+                jl2.setVisible(PasswordField.getText().trim().isEmpty());
+            }
+        });
 
         Register.addActionListener(e -> {
             Register.setFocusable(true);
@@ -86,6 +172,22 @@ public class LoginFrame extends JFrame{
                 }
             }
         });
+        jl3.addActionListener(e -> {
+            setVisible(true);
+            String account=JOptionPane.showInputDialog("Please input your account");
+            File file=new File("src/"+account+"_password.txt");
+            if (file.exists()){
+                try {
+                    Scanner in= new Scanner(file);
+                    String str=in.nextLine();
+                    JOptionPane.showMessageDialog(this,str);
+                }catch (FileNotFoundException err){
+                    err.printStackTrace();
+                }
+            }else {
+                JOptionPane.showMessageDialog(this,"Cannot Find the Account");
+            }
+        });
         PasswordField.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e){
@@ -94,6 +196,7 @@ public class LoginFrame extends JFrame{
                 }
             }
         });
+
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
@@ -108,6 +211,14 @@ public class LoginFrame extends JFrame{
     private JLabel createLabel(String name, Font font, Point location, int width, int height) {
         JLabel label = new JLabel(name);
         label.setFont(font);
+        label.setLocation(location);
+        label.setSize(width, height);
+        this.add(label);
+        return label;
+    }
+
+    private JLabel createLabel1(ImageIcon icon, Point location, int width, int height) {
+        JLabel label = new JLabel(icon);
         label.setLocation(location);
         label.setSize(width, height);
         this.add(label);

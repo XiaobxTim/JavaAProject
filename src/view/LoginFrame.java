@@ -10,19 +10,23 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class LoginFrame extends JFrame{
     private JLabel Account;
     private JLabel Password;
+    private JLabel Captcha;
     private JLabel jl;
     private JButton Login;
     private JButton Register;
     private Image image;
     private ImageIcon icon;
+    private String currentCaptcha;
     public LoginFrame(int width,int height){
         setFocusable(true);
         try {
@@ -42,10 +46,12 @@ public class LoginFrame extends JFrame{
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        this.Account=createLabel("Account:",new Font("serif",Font.BOLD,20),new Point(30,220),100,50);
-        this.Password=createLabel("Password:",new Font("serif",Font.BOLD,20),new Point(30,280),100,50);
+        this.Account=createLabel("Account:",new Font("serif",Font.BOLD,20),new Point(30,230),100,30);
+        this.Password=createLabel("Password:",new Font("serif",Font.BOLD,20),new Point(30,275),100,30);
+        this.Captcha=createLabel("Captcha:",new Font("serif",Font.BOLD,20),new Point(30,320),100,30);
         this.add(Account);
         this.add(Password);
+        this.add(Captcha);
 
         icon=null;
         try{
@@ -59,37 +65,57 @@ public class LoginFrame extends JFrame{
 
         JTextField AccountField=new JTextField();
         this.add(AccountField);
-        AccountField.setBounds(120,235,550,30);
+        AccountField.setBounds(120,235,450,20);
         JLabel jl1=new JLabel("Please input your account");
         jl1.setForeground(Color.DARK_GRAY);
         jl1.setVisible(true);
         this.add(jl1);
-        jl1.setBounds(120,265,550,20);
+        jl1.setBounds(120,255,550,15);
 
         JPasswordField PasswordField=new JPasswordField();
         this.add(PasswordField);
-        PasswordField.setBounds(120,295,550,30);
+        PasswordField.setBounds(120,280,450,20);
         JLabel jl2=new JLabel("Please input your password");
         jl2.setForeground(Color.DARK_GRAY);
         jl2.setVisible(true);
         this.add(jl2);
-        jl2.setBounds(120,325,550,30);
+        jl2.setBounds(120,300,550,15);
 
         JButton jl3=new JButton("Forget Your Password?");
-        jl3.setFont(new Font("serif",Font.BOLD,15));
-        jl3.setBounds(450,325,200,30);
+        jl3.setFont(new Font("serif",Font.BOLD,10));
+        jl3.setBounds(400,290,200,30);
         this.add(jl3);
         jl3.setForeground(Color.BLACK);
         jl3.setOpaque(false);
         jl3.setContentAreaFilled(false);
         jl3.setBorderPainted(false);
 
+        JTextField jx=new JTextField();
+        this.add(jx);
+        jx.setBounds(120,330,300,20);
+        JLabel jl4=new JLabel("Loading...");
+        this.add(jl4);
+        jl4.setBounds(450,315,80,50);
+        JButton jb=new JButton("Refresh");
+        this.add(jb);
+        jb.setBounds(500,320,80,40);
+        jb.setForeground(Color.BLACK);
+        jb.setOpaque(false);
+        jb.setContentAreaFilled(false);
+        jb.setBorderPainted(false);
+        jb.addActionListener(e -> {
+            generateCaptcha();
+            jl4.setText(currentCaptcha);
+        });
+        generateCaptcha();
+        jl4.setText(currentCaptcha);
+
         this.jl=createLabel("Login",new Font("serif", Font.ITALIC|Font.BOLD,40),new Point(295,170),130,50);
-        this.Login=createButton("Login",new Point(150,370),110,50);
-        this.Register=createButton("Register",new Point(430,370),110,50);
+        this.Login=createButton("Login",new Point(150,370),90,50);
+        this.Register=createButton("Register",new Point(430,370),90,50);
         this.add(Login);
         this.add(Register);
-        Font font=new Font("serif",Font.BOLD,20);
+        Font font=new Font("serif",Font.BOLD,15);
         Login.setFont(font);
         Login.setForeground(Color.BLACK);
         Login.setOpaque(false);
@@ -160,10 +186,16 @@ public class LoginFrame extends JFrame{
 //                        System.out.println(in.next());
 //                    }
                     if (in.nextLine().equals(password)) {
-                        JOptionPane.showMessageDialog(this, "login Successfully");
-                        setVisible(false);
-                        SelectModel selectModel=new SelectModel(700,500);
-                        selectModel.setVisible(true);
+                        if (jx.getText().equals(jl4.getText())){
+                            JOptionPane.showMessageDialog(this, "login Successfully");
+                            setVisible(false);
+                            SelectModel selectModel=new SelectModel(700,500);
+                            selectModel.setVisible(true);
+                        }else{
+                            JOptionPane.showMessageDialog(this,"Wrong Captcha");
+                            generateCaptcha();
+                            jl4.setText(currentCaptcha);
+                        }
                     } else {
                         JOptionPane.showMessageDialog(this, "Fail to Login");
                     }
@@ -189,6 +221,22 @@ public class LoginFrame extends JFrame{
             }
         });
         PasswordField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e){
+                if (e.getKeyCode()==KeyEvent.VK_ENTER){
+                    Login.doClick();
+                }
+            }
+        });
+        AccountField.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e){
+                if (e.getKeyCode()==KeyEvent.VK_ENTER){
+                    Login.doClick();
+                }
+            }
+        });
+        jx.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e){
                 if (e.getKeyCode()==KeyEvent.VK_ENTER){
@@ -223,5 +271,14 @@ public class LoginFrame extends JFrame{
         label.setSize(width, height);
         this.add(label);
         return label;
+    }
+    private void generateCaptcha(){
+        String characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        StringBuilder captchaBuilder=new StringBuilder();
+        Random random=new Random();
+        for (int i=0;i<4;i++){
+            captchaBuilder.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        currentCaptcha=captchaBuilder.toString();
     }
 }

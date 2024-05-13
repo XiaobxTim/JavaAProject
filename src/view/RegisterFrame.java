@@ -14,6 +14,7 @@ import java.util.Scanner;
 public class RegisterFrame extends JFrame {
     private JLabel Account;
     private JLabel Password;
+    private JLabel Confirm;
     private JLabel jl;
     private JButton OK;
     private JButton Cancel;
@@ -38,10 +39,12 @@ public class RegisterFrame extends JFrame {
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        this.Account=createLabel("Account:",new Font("serif",Font.BOLD,20),new Point(30,220),100,50);
-        this.Password=createLabel("Password:",new Font("serif",Font.BOLD,20),new Point(30,280),100,50);
+        this.Account=createLabel("Account:",new Font("serif",Font.BOLD,20),new Point(30,230),100,30);
+        this.Password=createLabel("Password:",new Font("serif",Font.BOLD,20),new Point(30,275),100,30);
+        this.Confirm=createLabel("Confirm:",new Font("serif",Font.BOLD,20),new Point(30,320),100,30);
         this.add(Account);
         this.add(Password);
+        this.add(Confirm);
 
         icon=null;
         try{
@@ -52,24 +55,32 @@ public class RegisterFrame extends JFrame {
         JLabel jLabel=createLabel1(icon,new Point(270,10),150,160);
         this.add(jLabel);
 
-
         JTextField AccountField=new JTextField();
         this.add(AccountField);
-        AccountField.setBounds(120,235,550,30);
+        AccountField.setBounds(120,235,450,20);
         JLabel jl1=new JLabel("Please input your account");
         jl1.setForeground(Color.DARK_GRAY);
         jl1.setVisible(true);
         this.add(jl1);
-        jl1.setBounds(120,265,550,20);
+        jl1.setBounds(120,255,550,15);
 
         JPasswordField PasswordField=new JPasswordField();
         this.add(PasswordField);
-        PasswordField.setBounds(120,295,550,30);
+        PasswordField.setBounds(120,280,450,20);
         JLabel jl2=new JLabel("Please input your password");
         jl2.setForeground(Color.DARK_GRAY);
         jl2.setVisible(true);
         this.add(jl2);
-        jl2.setBounds(120,325,550,30);
+        jl2.setBounds(120,300,550,15);
+
+        JPasswordField PasswordField1=new JPasswordField();
+        this.add(PasswordField1);
+        PasswordField1.setBounds(120,325,450,20);
+        JLabel jl21=new JLabel("Please input your password again");
+        jl21.setForeground(Color.DARK_GRAY);
+        jl21.setVisible(true);
+        this.add(jl21);
+        jl21.setBounds(120,345,550,15);
 
         this.jl=createLabel("Register",new Font("serif", Font.ITALIC|Font.BOLD,40),new Point(275,170),200,50);
         this.OK=createButton("OK",new Point(150,370),110,50);
@@ -98,9 +109,11 @@ public class RegisterFrame extends JFrame {
 //            PasswordField.getText()
             String account;
             String password;
+            String confirm;
 //            Scanner input = new Scanner(System.in);
             account = AccountField.getText();
             password = PasswordField.getText();
+            confirm = Confirm.getText();
 
 
             if (account.isEmpty()) {
@@ -109,7 +122,7 @@ public class RegisterFrame extends JFrame {
 
             File file = new File("src/" + account + "_password.txt");
             try {
-                if (file.createNewFile()) {
+                if (file.createNewFile() && password.equals(confirm)) {
                     FileWriter fileWriter = new FileWriter(file);
                     fileWriter.write(password);
                     fileWriter.close();

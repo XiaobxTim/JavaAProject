@@ -3,11 +3,14 @@ import controller.GameController;
 import model.GridNumber;
 import util.ColorMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class GameFrameForVisitor extends JFrame{
     private GridNumber model;
@@ -20,8 +23,21 @@ public class GameFrameForVisitor extends JFrame{
     private JLabel jl2;
     private GamePanel gamePanel;
     private JMenuBar menuBar;
+    private Image image;
 
     public GameFrameForVisitor(int width, int height) {
+        try {
+            image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
+        }catch (IOException e){
+            e.getStackTrace();
+        }
+        setContentPane(new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        });
         this.setTitle("Classic");
         this.setLayout(null);
         this.setSize(width, height);
@@ -47,7 +63,7 @@ public class GameFrameForVisitor extends JFrame{
         });
         menuItem.addActionListener(e -> {
             setVisible(true);
-            DirectionFrame directionFrame=new DirectionFrame(300,300,gamePanel);
+            DirectionFrame directionFrame=new DirectionFrame(300,250,gamePanel);
             directionFrame.setVisible(true);
         });
 
@@ -56,9 +72,12 @@ public class GameFrameForVisitor extends JFrame{
         this.jl2=createLabel("Join the numbers and get to the 2048 tile!",new Font("serif",Font.PLAIN,16),new Point(30,65),270,50);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC|Font.BOLD, 20), new Point(300, 20), 150, 50);
         this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC|Font.BOLD, 20), new Point(130, 20), 150, 50);
+        jl1.setForeground(Color.BLACK);
+        jl2.setForeground(Color.BLACK);
+        scoreLabel.setForeground(Color.BLACK);
+        stepLabel.setForeground(Color.BLACK);
         gamePanel.setStepLabel(stepLabel);
         gamePanel.setScoreLabel(scoreLabel);
-
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

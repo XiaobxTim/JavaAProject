@@ -18,7 +18,23 @@ public class TimeLimitDirection extends JFrame {
     private ImageIcon icon2;
     private ImageIcon icon3;
     private ImageIcon icon4;
+    private Image image;
     public TimeLimitDirection(int width,int height,TimeLimitPanel gamePanel){
+        setFocusable(true);
+        try {
+            image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
+        }catch (IOException e){
+            e.getStackTrace();
+        }
+        setContentPane(new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        });
+        setFocusable(true);
+        JFrame jFrame=this;
         this.setTitle("Keyboard");
         this.setLayout(null);
         this.setSize(width, height);
@@ -66,21 +82,25 @@ public class TimeLimitDirection extends JFrame {
             Right.setFocusable(true);
             gamePanel.doMoveRight();
             Right.setFocusable(false);
+            jFrame.setFocusable(true);
         });
         this.Left.addActionListener(e -> {
             Left.setFocusable(true);
             gamePanel.doMoveLeft();
             Left.setFocusable(false);
+            jFrame.setFocusable(true);
         });
         this.Up.addActionListener(e -> {
             Up.setFocusable(true);
             gamePanel.doMoveUp();
             Up.setFocusable(false);
+            jFrame.setFocusable(true);
         });
         this.Down.addActionListener(e -> {
             Down.setFocusable(true);
             gamePanel.doMoveDown();
             Down.setFocusable(false);
+            jFrame.setFocusable(true);
         });
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

@@ -2,6 +2,7 @@ package view;
 
 import util.ColorMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -9,6 +10,8 @@ import javax.swing.text.StyledEditorKit;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class SelectModel extends JFrame {
     public JButton ClassicMode;
@@ -18,7 +21,21 @@ public class SelectModel extends JFrame {
     public JButton TimeLimitMode;
     public JButton EntertainingMode;
     private JLabel selectMode;
+    private Image image;
     public SelectModel(int width, int height){
+        setFocusable(true);
+        try {
+            image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
+        }catch (IOException e){
+            e.getStackTrace();
+        }
+        setContentPane(new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        });
         this.setTitle("Select Model");
         this.setLayout(null);
         this.setSize(width, height);

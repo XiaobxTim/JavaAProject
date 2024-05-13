@@ -2,28 +2,46 @@ package view;
 
 import util.ColorMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class SelectModelForVistor extends JFrame {
     private JButton ClassicMode;
     private JButton CustomMode;
     private JLabel selectMode;
+    private Image image;
     public SelectModelForVistor(int width, int height) {
+        setFocusable(true);
+        try {
+            image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
+        }catch (IOException e){
+            e.getStackTrace();
+        }
+        setContentPane(new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        });
         this.setTitle("Select Model");
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
         JList<String> jl=new JList<>(new MyListModel());
         JScrollPane js=new JScrollPane(jl);
-        js.setBounds(10,100,340,240);
+        js.setBounds(30,100,310,240);
         this.add(js);
         jl.setFixedCellHeight(50);
         jl.setFont(jl.getFont().deriveFont(22.0f));
 
         this.selectMode = createLabel("Please Select Mode", new Font("serif", Font.ITALIC, 45), new Point(150, 10), 500, 50);
+        selectMode.setForeground(Color.BLACK);
         jl.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {

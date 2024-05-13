@@ -3,9 +3,12 @@ import controller.CustomController;
 import controller.GameController;
 import util.ColorMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class CustomFrame extends JFrame{
     private CustomController controller;
@@ -16,8 +19,21 @@ public class CustomFrame extends JFrame{
     private JLabel jl2;
     private CustomPanel gamePanel;
     private JMenuBar menuBar;
+    private Image image;
 
     public CustomFrame(int width, int height,int size,JFrame jFrame) {
+        try {
+            image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
+        }catch (IOException e){
+            e.getStackTrace();
+        }
+        setContentPane(new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        });
         JFrame gameFrame=this;
         this.setTitle("Custom");
         this.setLayout(null);
@@ -50,7 +66,7 @@ public class CustomFrame extends JFrame{
         });
         menuItem.addActionListener(e -> {
             setVisible(true);
-            CustomDirection customDirection=new CustomDirection(300,300,gamePanel);
+            CustomDirection customDirection=new CustomDirection(300,250,gamePanel);
             customDirection.setVisible(true);
         });
         load.addActionListener(e -> {

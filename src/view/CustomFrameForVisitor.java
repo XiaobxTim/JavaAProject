@@ -3,9 +3,12 @@ import controller.CustomController;
 import controller.GameController;
 import util.ColorMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class CustomFrameForVisitor extends JFrame{
     private CustomController controller;
@@ -16,13 +19,22 @@ public class CustomFrameForVisitor extends JFrame{
     private JLabel jl1;
     private JLabel jl2;
     private CustomPanel gamePanel;
-    private JButton Right;
-    private JButton Left;
-    private JButton Up;
-    private JButton Down;
     private JMenuBar menuBar;
+    private Image image;
 
     public CustomFrameForVisitor(int width, int height,int size) {
+        try {
+            image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
+        }catch (IOException e){
+            e.getStackTrace();
+        }
+        setContentPane(new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        });
         this.setTitle("Custom");
         this.setLayout(null);
         this.setSize(width, height);
@@ -48,7 +60,7 @@ public class CustomFrameForVisitor extends JFrame{
         });
         menuItem.addActionListener(e -> {
             setVisible(true);
-            CustomDirection customDirection=new CustomDirection(300,300,gamePanel);
+            CustomDirection customDirection=new CustomDirection(300,250,gamePanel);
             customDirection.setVisible(true);
         });
 
@@ -59,7 +71,10 @@ public class CustomFrameForVisitor extends JFrame{
         this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC|Font.BOLD, 20), new Point(130, 20), 150, 50);
         gamePanel.setStepLabel(stepLabel);
         gamePanel.setScoreLabel(scoreLabel);
-
+        jl1.setForeground(Color.BLACK);
+        jl2.setForeground(Color.BLACK);
+        scoreLabel.setForeground(Color.BLACK);
+        stepLabel.setForeground(Color.BLACK);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

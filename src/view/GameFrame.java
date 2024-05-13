@@ -3,9 +3,12 @@ package view;
 import controller.GameController;
 import util.ColorMap;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class GameFrame extends JFrame {
 
@@ -18,9 +21,21 @@ public class GameFrame extends JFrame {
     private JLabel jl2;
     private GamePanel gamePanel;
     private JMenuBar menuBar;
-
+    private Image image;
 
     public GameFrame(int width, int height,JFrame jFrame) {
+        try {
+            image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
+        }catch (IOException e){
+            e.getStackTrace();
+        }
+        setContentPane(new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                g.drawImage(image,0,0,getWidth(),getHeight(),this);
+            }
+        });
         JFrame gameFrame=this;
         this.setTitle("Classic");
         this.setLayout(null);
@@ -53,7 +68,7 @@ public class GameFrame extends JFrame {
         });
         menuItem.addActionListener(e -> {
             setVisible(true);
-            DirectionFrame directionFrame=new DirectionFrame(300,300,gamePanel);
+            DirectionFrame directionFrame=new DirectionFrame(300,250,gamePanel);
             directionFrame.setVisible(true);
         });
         load.addActionListener(e -> {

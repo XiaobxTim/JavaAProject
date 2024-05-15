@@ -8,9 +8,8 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -22,11 +21,14 @@ public class LoginFrame extends JFrame{
     private JLabel Password;
     private JLabel Captcha;
     private JLabel jl;
+    private static final int WIDTH = 100;
+    private static final int HEIGHT = 50;
+    private JLabel captchaLabel;
+    private String captchaText;
     private JButton Login;
     private JButton Register;
     private Image image;
     private ImageIcon icon;
-    private String currentCaptcha;
     public LoginFrame(int width,int height){
         setFocusable(true);
         try {
@@ -92,23 +94,20 @@ public class LoginFrame extends JFrame{
 
         JTextField jx=new JTextField();
         this.add(jx);
-        jx.setBounds(120,330,300,20);
-        JLabel jl4=new JLabel("Loading...");
-        this.add(jl4);
-        jl4.setBounds(450,315,80,50);
-        JButton jb=new JButton("Refresh");
-        this.add(jb);
-        jb.setBounds(500,320,80,40);
-        jb.setForeground(Color.BLACK);
-        jb.setOpaque(false);
-        jb.setContentAreaFilled(false);
-        jb.setBorderPainted(false);
-        jb.addActionListener(e -> {
-            generateCaptcha();
-            jl4.setText(currentCaptcha);
-        });
+        jx.setBounds(120,330,340,20);
+        this.captchaLabel=new JLabel();
+        this.add(captchaLabel);
+        captchaLabel.setBounds(480,325,80,30);
         generateCaptcha();
-        jl4.setText(currentCaptcha);
+
+        captchaLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) { // 检测单击事件
+                    generateCaptcha(); // 生成新的验证码
+                }
+            }
+        });
 
         this.jl=createLabel("Login",new Font("serif", Font.ITALIC|Font.BOLD,40),new Point(295,170),130,50);
         this.Login=createButton("Login",new Point(150,370),90,50);
@@ -186,7 +185,7 @@ public class LoginFrame extends JFrame{
 //                        System.out.println(in.next());
 //                    }
                     if (in.nextLine().equals(password)) {
-                        if (jx.getText().equals(jl4.getText())){
+                        if (jx.getText().equals(captchaLabel.getText())){
                             JOptionPane.showMessageDialog(this, "login Successfully");
                             setVisible(false);
                             SelectModel selectModel=new SelectModel(700,500);
@@ -194,7 +193,7 @@ public class LoginFrame extends JFrame{
                         }else{
                             JOptionPane.showMessageDialog(this,"Wrong Captcha");
                             generateCaptcha();
-                            jl4.setText(currentCaptcha);
+                            captchaLabel.setText(captchaText);
                         }
                     } else {
                         JOptionPane.showMessageDialog(this, "Fail to Login");
@@ -272,13 +271,53 @@ public class LoginFrame extends JFrame{
         this.add(label);
         return label;
     }
-    private void generateCaptcha(){
-        String characters="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        StringBuilder captchaBuilder=new StringBuilder();
-        Random random=new Random();
-        for (int i=0;i<4;i++){
-            captchaBuilder.append(characters.charAt(random.nextInt(characters.length())));
+    private void generateCaptcha() {
+        captchaText = generateRandomCaptchaText();
+        BufferedImage captchaImage = new BufferedImage(WIDTH, HEIGHT, BufferedImage.TYPE_INT_RGB);
+        Graphics2D g2d = captchaImage.createGraphics();
+
+        // 设置背景颜色、字体等
+        g2d.setColor(Color.WHITE);
+        g2d.fillRect(0, 0, WIDTH, HEIGHT);
+        g2d.setColor(Color.BLACK);
+        g2d.setFont(new Font("Arial", Font.BOLD, 18));
+
+        // 绘制验证码文本
+        g2d.drawString(captchaText, (WIDTH - g2d.getFontMetrics().stringWidth(captchaText)) / 2, HEIGHT / 2 + g2d.getFontMetrics().getAscent() / 2);
+
+        // 添加干扰：绘制随机线条
+        Random random = new Random();
+        for (int i = 0; i < 5; i++) {
+            int x1 = random.nextInt(WIDTH);
+            int y1 = random.nextInt(HEIGHT);
+            int x2 = random.nextInt(WIDTH);
+            int y2 = random.nextInt(HEIGHT);
+            g2d.setColor(new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256))); // 随机颜色
+            g2d.drawLine(x1, y1, x2, y2);
         }
-        currentCaptcha=captchaBuilder.toString();
+
+        // 添加干扰：添加噪点
+        for (int i = 0; i < 50; i++) {
+            int x = random.nextInt(WIDTH);
+            int y = random.nextInt(HEIGHT);
+            g2d.setColor(Color.BLACK); // 噪点颜色
+            g2d.fillRect(x, y, 1, 1); // 绘制1x1的矩形作为噪点
+        }
+
+        // 释放资源
+        g2d.dispose();
+
+        // 更新标签以显示新验证码
+        captchaLabel.setIcon(new ImageIcon(captchaImage));
+    }
+
+    private String generateRandomCaptchaText() {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        StringBuilder captcha = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 5; i++) {
+            captcha.append(characters.charAt(random.nextInt(characters.length())));
+        }
+        return captcha.toString();
     }
 }

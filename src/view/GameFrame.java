@@ -22,8 +22,10 @@ public class GameFrame extends JFrame {
     private GamePanel gamePanel;
     private JMenuBar menuBar;
     private Image image;
+    public JFrame jf;
 
     public GameFrame(int width, int height,JFrame jFrame) {
+        jf=jFrame;
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
         }catch (IOException e){
@@ -92,6 +94,7 @@ public class GameFrame extends JFrame {
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
 
@@ -112,4 +115,7 @@ public class GameFrame extends JFrame {
         return label;
     }
 
+    private JFrame getJf(){
+        return jf;
+    }
 }

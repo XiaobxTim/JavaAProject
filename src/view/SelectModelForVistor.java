@@ -29,6 +29,7 @@ public class SelectModelForVistor extends JFrame {
                 g.drawImage(image,0,0,getWidth(),getHeight(),this);
             }
         });
+        JFrame jFrame=this;
         this.setTitle("Select Model");
         this.setLayout(null);
         this.setSize(width, height);

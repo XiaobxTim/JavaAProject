@@ -1,5 +1,5 @@
 package view;
-import controller.GameController;
+import controller.GameControllerForVisitor;
 import model.GridNumber;
 import util.ColorMap;
 
@@ -16,12 +16,12 @@ public class GameFrameForVisitor extends JFrame{
     private GridNumber model;
     private final int TotalTime=3600;
     private int countdownSeconds=TotalTime;
-    private GameController controller;
+    private GameControllerForVisitor controller;
     private JLabel scoreLabel;
     private JLabel stepLabel;
     private JLabel jl1;
     private JLabel jl2;
-    private GamePanel gamePanel;
+    private GamePanelForVisitor gamePanel;
     private JMenuBar menuBar;
     private Image image;
 
@@ -42,7 +42,7 @@ public class GameFrameForVisitor extends JFrame{
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        gamePanel = new GamePanel((int) (this.getHeight() * 0.65));
+        gamePanel = new GamePanelForVisitor((int) (this.getHeight() * 0.65));
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
 
@@ -63,11 +63,11 @@ public class GameFrameForVisitor extends JFrame{
         });
         menuItem.addActionListener(e -> {
             setVisible(true);
-            DirectionFrame directionFrame=new DirectionFrame(300,250,gamePanel);
+            DirectionFrameForVisitor directionFrame=new DirectionFrameForVisitor(300,250,gamePanel);
             directionFrame.setVisible(true);
         });
 
-        this.controller = new GameController(gamePanel, gamePanel.getModel());
+        this.controller = new GameControllerForVisitor(gamePanel, gamePanel.getModel());
         this.jl1=createLabel("2048",new Font("serif",Font.ITALIC|Font.BOLD,42),new Point(20,20),100,50);
         this.jl2=createLabel("Join the numbers and get to the 2048 tile!",new Font("serif",Font.PLAIN,16),new Point(30,65),270,50);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC|Font.BOLD, 20), new Point(300, 20), 150, 50);
@@ -100,4 +100,5 @@ public class GameFrameForVisitor extends JFrame{
         this.add(label);
         return label;
     }
+
 }

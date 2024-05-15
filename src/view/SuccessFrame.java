@@ -1,7 +1,5 @@
 package view;
 
-import controller.GameController;
-import controller.GameControllerForVisitor;
 import util.ColorMap;
 
 import javax.imageio.ImageIO;
@@ -10,12 +8,14 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-public class RestartFrameForVisitor extends JFrame{
-    private JButton CancelBtn;
-    private JButton ConfirmBtn;
+public class SuccessFrame extends JFrame{
+    private JLabel NameLabel;
     private JLabel jl;
+    private JLabel jl1;
+    private JButton Yes;
+    private JButton No;
     private Image image;
-    public RestartFrameForVisitor(int width, int height, GameControllerForVisitor controller, GamePanelForVisitor gamePanel, JFrame jFrame){
+    public SuccessFrame(int width,int height,int score){
         setFocusable(true);
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
@@ -29,36 +29,36 @@ public class RestartFrameForVisitor extends JFrame{
                 g.drawImage(image,0,0,getWidth(),getHeight(),this);
             }
         });
-        this.setTitle("Restart");
+        this.setTitle("SuccessFrame");
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        this.jl=createLabel("Are you sure to restart the game?",new Font("serif",Font.BOLD|Font.ITALIC,35),new Point(100,150),500,50);
-        this.ConfirmBtn = createButton("Confirm", new Point(180,240),110 ,50);
-        this.CancelBtn = createButton("Cancel", new Point(400,240),110 ,50);
-        Font font=new Font("serif",Font.BOLD,20);
-        ConfirmBtn.setFont(font);
-        ConfirmBtn.setForeground(Color.BLACK);
-        ConfirmBtn.setOpaque(false);
-        ConfirmBtn.setContentAreaFilled(false);
-        CancelBtn.setFont(font);
-        CancelBtn.setForeground(Color.BLACK);
-        CancelBtn.setOpaque(false);
-        CancelBtn.setContentAreaFilled(false);
-        ConfirmBtn.addActionListener(e -> {
-            ConfirmBtn.setFocusable(true);
-            this.dispose();
-            jFrame.setVisible(false);
-            controller.restartGameForVisitor();
-            gamePanel.requestFocusInWindow();
-            ConfirmBtn.setFocusable(false);
+        this.NameLabel=createLabel("CONGRADULATION",new Font("serif", Font.ITALIC|Font.BOLD,30),new Point(50,80),300,50);
+        NameLabel.setForeground(Color.BLACK);
+        String str="Your final score is "+score;
+        this.jl=createLabel(str,new Font("serif", Font.ITALIC|Font.BOLD,20),new Point(95,150),200,50);
+        jl.setForeground(Color.BLACK);
+        this.jl1=createLabel("PLAY AGAIN?",new Font("serif", Font.ITALIC|Font.BOLD,25),new Point(110,210),200,50);
+        jl1.setForeground(Color.BLACK);
+        Font font=new Font("serif",Font.BOLD,10);
+        this.Yes=createButton("YES",new Point(70,280),100,50);
+        Yes.setFont(font);
+        Yes.setForeground(Color.BLACK);
+        Yes.setOpaque(false);
+        Yes.setContentAreaFilled(false);
+        this.Yes.addActionListener(e -> {
+            setVisible(false);
+            SelectModel selectModel=new SelectModel(700,500);
+            selectModel.setVisible(true);
         });
-        CancelBtn.addActionListener(e -> {
-            CancelBtn.setFocusable(true);
+        this.No=createButton("No",new Point(220,280),100,50);
+        No.setFont(font);
+        No.setForeground(Color.BLACK);
+        No.setOpaque(false);
+        No.setContentAreaFilled(false);
+        this.No.addActionListener(e -> {
             this.dispose();
-            CancelBtn.setFocusable(false);
         });
-
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }

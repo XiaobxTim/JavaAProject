@@ -1,5 +1,6 @@
 package view;
 import controller.CustomController;
+import controller.CustomControllerForVisitor;
 import controller.GameController;
 import util.ColorMap;
 
@@ -11,14 +12,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class CustomFrameForVisitor extends JFrame{
-    private CustomController controller;
+    private CustomControllerForVisitor controller;
     private JButton restartBtn;
 
     private JLabel stepLabel;
     private JLabel scoreLabel;
     private JLabel jl1;
     private JLabel jl2;
-    private CustomPanel gamePanel;
+    private CustomPanelForVisitor gamePanel;
     private JMenuBar menuBar;
     private Image image;
 
@@ -39,7 +40,7 @@ public class CustomFrameForVisitor extends JFrame{
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        gamePanel = new CustomPanel((int) (this.getHeight() * 0.65),size);
+        gamePanel = new CustomPanelForVisitor((int) (this.getHeight() * 0.65),size);
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
 
@@ -60,11 +61,11 @@ public class CustomFrameForVisitor extends JFrame{
         });
         menuItem.addActionListener(e -> {
             setVisible(true);
-            CustomDirection customDirection=new CustomDirection(300,250,gamePanel);
+            CustomDirectionForVisitor customDirection=new CustomDirectionForVisitor(300,250,gamePanel);
             customDirection.setVisible(true);
         });
 
-        this.controller = new CustomController(gamePanel, gamePanel.getModel());
+        this.controller = new CustomControllerForVisitor(gamePanel, gamePanel.getModel());
         this.jl1=createLabel("2048",new Font("serif",Font.ITALIC|Font.BOLD,42),new Point(20,20),100,50);
         this.jl2=createLabel("Join the numbers and get to the 2048 tile!",new Font("serif",Font.PLAIN,16),new Point(30,65),270,50);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC|Font.BOLD, 20), new Point(300, 20), 150, 50);

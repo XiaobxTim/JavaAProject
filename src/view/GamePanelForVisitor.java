@@ -5,8 +5,8 @@ import model.GridNumber;
 import javax.swing.*;
 import java.awt.*;
 
-
-public class CustomPanel extends ListenerPanel {
+public class GamePanelForVisitor extends ListenerPanel{
+    private final int COUNT = 4;
     private GridComponent[][] grids;
 
     private GridNumber model;
@@ -16,8 +16,7 @@ public class CustomPanel extends ListenerPanel {
     private int steps;
     private int score;
     private final int GRID_SIZE;
-
-    public CustomPanel(int size,int COUNT) {
+    public GamePanelForVisitor(int size){
         this.setVisible(true);
         this.setFocusable(true);
         this.setLayout(null);
@@ -27,9 +26,7 @@ public class CustomPanel extends ListenerPanel {
         this.grids = new GridComponent[COUNT][COUNT];
         this.model = new GridNumber(COUNT, COUNT);
         initialGame();
-
     }
-
     public GridNumber getModel() {
         return model;
     }
@@ -66,8 +63,8 @@ public class CustomPanel extends ListenerPanel {
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
-            failureFrame.setVisible(true);
+            FailureForVisitor failureFrameForVisitor=new FailureForVisitor(400,500,model.getScore());
+            failureFrameForVisitor.setVisible(true);
         }else {
             System.out.println("Click VK_RIGHT");
             this.model.moveRight();
@@ -77,8 +74,8 @@ public class CustomPanel extends ListenerPanel {
             if (number>=2048){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
-                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
-                successFrame.setVisible(true);
+                SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
+                successForVisitor.setVisible(true);
             }
         }
     }
@@ -87,8 +84,8 @@ public class CustomPanel extends ListenerPanel {
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
-            failureFrame.setVisible(true);
+            FailureForVisitor failureFrameForVisitor=new FailureForVisitor(400,500,model.getScore());
+            failureFrameForVisitor.setVisible(true);
         }else {
             System.out.println("Click VK_Left");
             this.model.moveLeft();
@@ -98,8 +95,8 @@ public class CustomPanel extends ListenerPanel {
             if (number>=2048){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
-                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
-                successFrame.setVisible(true);
+                SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
+                successForVisitor.setVisible(true);
             }
         }
     }
@@ -108,8 +105,8 @@ public class CustomPanel extends ListenerPanel {
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
-            failureFrame.setVisible(true);
+            FailureForVisitor failureFrameForVisitor=new FailureForVisitor(400,500,model.getScore());
+            failureFrameForVisitor.setVisible(true);
         }else {
             System.out.println("Click VK_UP");
             this.model.moveUp();
@@ -119,8 +116,8 @@ public class CustomPanel extends ListenerPanel {
             if (number>=2048){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
-                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
-                successFrame.setVisible(true);
+                SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
+                successForVisitor.setVisible(true);
             }
         }
     }
@@ -129,8 +126,8 @@ public class CustomPanel extends ListenerPanel {
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
-            failureFrame.setVisible(true);
+            FailureForVisitor failureFrameForVisitor=new FailureForVisitor(400,500,model.getScore());
+            failureFrameForVisitor.setVisible(true);
         }else {
             System.out.println("Click VK_DOWN");
             this.model.moveDown();
@@ -140,8 +137,8 @@ public class CustomPanel extends ListenerPanel {
             if (number>=2048){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
-                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
-                successFrame.setVisible(true);
+                SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
+                successForVisitor.setVisible(true);
             }
         }
     }

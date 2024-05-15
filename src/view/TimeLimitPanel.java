@@ -65,7 +65,10 @@ public class TimeLimitPanel extends ListenerPanel {
     @Override
     public void doMoveRight() {
         if (model.gameEnd()) {
-            JOptionPane.showMessageDialog(null,"You fail");
+            JFrame gameframe = findParentFrame(this);
+            gameframe.setVisible(false);
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_RIGHT");
             this.model.moveRight();
@@ -73,14 +76,20 @@ public class TimeLimitPanel extends ListenerPanel {
             this.afterMove();
             int number=model.FindMaxNumber();
             if (number>=2048){
-                JOptionPane.showMessageDialog(null,"You win");
+                JFrame gameframe = findParentFrame(this);
+                gameframe.setVisible(false);
+                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                successFrame.setVisible(true);
             }
         }
     }
     @Override
     public void doMoveLeft() {
         if (model.gameEnd()) {
-            JOptionPane.showMessageDialog(null,"You fail");
+            JFrame gameframe = findParentFrame(this);
+            gameframe.setVisible(false);
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_Left");
             this.model.moveLeft();
@@ -88,14 +97,20 @@ public class TimeLimitPanel extends ListenerPanel {
             this.afterMove();
             int number=model.FindMaxNumber();
             if (number>=2048){
-                JOptionPane.showMessageDialog(null,"You win");
+                JFrame gameframe = findParentFrame(this);
+                gameframe.setVisible(false);
+                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                successFrame.setVisible(true);
             }
         }
     }
     @Override
     public void doMoveUp() {
         if (model.gameEnd()) {
-            JOptionPane.showMessageDialog(null,"You fail");
+            JFrame gameframe = findParentFrame(this);
+            gameframe.setVisible(false);
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_UP");
             this.model.moveUp();
@@ -103,14 +118,20 @@ public class TimeLimitPanel extends ListenerPanel {
             this.afterMove();
             int number=model.FindMaxNumber();
             if (number>=2048){
-                JOptionPane.showMessageDialog(null,"You win");
+                JFrame gameframe = findParentFrame(this);
+                gameframe.setVisible(false);
+                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                successFrame.setVisible(true);
             }
         }
     }
     @Override
     public void doMoveDown() {
         if (model.gameEnd()) {
-            JOptionPane.showMessageDialog(null,"You fail");
+            JFrame gameframe = findParentFrame(this);
+            gameframe.setVisible(false);
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_DOWN");
             this.model.moveDown();
@@ -118,7 +139,10 @@ public class TimeLimitPanel extends ListenerPanel {
             this.afterMove();
             int number=model.FindMaxNumber();
             if (number>=2048){
-                JOptionPane.showMessageDialog(null,"You win");
+                JFrame gameframe = findParentFrame(this);
+                gameframe.setVisible(false);
+                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                successFrame.setVisible(true);
             }
         }
     }
@@ -136,4 +160,13 @@ public class TimeLimitPanel extends ListenerPanel {
     }
     public void setScoreLabel(JLabel scoreLabel){ this.scoreLabel = scoreLabel; }
     public void setMaxscoreLabel(JLabel maxscoreLabel){ this.maxscoreLabel = maxscoreLabel;}
+    private JFrame findParentFrame(Component comp) {
+        if (comp == null) {
+            return null;
+        }
+        if (comp instanceof JFrame) {
+            return (JFrame) comp;
+        }
+        return findParentFrame(comp.getParent());
+    }
 }

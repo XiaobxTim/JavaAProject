@@ -1,6 +1,7 @@
 package view;
 
 import controller.CustomController;
+import controller.CustomControllerForVisitor;
 import controller.GameController;
 import util.ColorMap;
 
@@ -15,7 +16,7 @@ public class RestartCustomForVisitor extends JFrame{
     private JButton ConfirmBtn;
     private JLabel jl;
     private Image image;
-    public RestartCustomForVisitor(int width, int height, CustomController controller, CustomPanel gamePanel, JFrame jFrame){
+    public RestartCustomForVisitor(int width, int height, CustomControllerForVisitor controller, CustomPanelForVisitor gamePanel, JFrame jFrame){
         setFocusable(true);
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));

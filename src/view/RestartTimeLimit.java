@@ -6,6 +6,8 @@ import util.ColorMap;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
@@ -54,6 +56,14 @@ public class RestartTimeLimit extends JFrame{
             controller.restartGame(jFrame);
             gamePanel.requestFocusInWindow();
             ConfirmBtn.setFocusable(false);
+        });
+        this.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e){
+                if (e.getKeyCode()==KeyEvent.VK_ENTER){
+                    ConfirmBtn.doClick();
+                }
+            }
         });
         CancelBtn.addActionListener(e -> {
             CancelBtn.setFocusable(true);

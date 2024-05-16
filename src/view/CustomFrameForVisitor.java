@@ -2,6 +2,7 @@ package view;
 import controller.CustomController;
 import controller.CustomControllerForVisitor;
 import controller.GameController;
+import model.GridNumber;
 import util.ColorMap;
 
 import javax.imageio.ImageIO;
@@ -22,6 +23,7 @@ public class CustomFrameForVisitor extends JFrame{
     private CustomPanelForVisitor gamePanel;
     private JMenuBar menuBar;
     private Image image;
+    private GridNumber model;
 
     public CustomFrameForVisitor(int width, int height,int size) {
         try {
@@ -43,7 +45,7 @@ public class CustomFrameForVisitor extends JFrame{
         gamePanel = new CustomPanelForVisitor((int) (this.getHeight() * 0.65),size);
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
-
+        this.model=gamePanel.getModel();
         menuBar=new JMenuBar();
         setJMenuBar(menuBar);
         JMenu menu=new JMenu("菜单");
@@ -52,6 +54,7 @@ public class CustomFrameForVisitor extends JFrame{
         JMenuItem restart=new JMenuItem("restart");
         JMenuItem stop=new JMenuItem("stop");
         JMenuItem begin=new JMenuItem("begin");
+        JMenuItem setting=new JMenuItem("setting");
         menu.add(menuItem);
         menu.add(restart);
         menu.add(stop);
@@ -60,6 +63,7 @@ public class CustomFrameForVisitor extends JFrame{
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
         stop.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.ALT_DOWN_MASK));
         begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
+        setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
         restart.addActionListener(e -> {
             setVisible(true);
             RestartCustomForVisitor restartFrameForVisitor=new RestartCustomForVisitor(700,500, controller, gamePanel, this);
@@ -69,6 +73,10 @@ public class CustomFrameForVisitor extends JFrame{
             setVisible(true);
             CustomDirectionForVisitor customDirection=new CustomDirectionForVisitor(300,250,gamePanel);
             customDirection.setVisible(true);
+        });
+        setting.addActionListener(e ->{
+            int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
+            model.setAim(aim);
         });
         stop.addActionListener(e -> {
             gamePanel.setEnabled(false);

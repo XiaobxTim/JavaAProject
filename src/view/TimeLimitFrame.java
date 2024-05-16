@@ -58,6 +58,7 @@ public class TimeLimitFrame extends JFrame{
         JMenuItem save=new JMenuItem("save");
         JMenuItem stop=new JMenuItem("stop");
         JMenuItem begin=new JMenuItem("begin");
+        JMenuItem setting=new JMenuItem("setting");
         menu.add(menuItem);
         menu.add(restart);
         menu.add(load);
@@ -70,6 +71,7 @@ public class TimeLimitFrame extends JFrame{
         save.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.CTRL_DOWN_MASK));
         stop.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.ALT_DOWN_MASK));
         begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
+        setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
         restart.addActionListener(e -> {
             setVisible(true);
             RestartTimeLimit restartTimeLimit=new RestartTimeLimit(700,500, controller, gamePanel, gameFrame,jFrame);
@@ -79,6 +81,10 @@ public class TimeLimitFrame extends JFrame{
             setVisible(true);
             TimeLimitDirection timeLimitDirection=new TimeLimitDirection(300,250,gamePanel);
             timeLimitDirection.setVisible(true);
+        });
+        setting.addActionListener(e ->{
+            int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
+            model.setAim(aim);
         });
         load.addActionListener(e -> {
             String string = JOptionPane.showInputDialog(this, "Input path:");

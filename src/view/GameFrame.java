@@ -1,6 +1,7 @@
 package view;
 
 import controller.GameController;
+import model.GridNumber;
 import util.ColorMap;
 
 import javax.imageio.ImageIO;
@@ -23,6 +24,7 @@ public class GameFrame extends JFrame {
     private JMenuBar menuBar;
     private Image image;
     public JFrame jf;
+    private GridNumber model;
 
     public GameFrame(int width, int height,JFrame jFrame) {
         jf=jFrame;
@@ -46,7 +48,7 @@ public class GameFrame extends JFrame {
         gamePanel = new GamePanel((int) (this.getHeight() * 0.65));
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
-
+        this.model=gamePanel.getModel();
         menuBar=new JMenuBar();
         setJMenuBar(menuBar);
         JMenu menu=new JMenu("菜单");
@@ -57,6 +59,7 @@ public class GameFrame extends JFrame {
         JMenuItem save=new JMenuItem("save");
         JMenuItem stop=new JMenuItem("stop");
         JMenuItem begin=new JMenuItem("begin");
+        JMenuItem setting=new JMenuItem("setting");
         menu.add(menuItem);
         menu.add(restart);
         menu.add(load);
@@ -69,6 +72,7 @@ public class GameFrame extends JFrame {
         save.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.CTRL_DOWN_MASK));
         stop.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.ALT_DOWN_MASK));
         begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
+        setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
         restart.addActionListener(e -> {
             setVisible(true);
             RestartFrame restartFrame=new RestartFrame(700,500, controller, gamePanel, gameFrame,jFrame);
@@ -78,6 +82,10 @@ public class GameFrame extends JFrame {
             setVisible(true);
             DirectionFrame directionFrame=new DirectionFrame(300,250,gamePanel);
             directionFrame.setVisible(true);
+        });
+        setting.addActionListener(e ->{
+            int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
+            model.setAim(aim);
         });
         load.addActionListener(e -> {
             String string = JOptionPane.showInputDialog(this, "Input path:");

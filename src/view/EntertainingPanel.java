@@ -88,7 +88,7 @@ public class EntertainingPanel extends ListenerPanel{
                 model.setCoin(Coin+coin[index]);
                 index++;
             }
-            if (number>=2048){
+            if (number>=model.getAim()){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
                 SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
@@ -122,7 +122,7 @@ public class EntertainingPanel extends ListenerPanel{
                 model.setCoin(Coin+coin[index]);
                 index++;
             }
-            if (number>=2048){
+            if (number>=model.getAim()){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
                 SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
@@ -156,7 +156,7 @@ public class EntertainingPanel extends ListenerPanel{
                 model.setCoin(Coin+coin[index]);
                 index++;
             }
-            if (number>=2048){
+            if (number>=model.getAim()){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
                 SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
@@ -190,7 +190,7 @@ public class EntertainingPanel extends ListenerPanel{
                 model.setCoin(Coin+coin[index]);
                 index++;
             }
-            if (number>=2048){
+            if (number>=model.getAim()){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
                 SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());

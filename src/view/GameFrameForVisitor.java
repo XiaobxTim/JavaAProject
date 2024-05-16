@@ -45,7 +45,7 @@ public class GameFrameForVisitor extends JFrame{
         gamePanel = new GamePanelForVisitor((int) (this.getHeight() * 0.65));
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
-
+        this.model=gamePanel.getModel();
         menuBar=new JMenuBar();
         setJMenuBar(menuBar);
         JMenu menu=new JMenu("菜单");
@@ -54,14 +54,17 @@ public class GameFrameForVisitor extends JFrame{
         JMenuItem restart=new JMenuItem("restart");
         JMenuItem stop=new JMenuItem("stop");
         JMenuItem begin=new JMenuItem("begin");
+        JMenuItem setting=new JMenuItem("setting");
         menu.add(menuItem);
         menu.add(restart);
         menu.add(stop);
         menu.add(begin);
+        menu.add(setting);
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
         stop.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.ALT_DOWN_MASK));
         begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
+        setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
         restart.addActionListener(e -> {
             setVisible(true);
             RestartFrameForVisitor restartFrameForVisitor=new RestartFrameForVisitor(700,500, controller, gamePanel, this);
@@ -77,6 +80,10 @@ public class GameFrameForVisitor extends JFrame{
         });
         begin.addActionListener(e -> {
             gamePanel.setEnabled(true);
+        });
+        setting.addActionListener(e ->{
+            int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
+            model.setAim(aim);
         });
 
         this.controller = new GameControllerForVisitor(gamePanel, gamePanel.getModel());

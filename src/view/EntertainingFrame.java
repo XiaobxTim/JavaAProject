@@ -60,6 +60,7 @@ public class EntertainingFrame extends JFrame {
         JMenuItem crash=new JMenuItem("crash");
         JMenuItem stop=new JMenuItem("stop");
         JMenuItem begin=new JMenuItem("begin");
+        JMenuItem setting=new JMenuItem("setting");
         menu.add(menuItem);
         menu.add(props);
         menu.add(restart);
@@ -77,6 +78,7 @@ public class EntertainingFrame extends JFrame {
         crash.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_C,KeyEvent.ALT_DOWN_MASK));
         stop.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.ALT_DOWN_MASK));
         begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
+        setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
         restart.addActionListener(e -> {
             setVisible(true);
             RestartEntertaining restartEntertaining=new RestartEntertaining(700,500, controller, gamePanel, gameFrame,jFrame);
@@ -86,6 +88,10 @@ public class EntertainingFrame extends JFrame {
             setVisible(true);
             EntertainingDirection entertainingDirection=new EntertainingDirection(300,250,gamePanel);
             entertainingDirection.setVisible(true);
+        });
+        setting.addActionListener(e ->{
+            int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
+            model.setAim(aim);
         });
         load.addActionListener(e -> {
             String string = JOptionPane.showInputDialog(this, "Input path:");
@@ -100,7 +106,8 @@ public class EntertainingFrame extends JFrame {
                     int str= Integer.parseInt(JOptionPane.showInputDialog("在2，4，8，16中选一个替换"));
                     gamePanel.getModel().setNumber(i,j,str);
                     gamePanel.updateGridsNumber();
-                    model.setCoin(model.getCoin()-30);
+                    int Coin=model.getCoin()-30;
+                    model.setCoin(Coin);
                 }
             }else {
                 JOptionPane.showMessageDialog(null,"You don't have enough coins");
@@ -113,7 +120,8 @@ public class EntertainingFrame extends JFrame {
                 if (gamePanel.getModel().getNumber(i,j)!=' '){
                     gamePanel.getModel().setNumber(i,j,0);
                     gamePanel.updateGridsNumber();
-                    model.setCoin(model.getCoin()-30);
+                    int Coin=model.getCoin()-30;
+                    model.setCoin(Coin);
                 }
             }else {
                 JOptionPane.showMessageDialog(null,"You don't have enough coins");

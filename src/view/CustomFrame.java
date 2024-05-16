@@ -1,6 +1,7 @@
 package view;
 import controller.CustomController;
 import controller.GameController;
+import model.GridNumber;
 import util.ColorMap;
 
 import javax.imageio.ImageIO;
@@ -20,6 +21,7 @@ public class CustomFrame extends JFrame{
     private CustomPanel gamePanel;
     private JMenuBar menuBar;
     private Image image;
+    private GridNumber model;
 
     public CustomFrame(int width, int height,int size,JFrame jFrame) {
         try {
@@ -42,7 +44,7 @@ public class CustomFrame extends JFrame{
         gamePanel = new CustomPanel((int) (this.getHeight() * 0.65),size);
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
-
+        this.model=gamePanel.getModel();
         menuBar=new JMenuBar();
         setJMenuBar(menuBar);
         JMenu menu=new JMenu("菜单");
@@ -53,12 +55,14 @@ public class CustomFrame extends JFrame{
         JMenuItem save=new JMenuItem("save");
         JMenuItem stop=new JMenuItem("stop");
         JMenuItem begin=new JMenuItem("begin");
+        JMenuItem setting=new JMenuItem("setting");
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
         load.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_L,KeyEvent.CTRL_DOWN_MASK));
         save.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.CTRL_DOWN_MASK));
         stop.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.ALT_DOWN_MASK));
         begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
+        setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
         menu.add(menuItem);
         menu.add(restart);
         menu.add(load);
@@ -74,6 +78,10 @@ public class CustomFrame extends JFrame{
             setVisible(true);
             CustomDirection customDirection=new CustomDirection(300,250,gamePanel);
             customDirection.setVisible(true);
+        });
+        setting.addActionListener(e ->{
+            int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
+            model.setAim(aim);
         });
         load.addActionListener(e -> {
             String string = JOptionPane.showInputDialog(this, "Input path:");

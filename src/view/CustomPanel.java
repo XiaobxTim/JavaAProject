@@ -74,7 +74,7 @@ public class CustomPanel extends ListenerPanel {
             this.updateGridsNumber();
             this.afterMove();
             int number=model.FindMaxNumber();
-            if (number>=2048){
+            if (number>=model.getAim()){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
                 SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
@@ -95,7 +95,7 @@ public class CustomPanel extends ListenerPanel {
             this.updateGridsNumber();
             this.afterMove();
             int number=model.FindMaxNumber();
-            if (number>=2048){
+            if (number>=model.getAim()){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
                 SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
@@ -116,7 +116,7 @@ public class CustomPanel extends ListenerPanel {
             this.updateGridsNumber();
             this.afterMove();
             int number=model.FindMaxNumber();
-            if (number>=2048){
+            if (number>=model.getAim()){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
                 SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
@@ -137,7 +137,7 @@ public class CustomPanel extends ListenerPanel {
             this.updateGridsNumber();
             this.afterMove();
             int number=model.FindMaxNumber();
-            if (number>=2048){
+            if (number>=model.getAim()){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
                 SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());

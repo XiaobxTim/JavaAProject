@@ -12,6 +12,7 @@ public class GridNumber {
     private int[][] numbers;
     private int score;
     private int Coin;
+    private int aim=2048;
 
     static Random random = new Random();
 
@@ -375,6 +376,8 @@ public class GridNumber {
         this.score = score;
     }
     public void setCoin(int Coin){this.Coin=Coin;}
+    public void setAim(int aim){this.aim = aim;}
+    public int getAim(){return aim;}
 
     public int getScore(){
         return score;

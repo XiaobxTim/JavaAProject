@@ -51,14 +51,20 @@ public class CustomFrame extends JFrame{
         JMenuItem restart=new JMenuItem("restart");
         JMenuItem load=new JMenuItem("load");
         JMenuItem save=new JMenuItem("save");
+        JMenuItem stop=new JMenuItem("stop");
+        JMenuItem begin=new JMenuItem("begin");
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
         load.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_L,KeyEvent.CTRL_DOWN_MASK));
         save.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.CTRL_DOWN_MASK));
+        stop.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.ALT_DOWN_MASK));
+        begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
         menu.add(menuItem);
         menu.add(restart);
         menu.add(load);
         menu.add(save);
+        menu.add(stop);
+        menu.add(begin);
         restart.addActionListener(e -> {
             setVisible(true);
             RestartCustom restartCustom=new RestartCustom(700,500, controller, gamePanel, gameFrame,jFrame);
@@ -76,6 +82,12 @@ public class CustomFrame extends JFrame{
         });
         save.addActionListener(e -> {
 
+        });
+        stop.addActionListener(e -> {
+            gamePanel.setEnabled(false);
+        });
+        begin.addActionListener(e -> {
+            gamePanel.setEnabled(true);
         });
 
         this.controller = new CustomController(gamePanel, gamePanel.getModel());

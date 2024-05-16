@@ -5,20 +5,21 @@ import model.GridNumber;
 import javax.swing.*;
 import java.awt.*;
 
-
-public class TimeLimitPanel extends ListenerPanel {
+public class EntertainingPanel extends ListenerPanel{
     private final int COUNT = 4;
     private GridComponent[][] grids;
 
     private GridNumber model;
-    private JLabel stepLabel;
+    private JLabel CoinLabel;
     private JLabel scoreLabel;
     private JLabel maxscoreLabel;
     private int steps;
     private int score;
     private final int GRID_SIZE;
-
-    public TimeLimitPanel(int size) {
+    private int[] target=new int[]{32,64,128,256,512,1024,2048};
+    private int[] coin=new int[]{10,20,30,40,50,60,70};
+    private int index=0;
+    public EntertainingPanel(int size) {
         this.setVisible(true);
         this.setFocusable(true);
         this.setLayout(null);
@@ -28,7 +29,6 @@ public class TimeLimitPanel extends ListenerPanel {
         this.grids = new GridComponent[COUNT][COUNT];
         this.model = new GridNumber(COUNT, COUNT);
         initialGame();
-
     }
 
     public GridNumber getModel() {
@@ -75,6 +75,19 @@ public class TimeLimitPanel extends ListenerPanel {
             this.updateGridsNumber();
             this.afterMove();
             int number=model.FindMaxNumber();
+            int num=0;
+            for (int i=0;i<4;i++){
+                for (int j=0;j<4;j++){
+                     if (model.getNumber(i,j)==number){
+                         num++;
+                     }
+                }
+            }
+            if (num==1 && number==target[index]){
+                int Coin=model.getCoin();
+                model.setCoin(Coin+coin[index]);
+                index++;
+            }
             if (number>=2048){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
@@ -96,6 +109,19 @@ public class TimeLimitPanel extends ListenerPanel {
             this.updateGridsNumber();
             this.afterMove();
             int number=model.FindMaxNumber();
+            int num=0;
+            for (int i=0;i<4;i++){
+                for (int j=0;j<4;j++){
+                    if (model.getNumber(i,j)==number){
+                        num++;
+                    }
+                }
+            }
+            if (num==1 && number==target[index]){
+                int Coin=model.getCoin();
+                model.setCoin(Coin+coin[index]);
+                index++;
+            }
             if (number>=2048){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
@@ -117,6 +143,19 @@ public class TimeLimitPanel extends ListenerPanel {
             this.updateGridsNumber();
             this.afterMove();
             int number=model.FindMaxNumber();
+            int num=0;
+            for (int i=0;i<4;i++){
+                for (int j=0;j<4;j++){
+                    if (model.getNumber(i,j)==number){
+                        num++;
+                    }
+                }
+            }
+            if (num==1 && number==target[index]){
+                int Coin=model.getCoin();
+                model.setCoin(Coin+coin[index]);
+                index++;
+            }
             if (number>=2048){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
@@ -138,6 +177,19 @@ public class TimeLimitPanel extends ListenerPanel {
             this.updateGridsNumber();
             this.afterMove();
             int number=model.FindMaxNumber();
+            int num=0;
+            for (int i=0;i<4;i++){
+                for (int j=0;j<4;j++){
+                    if (model.getNumber(i,j)==number){
+                        num++;
+                    }
+                }
+            }
+            if (num==1 && number==target[index]){
+                int Coin=model.getCoin();
+                model.setCoin(Coin+coin[index]);
+                index++;
+            }
             if (number>=2048){
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
@@ -149,12 +201,14 @@ public class TimeLimitPanel extends ListenerPanel {
 
     public void afterMove() {
         if (!model.gameEnd()) {
+            this.steps++;
+            this.CoinLabel.setText(String.format("Coin: %d", model.getCoin()));
             this.scoreLabel.setText(String.format("Score: %d", model.getScore()));
         }
     }
 
-    public void setStepLabel(JLabel stepLabel) {
-        this.stepLabel = stepLabel;
+    public void setCoinLabel(JLabel CoinLabel) {
+        this.CoinLabel = CoinLabel;
     }
     public void setScoreLabel(JLabel scoreLabel){ this.scoreLabel = scoreLabel; }
     public void setMaxscoreLabel(JLabel maxscoreLabel){ this.maxscoreLabel = maxscoreLabel;}

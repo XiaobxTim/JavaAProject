@@ -11,6 +11,7 @@ public class GridNumber {
 
     private int[][] numbers;
     private int score;
+    private int Coin;
 
     static Random random = new Random();
 
@@ -342,6 +343,9 @@ public class GridNumber {
     public int getNumber(int i, int j) {
         return numbers[i][j];
     }
+    public void setNumber(int i,int j,int number){
+        numbers[i][j]=number;
+    }
 
     public void printNumber() {
         for (int[] line : numbers) {
@@ -370,10 +374,12 @@ public class GridNumber {
     public void setScore(int score) {
         this.score = score;
     }
+    public void setCoin(int Coin){this.Coin=Coin;}
 
     public int getScore(){
         return score;
     }
+    public int getCoin(){return Coin;}
     public int FindMaxNumber(){
         int number=numbers[0][0];
         for (int i=0;i<numbers.length;i++){

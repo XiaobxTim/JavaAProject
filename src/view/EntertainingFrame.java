@@ -1,32 +1,31 @@
 package view;
-import controller.TimeLimitController;
+
+import controller.EntertainingController;
+import controller.GameController;
 import model.GridNumber;
 import util.ColorMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
 
-public class TimeLimitFrame extends JFrame{
+public class EntertainingFrame extends JFrame {
+    private EntertainingController controller;
     private GridNumber model;
-    private final int TotalTime=1800;
-    private int countdownSeconds=TotalTime;
-    private TimeLimitController controller;
-    private JLabel stepLabel;
+    private JLabel CoinLabel;
     private JLabel scoreLabel;
     private JLabel maxscoreLabel;
-    private JLabel time;
     private JLabel jl1;
     private JLabel jl2;
-    private TimeLimitPanel gamePanel;
+    private EntertainingPanel gamePanel;
     private JMenuBar menuBar;
     private Image image;
-    public TimeLimitFrame(int width, int height,JFrame jFrame) {
+    public JFrame jf;
+    public EntertainingFrame(int width, int height,JFrame jFrame) {
+        jf=jFrame;
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
         }catch (IOException e){
@@ -40,91 +39,109 @@ public class TimeLimitFrame extends JFrame{
             }
         });
         JFrame gameFrame=this;
-        this.setTitle("TimeLimit");
+        this.setTitle("Classic");
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        gamePanel = new TimeLimitPanel((int) (this.getHeight() * 0.65));
+        gamePanel = new EntertainingPanel((int) (this.getHeight() * 0.65));
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
-
+        this.model=gamePanel.getModel();
         menuBar=new JMenuBar();
         setJMenuBar(menuBar);
         JMenu menu=new JMenu("菜单");
         menuBar.add(menu);
         JMenuItem menuItem=new JMenuItem("调出方向小键盘");
+        JMenu props=new JMenu("Props");
         JMenuItem restart=new JMenuItem("restart");
         JMenuItem load=new JMenuItem("load");
         JMenuItem save=new JMenuItem("save");
+        JMenuItem change=new JMenuItem("change");
+        JMenuItem crash=new JMenuItem("crash");
         JMenuItem stop=new JMenuItem("stop");
         JMenuItem begin=new JMenuItem("begin");
         menu.add(menuItem);
+        menu.add(props);
         menu.add(restart);
         menu.add(load);
         menu.add(save);
+        props.add(change);
+        props.add(crash);
         menu.add(stop);
         menu.add(begin);
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
         load.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_L,KeyEvent.CTRL_DOWN_MASK));
         save.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.CTRL_DOWN_MASK));
+        change.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_C,KeyEvent.CTRL_DOWN_MASK));
+        crash.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_C,KeyEvent.ALT_DOWN_MASK));
         stop.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.ALT_DOWN_MASK));
         begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
         restart.addActionListener(e -> {
             setVisible(true);
-            RestartTimeLimit restartTimeLimit=new RestartTimeLimit(700,500, controller, gamePanel, gameFrame,jFrame);
-            restartTimeLimit.setVisible(true);
+            RestartEntertaining restartEntertaining=new RestartEntertaining(700,500, controller, gamePanel, gameFrame,jFrame);
+            restartEntertaining.setVisible(true);
         });
         menuItem.addActionListener(e -> {
             setVisible(true);
-            TimeLimitDirection timeLimitDirection=new TimeLimitDirection(300,250,gamePanel);
-            timeLimitDirection.setVisible(true);
+            EntertainingDirection entertainingDirection=new EntertainingDirection(300,250,gamePanel);
+            entertainingDirection.setVisible(true);
         });
         load.addActionListener(e -> {
             String string = JOptionPane.showInputDialog(this, "Input path:");
             System.out.println(string);
             gamePanel.requestFocusInWindow();
         });
+        change.addActionListener(e -> {
+            if (model.getCoin()>=30){
+                int i= Integer.parseInt(JOptionPane.showInputDialog("input row"));
+                int j= Integer.parseInt(JOptionPane.showInputDialog("input col"));
+                if (gamePanel.getModel().getNumber(i,j)!=' '&& model.getCoin()>=30){
+                    int str= Integer.parseInt(JOptionPane.showInputDialog("在2，4，8，16中选一个替换"));
+                    gamePanel.getModel().setNumber(i,j,str);
+                    gamePanel.updateGridsNumber();
+                    model.setCoin(model.getCoin()-30);
+                }
+            }else {
+                JOptionPane.showMessageDialog(null,"You don't have enough coins");
+            }
+        });
+        crash.addActionListener(e -> {
+            if (model.getCoin()>=30){
+                int i= Integer.parseInt(JOptionPane.showInputDialog("input row"));
+                int j= Integer.parseInt(JOptionPane.showInputDialog("input col"));
+                if (gamePanel.getModel().getNumber(i,j)!=' '){
+                    gamePanel.getModel().setNumber(i,j,0);
+                    gamePanel.updateGridsNumber();
+                    model.setCoin(model.getCoin()-30);
+                }
+            }else {
+                JOptionPane.showMessageDialog(null,"You don't have enough coins");
+            }
+        });
         save.addActionListener(e -> {
 
         });
-
-        this.controller = new TimeLimitController(gamePanel, gamePanel.getModel());
-        this.jl1=createLabel("2048",new Font("serif",Font.ITALIC|Font.BOLD,35),new Point(20,20),70,50);
-        this.jl2=createLabel("Join the numbers and get to the 2048 tile!",new Font("serif",Font.PLAIN,15),new Point(30,65),270,50);
-        this.time = createLabel("time", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(190, 20), 80, 50);
-        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(100, 20), 80, 50);
-        this.maxscoreLabel = createLabel("Maxscore", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(280, 20), 90, 50);
-        gamePanel.setStepLabel(stepLabel);
-        gamePanel.setScoreLabel(scoreLabel);
-        gamePanel.setMaxscoreLabel(maxscoreLabel);
-
-        javax.swing.Timer timer = new javax.swing.Timer(1000, e -> {
-            if (countdownSeconds > 0) {
-                countdownSeconds--;
-                time.setText("Time: " + countdownSeconds + "s");
-            } else {
-                ((Timer) e.getSource()).stop();
-                time.setText("Time's up!");
-            }
-            if (gamePanel.getModel().gameEnd()){
-                ((Timer)e.getSource()).stop();
-            }
-        });
-
-        // 启动Timer
-        timer.start();
         stop.addActionListener(e -> {
             gamePanel.setEnabled(false);
-            timer.stop();
         });
         begin.addActionListener(e -> {
             gamePanel.setEnabled(true);
-            timer.start();
         });
+
+        this.controller = new EntertainingController(gamePanel, gamePanel.getModel());
+        this.jl1=createLabel("2048",new Font("serif",Font.ITALIC|Font.BOLD,35),new Point(20,20),70,50);
+        this.jl2=createLabel("Join the numbers and get to the 2048 tile!",new Font("serif",Font.PLAIN,16),new Point(30,65),270,50);
+        this.CoinLabel = createLabel("Coin", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(190, 20), 80, 50);
+        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(100, 20), 80, 50);
+        this.maxscoreLabel = createLabel("Maxscore", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(280, 20), 90, 50);
+        gamePanel.setCoinLabel(CoinLabel);
+        gamePanel.setScoreLabel(scoreLabel);
+        gamePanel.setMaxscoreLabel(maxscoreLabel);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
     }
 
 

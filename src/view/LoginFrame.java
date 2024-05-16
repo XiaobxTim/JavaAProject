@@ -287,7 +287,7 @@ public class LoginFrame extends JFrame{
 
         // 添加干扰：绘制随机线条
         Random random = new Random();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 8; i++) {
             int x1 = random.nextInt(WIDTH);
             int y1 = random.nextInt(HEIGHT);
             int x2 = random.nextInt(WIDTH);
@@ -309,10 +309,11 @@ public class LoginFrame extends JFrame{
 
         // 更新标签以显示新验证码
         captchaLabel.setIcon(new ImageIcon(captchaImage));
+        captchaLabel.setText(captchaText);
     }
 
     private String generateRandomCaptchaText() {
-        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder captcha = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < 5; i++) {

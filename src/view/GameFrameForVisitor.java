@@ -52,10 +52,16 @@ public class GameFrameForVisitor extends JFrame{
         menuBar.add(menu);
         JMenuItem menuItem=new JMenuItem("调出方向小键盘");
         JMenuItem restart=new JMenuItem("restart");
+        JMenuItem stop=new JMenuItem("stop");
+        JMenuItem begin=new JMenuItem("begin");
         menu.add(menuItem);
         menu.add(restart);
+        menu.add(stop);
+        menu.add(begin);
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
+        stop.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.ALT_DOWN_MASK));
+        begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
         restart.addActionListener(e -> {
             setVisible(true);
             RestartFrameForVisitor restartFrameForVisitor=new RestartFrameForVisitor(700,500, controller, gamePanel, this);
@@ -65,6 +71,12 @@ public class GameFrameForVisitor extends JFrame{
             setVisible(true);
             DirectionFrameForVisitor directionFrame=new DirectionFrameForVisitor(300,250,gamePanel);
             directionFrame.setVisible(true);
+        });
+        stop.addActionListener(e -> {
+            gamePanel.setEnabled(false);
+        });
+        begin.addActionListener(e -> {
+            gamePanel.setEnabled(true);
         });
 
         this.controller = new GameControllerForVisitor(gamePanel, gamePanel.getModel());

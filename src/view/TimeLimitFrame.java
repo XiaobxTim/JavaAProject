@@ -1,4 +1,6 @@
 package view;
+import AI.AI;
+import AI.GameState;
 import controller.TimeLimitController;
 import model.GridNumber;
 import util.ColorMap;
@@ -59,12 +61,16 @@ public class TimeLimitFrame extends JFrame{
         JMenuItem stop=new JMenuItem("stop");
         JMenuItem begin=new JMenuItem("begin");
         JMenuItem setting=new JMenuItem("setting");
+        JMenuItem back=new JMenuItem("back");
+        JMenuItem Hint=new JMenuItem("Hint");
         menu.add(menuItem);
         menu.add(restart);
         menu.add(load);
         menu.add(save);
         menu.add(stop);
         menu.add(begin);
+        menu.add(back);
+        menu.add(Hint);
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
         load.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_L,KeyEvent.CTRL_DOWN_MASK));
@@ -72,6 +78,34 @@ public class TimeLimitFrame extends JFrame{
         stop.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.ALT_DOWN_MASK));
         begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
         setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
+        back.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_Z,KeyEvent.CTRL_DOWN_MASK));
+        Hint.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.CTRL_DOWN_MASK));
+        Hint.addActionListener(e -> {
+            gamePanel.setEnabled(true);
+            int[][] model2=new int[4][4];
+            for (int i=0;i<model2.length;i++){
+                for (int j=0;j<model2[0].length;j++){
+                    model2[i][j]=model.getNumber(i,j);
+                }
+            }
+            GameState model1=new GameState(model2);
+            AI ai=new AI(model1);
+            int direction=ai.getBestMove();
+            switch (direction) {
+                case 0 -> gamePanel.doMoveUp();
+                case 1 -> gamePanel.doMoveRight();
+                case 2 -> gamePanel.doMoveDown();
+                default -> gamePanel.doMoveLeft();
+            }
+        });
+        back.addActionListener(e -> {
+            for (int i=0;i<4;i++){
+                for (int j=0;j<4;j++){
+                    model.setNumber(i,j,model.getNum(i,j));
+                    gamePanel.updateGridsNumber();
+                }
+            }
+        });
         restart.addActionListener(e -> {
             setVisible(true);
             RestartTimeLimit restartTimeLimit=new RestartTimeLimit(700,500, controller, gamePanel, gameFrame,jFrame);

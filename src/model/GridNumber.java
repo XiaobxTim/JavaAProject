@@ -1,9 +1,6 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class GridNumber {
     private final int X_COUNT;
@@ -12,7 +9,8 @@ public class GridNumber {
     private int[][] numbers;
     private int score;
     private int Coin;
-    private int aim=2048;
+    private int aim = 2048;
+    private int[][] num;
 
     static Random random = new Random();
 
@@ -20,8 +18,10 @@ public class GridNumber {
         this.X_COUNT = xCount;
         this.Y_COUNT = yCount;
         this.numbers = new int[this.X_COUNT][this.Y_COUNT];
+        this.num = new int[this.X_COUNT][this.Y_COUNT];
         this.initialNumbers();
     }
+
     public boolean gameEnd() {
         for (int i = 0; i < numbers.length; i++) {
             for (int j = 0; j < numbers[i].length - 1; j++) {
@@ -46,65 +46,72 @@ public class GridNumber {
         }
         return true;
     }
+
     public void initialNumbers() {
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
-            for (int j =0;j<numbers[0].length; j++)  {
-                if (numbers[i][j]==0){
-                    emptySpaces.add(new int[]{i,j});
+            for (int j = 0; j < numbers[0].length; j++) {
+                if (numbers[i][j] == 0) {
+                    emptySpaces.add(new int[]{i, j});
                 }
             }
         }
-        if (emptySpaces.isEmpty()){
+        if (emptySpaces.isEmpty()) {
             System.out.println("No empty spaces in the grid.");
-        }else {
-            int index1=random.nextInt(emptySpaces.size());
-            int index2=random.nextInt(emptySpaces.size());
-            while (index2==index1){
-                index2=random.nextInt(emptySpaces.size());
+        } else {
+            int index1 = random.nextInt(emptySpaces.size());
+            int index2 = random.nextInt(emptySpaces.size());
+            while (index2 == index1) {
+                index2 = random.nextInt(emptySpaces.size());
             }
             int[] randomEmptySpace1 = emptySpaces.get(index1);
-            int[] randomEmptySpace2= emptySpaces.get(index2);
-            int rand=random.nextInt(2);
-            if (rand==0){
-                numbers[randomEmptySpace1[0]][randomEmptySpace1[1]]=2;
-                numbers[randomEmptySpace2[0]][randomEmptySpace2[1]]=4;
-            }else {
-                numbers[randomEmptySpace1[0]][randomEmptySpace1[1]]=4;
-                numbers[randomEmptySpace2[0]][randomEmptySpace2[1]]=2;
+            int[] randomEmptySpace2 = emptySpaces.get(index2);
+            int rand = random.nextInt(2);
+            if (rand == 0) {
+                numbers[randomEmptySpace1[0]][randomEmptySpace1[1]] = 2;
+                numbers[randomEmptySpace2[0]][randomEmptySpace2[1]] = 4;
+            } else {
+                numbers[randomEmptySpace1[0]][randomEmptySpace1[1]] = 4;
+                numbers[randomEmptySpace2[0]][randomEmptySpace2[1]] = 2;
             }
         }
     }
+
     //todo: finish the method of four direction moving.
     public void moveRight() {
         for (int i = 0; i < numbers.length; i++) {
-            for (int j=numbers[0].length-2;j>=0;j--){
-                int k=1;
-                while ((j+k)<=(numbers[0].length-1) && numbers[i][j+k]==0){
+            for (int j = 0; j < numbers[0].length; j++) {
+                num[i][j] = numbers[i][j];
+            }
+        }
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = numbers[0].length - 2; j >= 0; j--) {
+                int k = 1;
+                while ((j + k) <= (numbers[0].length - 1) && numbers[i][j + k] == 0) {
                     k++;
                 }
-                if (k>1){
-                    numbers[i][j+k-1]=numbers[i][j];
-                    numbers[i][j]=0;
+                if (k > 1) {
+                    numbers[i][j + k - 1] = numbers[i][j];
+                    numbers[i][j] = 0;
                 }
             }
         }
         for (int i = 0; i < numbers.length; i++) {
-            for (int j=numbers[0].length-1;j>=1;j--) {
-                if (numbers[i][j]==numbers[i][j-1]){
-                    numbers[i][j]+=numbers[i][j-1];
-                    numbers[i][j-1]=0;
-                    score+=numbers[i][j];
+            for (int j = numbers[0].length - 1; j >= 1; j--) {
+                if (numbers[i][j] == numbers[i][j - 1]) {
+                    numbers[i][j] += numbers[i][j - 1];
+                    numbers[i][j - 1] = 0;
+                    score += numbers[i][j];
                 }
             }
-            for (int j=numbers[0].length-2;j>=0;j--){
-                int k=1;
-                while ((j+k)<=(numbers[0].length-1) && numbers[i][j+k]==0){
+            for (int j = numbers[0].length - 2; j >= 0; j--) {
+                int k = 1;
+                while ((j + k) <= (numbers[0].length - 1) && numbers[i][j + k] == 0) {
                     k++;
                 }
-                if (k>1){
-                    numbers[i][j+k-1]=numbers[i][j];
-                    numbers[i][j]=0;
+                if (k > 1) {
+                    numbers[i][j + k - 1] = numbers[i][j];
+                    numbers[i][j] = 0;
                 }
             }
             /*for (int j = numbers[0].length - 2; j >= 0; j--) {
@@ -122,55 +129,61 @@ public class GridNumber {
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
-            for (int j =0;j<numbers[0].length; j++)  {
-                if (numbers[i][j]==0){
-                    emptySpaces.add(new int[]{i,j});
+            for (int j = 0; j < numbers[0].length; j++) {
+                if (numbers[i][j] == 0) {
+                    emptySpaces.add(new int[]{i, j});
                 }
             }
         }
-        if (emptySpaces.isEmpty()){
+        if (emptySpaces.isEmpty()) {
             System.out.println("doMoveRight is unachievable.");
-        }else {
-            int index=random.nextInt(emptySpaces.size());
-            int[] randomEmptySpace= emptySpaces.get(index);
-            int rand=random.nextInt(2);
-            if (rand==0){
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
-            }else {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+        } else {
+            int index = random.nextInt(emptySpaces.size());
+            int[] randomEmptySpace = emptySpaces.get(index);
+            int rand = random.nextInt(2);
+            if (rand == 0) {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 2;
+            } else {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 4;
             }
         }
         gameEnd();
     }
+
     public void moveLeft() {
         for (int i = 0; i < numbers.length; i++) {
-            for (int j=1;j<numbers[0].length;j++){
-                int k=1;
-                while ((j-k)>=0 && numbers[i][j-k]==0){
+            for (int j = 0; j < numbers[0].length; j++) {
+                num[i][j] = numbers[i][j];
+            }
+        }
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = 1; j < numbers[0].length; j++) {
+                int k = 1;
+                while ((j - k) >= 0 && numbers[i][j - k] == 0) {
                     k++;
                 }
-                if (k>1){
-                    numbers[i][j-k+1]=numbers[i][j];
-                    numbers[i][j]=0;
+                if (k > 1) {
+                    numbers[i][j - k + 1] = numbers[i][j];
+                    numbers[i][j] = 0;
                 }
             }
         }
         for (int i = 0; i < numbers.length; i++) {
-            for (int j=0;j<numbers[0].length-1;j++) {
+            for (int j = 0; j < numbers[0].length - 1; j++) {
                 if (numbers[i][j] == numbers[i][j + 1]) {
                     numbers[i][j] += numbers[i][j + 1];
                     numbers[i][j + 1] = 0;
                     score += numbers[i][j];
                 }
             }
-            for (int j=1;j<numbers[0].length;j++){
-                int k=1;
-                while ((j-k)>=0 && numbers[i][j-k]==0){
+            for (int j = 1; j < numbers[0].length; j++) {
+                int k = 1;
+                while ((j - k) >= 0 && numbers[i][j - k] == 0) {
                     k++;
                 }
-                if (k>1){
-                    numbers[i][j-k+1]=numbers[i][j];
-                    numbers[i][j]=0;
+                if (k > 1) {
+                    numbers[i][j - k + 1] = numbers[i][j];
+                    numbers[i][j] = 0;
                 }
             }
             /*for (int j = 1; j<numbers[0].length; j++) {
@@ -188,55 +201,61 @@ public class GridNumber {
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
-            for (int j =0;j<numbers[0].length; j++) {
-                if (numbers[i][j]==0){
-                    emptySpaces.add(new int[]{i,j});
+            for (int j = 0; j < numbers[0].length; j++) {
+                if (numbers[i][j] == 0) {
+                    emptySpaces.add(new int[]{i, j});
                 }
             }
         }
-        if (emptySpaces.isEmpty()){
+        if (emptySpaces.isEmpty()) {
             System.out.println("doMoveLeft is unachievable.");
-        }else{
-            int index=random.nextInt(emptySpaces.size());
-            int[] randomEmptySpace= emptySpaces.get(index);
-            int rand=random.nextInt(2);
-            if (rand==0){
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
-            }else {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+        } else {
+            int index = random.nextInt(emptySpaces.size());
+            int[] randomEmptySpace = emptySpaces.get(index);
+            int rand = random.nextInt(2);
+            if (rand == 0) {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 2;
+            } else {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 4;
             }
         }
         gameEnd();
     }
+
     public void moveUp() {
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = 0; j < numbers[0].length; j++) {
+                num[i][j] = numbers[i][j];
+            }
+        }
         for (int j = 0; j < numbers[0].length; j++) {
-            for (int i=1;i<numbers.length;i++){
-                int k=1;
-                while ((i-k)>=0 && numbers[i-k][j]==0){
+            for (int i = 1; i < numbers.length; i++) {
+                int k = 1;
+                while ((i - k) >= 0 && numbers[i - k][j] == 0) {
                     k++;
                 }
-                if (k>1){
-                    numbers[i-k+1][j]=numbers[i][j];
-                    numbers[i][j]=0;
+                if (k > 1) {
+                    numbers[i - k + 1][j] = numbers[i][j];
+                    numbers[i][j] = 0;
                 }
             }
         }
         for (int j = 0; j < numbers[0].length; j++) {
-            for (int i=0;i<numbers.length-1;i++){
-                if (numbers[i][j]==numbers[i+1][j]){
-                    numbers[i][j]+=numbers[i+1][j];
-                    numbers[i+1][j]=0;
-                    score+=numbers[i][j];
+            for (int i = 0; i < numbers.length - 1; i++) {
+                if (numbers[i][j] == numbers[i + 1][j]) {
+                    numbers[i][j] += numbers[i + 1][j];
+                    numbers[i + 1][j] = 0;
+                    score += numbers[i][j];
                 }
             }
-            for (int i=1;i<numbers.length;i++){
-                int k=1;
-                while ((i-k)>=0 && numbers[i-k][j]==0){
+            for (int i = 1; i < numbers.length; i++) {
+                int k = 1;
+                while ((i - k) >= 0 && numbers[i - k][j] == 0) {
                     k++;
                 }
-                if (k>1){
-                    numbers[i-k+1][j]=numbers[i][j];
-                    numbers[i][j]=0;
+                if (k > 1) {
+                    numbers[i - k + 1][j] = numbers[i][j];
+                    numbers[i][j] = 0;
                 }
             }
             /*for (int i =1;i<numbers.length;i++) {
@@ -254,55 +273,61 @@ public class GridNumber {
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
-            for (int j =0;j<numbers[0].length; j++) {
-                if (numbers[i][j]==0){
-                    emptySpaces.add(new int[]{i,j});
+            for (int j = 0; j < numbers[0].length; j++) {
+                if (numbers[i][j] == 0) {
+                    emptySpaces.add(new int[]{i, j});
                 }
             }
         }
-        if (emptySpaces.isEmpty()){
+        if (emptySpaces.isEmpty()) {
             System.out.println("doMoveUp is unachievable.");
-        }else {
-            int index=random.nextInt(emptySpaces.size());
-            int[] randomEmptySpace= emptySpaces.get(index);
-            int rand=random.nextInt(2);
-            if (rand==0){
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
-            }else {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+        } else {
+            int index = random.nextInt(emptySpaces.size());
+            int[] randomEmptySpace = emptySpaces.get(index);
+            int rand = random.nextInt(2);
+            if (rand == 0) {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 2;
+            } else {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 4;
             }
         }
         gameEnd();
     }
+
     public void moveDown() {
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = 0; j < numbers[0].length; j++) {
+                num[i][j] = numbers[i][j];
+            }
+        }
         for (int j = 0; j < numbers[0].length; j++) {
-            for (int i=numbers.length-2;i>=0;i--){
-                int k=1;
-                while ((i+k)<=(numbers[0].length-1) && numbers[i+k][j]==0){
+            for (int i = numbers.length - 2; i >= 0; i--) {
+                int k = 1;
+                while ((i + k) <= (numbers[0].length - 1) && numbers[i + k][j] == 0) {
                     k++;
                 }
-                if (k>1){
-                    numbers[i+k-1][j]=numbers[i][j];
-                    numbers[i][j]=0;
+                if (k > 1) {
+                    numbers[i + k - 1][j] = numbers[i][j];
+                    numbers[i][j] = 0;
                 }
             }
         }
         for (int j = 0; j < numbers[0].length; j++) {
-            for (int i=numbers.length-1;i>=1;i--){
-                if (numbers[i][j]==numbers[i-1][j]){
-                    numbers[i][j]+=numbers[i-1][j];
-                    numbers[i-1][j]=0;
-                    score+=numbers[i][j];
+            for (int i = numbers.length - 1; i >= 1; i--) {
+                if (numbers[i][j] == numbers[i - 1][j]) {
+                    numbers[i][j] += numbers[i - 1][j];
+                    numbers[i - 1][j] = 0;
+                    score += numbers[i][j];
                 }
             }
-            for (int i=numbers.length-2;i>=0;i--){
-                int k=1;
-                while ((i+k)<=(numbers[0].length-1) && numbers[i+k][j]==0){
+            for (int i = numbers.length - 2; i >= 0; i--) {
+                int k = 1;
+                while ((i + k) <= (numbers[0].length - 1) && numbers[i + k][j] == 0) {
                     k++;
                 }
-                if (k>1){
-                    numbers[i+k-1][j]=numbers[i][j];
-                    numbers[i][j]=0;
+                if (k > 1) {
+                    numbers[i + k - 1][j] = numbers[i][j];
+                    numbers[i][j] = 0;
                 }
             }
             /*for (int i=numbers.length-2;i>=0;i--) {
@@ -320,22 +345,22 @@ public class GridNumber {
         }
         List<int[]> emptySpaces = new ArrayList<>();
         for (int i = 0; i < numbers.length; i++) {
-            for (int j =0;j<numbers[0].length; j++) {
-                if (numbers[i][j]==0){
-                    emptySpaces.add(new int[]{i,j});
+            for (int j = 0; j < numbers[0].length; j++) {
+                if (numbers[i][j] == 0) {
+                    emptySpaces.add(new int[]{i, j});
                 }
             }
         }
-        if (emptySpaces.isEmpty()){
+        if (emptySpaces.isEmpty()) {
             System.out.println("doMoveDown is unachievable.");
-        }else {
-            int index=random.nextInt(emptySpaces.size());
-            int[] randomEmptySpace= emptySpaces.get(index);
-            int rand=random.nextInt(2);
-            if (rand==0){
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=2;
-            }else {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]]=4;
+        } else {
+            int index = random.nextInt(emptySpaces.size());
+            int[] randomEmptySpace = emptySpaces.get(index);
+            int rand = random.nextInt(2);
+            if (rand == 0) {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 2;
+            } else {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 4;
             }
         }
         gameEnd();
@@ -344,8 +369,13 @@ public class GridNumber {
     public int getNumber(int i, int j) {
         return numbers[i][j];
     }
-    public void setNumber(int i,int j,int number){
-        numbers[i][j]=number;
+
+    public int getNum(int i, int j) {
+        return num[i][j];
+    }
+
+    public void setNumber(int i, int j, int number) {
+        numbers[i][j] = number;
     }
 
     public void printNumber() {
@@ -353,18 +383,21 @@ public class GridNumber {
             System.out.println(Arrays.toString(line));
         }
     }
+
     private boolean canMergeHorizontally(int row, int col) {
         if (col < numbers[row].length - 1 && numbers[row][col] != 0 && numbers[row][col] == numbers[row][col + 1]) {
             return true;
         }
         return false;
     }
+
     private boolean canMergeVertically(int row, int col) {
         if (row < numbers.length - 1 && numbers[row][col] != 0 && numbers[row][col] == numbers[row + 1][col]) {
             return true;
         }
         return false;
     }
+
     private boolean canSlide(int row, int col) {
         if (numbers[row][col] == 0) {
             return true;
@@ -375,20 +408,33 @@ public class GridNumber {
     public void setScore(int score) {
         this.score = score;
     }
-    public void setCoin(int Coin){this.Coin=Coin;}
-    public void setAim(int aim){this.aim = aim;}
-    public int getAim(){return aim;}
 
-    public int getScore(){
+    public void setCoin(int Coin) {
+        this.Coin = Coin;
+    }
+
+    public void setAim(int aim) {
+        this.aim = aim;
+    }
+
+    public int getAim() {
+        return aim;
+    }
+
+    public int getScore() {
         return score;
     }
-    public int getCoin(){return Coin;}
-    public int FindMaxNumber(){
-        int number=numbers[0][0];
-        for (int i=0;i<numbers.length;i++){
-            for (int j=0;j<numbers[0].length;j++){
-                if (numbers[i][j]>=number){
-                    number=numbers[i][j];
+
+    public int getCoin() {
+        return Coin;
+    }
+
+    public int FindMaxNumber() {
+        int number = numbers[0][0];
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = 0; j < numbers[0].length; j++) {
+                if (numbers[i][j] >= number) {
+                    number = numbers[i][j];
                 }
             }
         }

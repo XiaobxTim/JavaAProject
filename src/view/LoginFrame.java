@@ -185,7 +185,7 @@ public class LoginFrame extends JFrame{
 //                        System.out.println(in.next());
 //                    }
                     if (in.nextLine().equals(password)) {
-                        if (jx.getText().equals(captchaLabel.getText())){
+                        if (jx.getText().equalsIgnoreCase(captchaLabel.getText())){
                             JOptionPane.showMessageDialog(this, "login Successfully");
                             setVisible(false);
                             SelectModel selectModel=new SelectModel(700,500);

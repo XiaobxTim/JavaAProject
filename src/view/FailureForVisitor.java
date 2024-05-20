@@ -36,7 +36,7 @@ public class FailureForVisitor extends JFrame{
         this.NameLabel=createLabel("GAMEOVER",new Font("serif", Font.ITALIC|Font.BOLD,35),new Point(90,80),200,50);
         NameLabel.setForeground(Color.BLACK);
         String str="Your final score is "+score;
-        this.jl=createLabel(str,new Font("serif", Font.ITALIC|Font.BOLD,20),new Point(95,150),200,50);
+        this.jl=createLabel(str,new Font("serif", Font.ITALIC|Font.BOLD,15),new Point(80,150),400,50);
         jl.setForeground(Color.BLACK);
         this.jl1=createLabel("PLAY AGAIN?",new Font("serif", Font.ITALIC|Font.BOLD,25),new Point(110,210),200,50);
         jl1.setForeground(Color.BLACK);

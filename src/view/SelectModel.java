@@ -139,6 +139,11 @@ public class SelectModel extends JFrame {
                 EntertainingFrame entertainingFrame=new EntertainingFrame(400,500,jFrame);
                 entertainingFrame.setVisible(true);
             }
+            if (selectValue.equals("AI Mode")){
+                setVisible(false);
+                AIFrame aiFrame=new AIFrame(400,500,jFrame);
+                aiFrame.setVisible(true);
+            }
         });
         this.addKeyListener(new KeyAdapter() {
             @Override

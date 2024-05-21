@@ -8,7 +8,6 @@ import java.awt.*;
 
 public class CustomPanel extends ListenerPanel {
     private GridComponent[][] grids;
-
     private GridNumber model;
     private JLabel stepLabel;
     private JLabel scoreLabel;

@@ -4,9 +4,12 @@ import model.GridNumber;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class GamePanelForVisitor extends ListenerPanel{
+public class GamePanelForVisitor extends ListenerPanel {
     private final int COUNT = 4;
+    private final int DELAY = 100;
     private GridComponent[][] grids;
 
     private GridNumber model;
@@ -17,6 +20,7 @@ public class GamePanelForVisitor extends ListenerPanel{
     private int score;
     private final int GRID_SIZE;
     public GamePanelForVisitor(int size){
+
         this.setVisible(true);
         this.setFocusable(true);
         this.setLayout(null);
@@ -26,7 +30,10 @@ public class GamePanelForVisitor extends ListenerPanel{
         this.grids = new GridComponent[COUNT][COUNT];
         this.model = new GridNumber(COUNT, COUNT);
         initialGame();
+
+
     }
+
     public GridNumber getModel() {
         return model;
     }
@@ -60,6 +67,9 @@ public class GamePanelForVisitor extends ListenerPanel{
      */
     @Override
     public void doMoveRight() {
+        if (model.getLock())
+            return ;
+        model.setLock(true);
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
@@ -67,20 +77,34 @@ public class GamePanelForVisitor extends ListenerPanel{
             failureFrameForVisitor.setVisible(true);
         }else {
             System.out.println("Click VK_RIGHT");
-            this.model.moveRight();
-            this.updateGridsNumber();
-            this.afterMove();
-            int number=model.FindMaxNumber();
-            if (number>=model.getAim()){
-                JFrame gameframe = findParentFrame(this);
-                gameframe.setVisible(false);
-                SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
-                successForVisitor.setVisible(true);
-            }
+            final boolean[] isFirst = {true};
+            Timer timer = new Timer(DELAY, e -> {
+                boolean moved = getModel().moveRightStep(isFirst[0]);
+                isFirst[0] = false;
+                updateGridsNumber();
+                if (!moved) {
+                    getModel().addNewPiece("Right");
+                    this.updateGridsNumber();
+                    this.afterMove();
+                    int number=model.FindMaxNumber();
+                    if (number>=model.getAim()){
+                        JFrame gameframe = findParentFrame(this);
+                        gameframe.setVisible(false);
+                        SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
+                        successForVisitor.setVisible(true);
+                    }
+                    model.setLock(false);
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
         }
     }
     @Override
     public void doMoveLeft() {
+        if (model.getLock())
+            return ;
+        model.setLock(true);
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
@@ -88,20 +112,38 @@ public class GamePanelForVisitor extends ListenerPanel{
             failureFrameForVisitor.setVisible(true);
         }else {
             System.out.println("Click VK_Left");
-            this.model.moveLeft();
-            this.updateGridsNumber();
-            this.afterMove();
-            int number=model.FindMaxNumber();
-            if (number>=model.getAim()){
-                JFrame gameframe = findParentFrame(this);
-                gameframe.setVisible(false);
-                SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
-                successForVisitor.setVisible(true);
-            }
+            final boolean[] isFirst = {true};
+            Timer timer = new Timer(DELAY, e -> {
+                System.out.println("`!");
+                boolean moved = getModel().moveLeftStep(isFirst[0]);
+                isFirst[0] = false;
+                updateGridsNumber();
+                if (!moved) {
+                    System.out.println("...");
+                    getModel().addNewPiece("Left");
+                    this.updateGridsNumber();
+                    System.out.println("here");
+                    this.afterMove();
+                    int number=model.FindMaxNumber();
+                    if (number>=model.getAim()){
+                        JFrame gameframe = findParentFrame(this);
+                        gameframe.setVisible(false);
+                        SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
+                        successForVisitor.setVisible(true);
+                    }
+                    model.setLock(false);
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
+
         }
     }
     @Override
     public void doMoveUp() {
+        if (model.getLock())
+            return ;
+        model.setLock(true);
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
@@ -109,20 +151,34 @@ public class GamePanelForVisitor extends ListenerPanel{
             failureFrameForVisitor.setVisible(true);
         }else {
             System.out.println("Click VK_UP");
-            this.model.moveUp();
-            this.updateGridsNumber();
-            this.afterMove();
-            int number=model.FindMaxNumber();
-            if (number>=model.getAim()){
-                JFrame gameframe = findParentFrame(this);
-                gameframe.setVisible(false);
-                SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
-                successForVisitor.setVisible(true);
-            }
+            final boolean[] isFirst = {true};
+            Timer timer = new Timer(DELAY, e -> {
+                boolean moved = getModel().moveUpStep(isFirst[0]);
+                isFirst[0] = false;
+                updateGridsNumber();
+                if (!moved) {
+                    getModel().addNewPiece("Up");
+                    this.updateGridsNumber();
+                    this.afterMove();
+                    int number=model.FindMaxNumber();
+                    if (number>=model.getAim()){
+                        JFrame gameframe = findParentFrame(this);
+                        gameframe.setVisible(false);
+                        SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
+                        successForVisitor.setVisible(true);
+                    }
+                    model.setLock(false);
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
         }
     }
     @Override
     public void doMoveDown() {
+        if (model.getLock())
+            return ;
+        model.setLock(true);
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
@@ -130,17 +186,29 @@ public class GamePanelForVisitor extends ListenerPanel{
             failureFrameForVisitor.setVisible(true);
         }else {
             System.out.println("Click VK_DOWN");
-            this.model.moveDown();
-            this.updateGridsNumber();
-            this.afterMove();
-            int number=model.FindMaxNumber();
-            if (number>=model.getAim()){
-                JFrame gameframe = findParentFrame(this);
-                gameframe.setVisible(false);
-                SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
-                successForVisitor.setVisible(true);
-            }
+            final boolean[] isFirst = {true};
+            Timer timer = new Timer(DELAY, e -> {
+                boolean moved = getModel().moveDownStep(isFirst[0]);
+                isFirst[0] = false;
+                updateGridsNumber();
+                if (!moved) {
+                    getModel().addNewPiece("Down");
+                    this.updateGridsNumber();
+                    this.afterMove();
+                    int number=model.FindMaxNumber();
+                    if (number>=model.getAim()){
+                        JFrame gameframe = findParentFrame(this);
+                        gameframe.setVisible(false);
+                        SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
+                        successForVisitor.setVisible(true);
+                    }
+                    model.setLock(false);
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
         }
+
     }
 
     public void afterMove() {

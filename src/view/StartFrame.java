@@ -53,6 +53,7 @@ public class StartFrame extends JFrame {
         PlayerLogin.setContentAreaFilled(false);
         this.PlayerLogin.addActionListener(e -> {
             setVisible(true);
+            
             LoginFrame loginFrame=new LoginFrame(700,500);
             loginFrame.setVisible(true);
         });

@@ -5,6 +5,21 @@ import java.util.*;
 public class GridNumber {
     private final int X_COUNT;
     private final int Y_COUNT;
+    private boolean lock;
+    public boolean getLock() {
+        return lock;
+    }
+    public void setLock(boolean lock){
+        this.lock = lock;
+    }
+
+    public int getX_COUNT() {
+        return X_COUNT;
+    }
+
+    public int getY_COUNT() {
+        return Y_COUNT;
+    }
 
     private int[][] numbers;
     private int score;
@@ -76,8 +91,157 @@ public class GridNumber {
             }
         }
     }
-
+    private boolean [][] merged;
     //todo: finish the method of four direction moving.
+    public boolean moveRightStep(boolean isFirstStep) {
+        if (isFirstStep) {
+            merged = new boolean[numbers.length][numbers[0].length];
+            for (int i = 0; i < numbers.length; i++) {
+                for (int j = 0; j < numbers[0].length; j++) {
+                    num[i][j] = numbers[i][j];
+                }
+            }
+        }
+        boolean res = false;
+        for (int row = 0; row < numbers.length; row ++) {
+            for (int i = numbers[row].length - 1; i >= 0; i--) {
+                if (numbers[row][i] == 0) {
+                    if (i != 0 && numbers[row][i - 1] != 0) {
+                        numbers[row][i] = numbers[row][i - 1];
+                        merged[row][i] = merged[row][i - 1];
+                        numbers[row][i - 1] = 0;
+                        res = true;
+                    }
+                } else {
+                    if (i != 0 && numbers[row][i - 1] == numbers[row][i] && !merged[row][i] && !merged[row][i - 1]) {
+                        numbers[row][i - 1] = 0;
+                        numbers[row][i] *= 2;
+                        merged[row][i] = true;
+                        res = true;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+    public boolean moveLeftStep(boolean isFirstStep) {
+        if (isFirstStep) {
+            merged = new boolean[numbers.length][numbers[0].length];
+            for (int i = 0; i < numbers.length; i++) {
+                for (int j = 0; j < numbers[0].length; j++) {
+                    num[i][j] = numbers[i][j];
+                }
+            }
+        }
+        boolean res = false;
+        for (int row = 0; row < numbers.length; row ++) {
+            for (int i = 0; i < numbers[row].length; i++) {
+                if (numbers[row][i] == 0) {
+                    if (i != numbers[row].length - 1 && numbers[row][i + 1] != 0) {
+                        numbers[row][i] = numbers[row][i + 1];
+                        merged[row][i] = merged[row][i + 1];
+                        numbers[row][i + 1] = 0;
+                        res = true;
+                    }
+                } else {
+                    if (i != numbers[row].length - 1  && numbers[row][i + 1] == numbers[row][i] && !merged[row][i] && !merged[row][i + 1]) {
+                        numbers[row][i + 1] = 0;
+                        numbers[row][i] *= 2;
+                        merged[row][i] = true;
+                        res = true;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+    public boolean moveDownStep(boolean isFirstStep) {
+        if (isFirstStep) {
+            merged = new boolean[numbers.length][numbers[0].length];
+            for (int i = 0; i < numbers.length; i++) {
+                for (int j = 0; j < numbers[0].length; j++) {
+                    num[i][j] = numbers[i][j];
+                }
+            }
+        }
+        boolean res = false;
+        for (int row = 0; row < numbers.length; row ++) {
+            for (int i = numbers.length - 1; i >= 0; i--) {
+                if (numbers[i][row] == 0) {
+                    if (i != 0 && numbers[i-1][row] != 0) {
+                        numbers[i][row] = numbers[i - 1][row];
+                        merged[i][row] = merged[i - 1][row];
+                        numbers[i - 1][row] = 0;
+                        res = true;
+                    }
+                } else {
+                    if (i != 0 && numbers[i - 1][row] == numbers[i][row] && !merged[i][row] && !merged[i - 1][row]) {
+                        numbers[i - 1][row] = 0;
+                        numbers[i][row] *= 2;
+                        merged[i][row] = true;
+                        res = true;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+    public boolean moveUpStep(boolean isFirstStep) {
+        if (isFirstStep) {
+            merged = new boolean[numbers.length][numbers[0].length];
+            for (int i = 0; i < numbers.length; i++) {
+                for (int j = 0; j < numbers[0].length; j++) {
+                    num[i][j] = numbers[i][j];
+                }
+            }
+        }
+        boolean res = false;
+        for (int row = 0; row < numbers.length; row ++) {
+            for (int i = 0; i < numbers[row].length; i++) {
+                if (numbers[i][row] == 0) {
+                    if (i != numbers[row].length - 1 && numbers[i + 1][row] != 0) {
+                        numbers[i][row] = numbers[i + 1][row];
+                        merged[i][row] = merged[i + 1][row];
+                        numbers[i + 1][row] = 0;
+                        res = true;
+                    }
+                } else {
+                    if (i != numbers[row].length - 1  && numbers[i + 1][row] == numbers[i][row] && !merged[i][row] && !merged[i + 1][row]) {
+                        numbers[i + 1][row] = 0;
+                        numbers[i][row] *= 2;
+                        merged[i][row] = true;
+                        res = true;
+                    }
+                }
+            }
+        }
+        return res;
+    }
+
+
+    public void addNewPiece(String direction) {
+        List<int[]> emptySpaces = new ArrayList<>();
+        for (int i = 0; i < numbers.length; i++) {
+            for (int j = 0; j < numbers[0].length; j++) {
+                if (numbers[i][j] == 0) {
+                    emptySpaces.add(new int[]{i, j});
+                }
+            }
+        }
+        if (emptySpaces.isEmpty()) {
+            System.out.println("doMove" + direction + " is unachievable.");
+        } else {
+            int index = random.nextInt(emptySpaces.size());
+            int[] randomEmptySpace = emptySpaces.get(index);
+            int rand = random.nextInt(2);
+            if (rand == 0) {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 2;
+            } else {
+                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 4;
+            }
+//            numbers[randomEmptySpace[0]][randomEmptySpace[1]] = (rand == 0 ? 2 : 4);
+        }
+    }
     public void moveRight() {
         for (int i = 0; i < numbers.length; i++) {
             for (int j = 0; j < numbers[0].length; j++) {
@@ -127,26 +291,7 @@ public class GridNumber {
                 }
             }*/
         }
-        List<int[]> emptySpaces = new ArrayList<>();
-        for (int i = 0; i < numbers.length; i++) {
-            for (int j = 0; j < numbers[0].length; j++) {
-                if (numbers[i][j] == 0) {
-                    emptySpaces.add(new int[]{i, j});
-                }
-            }
-        }
-        if (emptySpaces.isEmpty()) {
-            System.out.println("doMoveRight is unachievable.");
-        } else {
-            int index = random.nextInt(emptySpaces.size());
-            int[] randomEmptySpace = emptySpaces.get(index);
-            int rand = random.nextInt(2);
-            if (rand == 0) {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 2;
-            } else {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 4;
-            }
-        }
+        addNewPiece("Right");
         gameEnd();
     }
 
@@ -199,27 +344,7 @@ public class GridNumber {
                 }
             }*/
         }
-        List<int[]> emptySpaces = new ArrayList<>();
-        for (int i = 0; i < numbers.length; i++) {
-            for (int j = 0; j < numbers[0].length; j++) {
-                if (numbers[i][j] == 0) {
-                    emptySpaces.add(new int[]{i, j});
-                }
-            }
-        }
-        if (emptySpaces.isEmpty()) {
-            System.out.println("doMoveLeft is unachievable.");
-        } else {
-            int index = random.nextInt(emptySpaces.size());
-            int[] randomEmptySpace = emptySpaces.get(index);
-            int rand = random.nextInt(2);
-            if (rand == 0) {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 2;
-            } else {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 4;
-            }
-        }
-        gameEnd();
+        addNewPiece("Left");
     }
 
     public void moveUp() {
@@ -271,26 +396,7 @@ public class GridNumber {
                 }
             }*/
         }
-        List<int[]> emptySpaces = new ArrayList<>();
-        for (int i = 0; i < numbers.length; i++) {
-            for (int j = 0; j < numbers[0].length; j++) {
-                if (numbers[i][j] == 0) {
-                    emptySpaces.add(new int[]{i, j});
-                }
-            }
-        }
-        if (emptySpaces.isEmpty()) {
-            System.out.println("doMoveUp is unachievable.");
-        } else {
-            int index = random.nextInt(emptySpaces.size());
-            int[] randomEmptySpace = emptySpaces.get(index);
-            int rand = random.nextInt(2);
-            if (rand == 0) {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 2;
-            } else {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 4;
-            }
-        }
+        addNewPiece("Up");
         gameEnd();
     }
 
@@ -343,26 +449,7 @@ public class GridNumber {
                 }
             }*/
         }
-        List<int[]> emptySpaces = new ArrayList<>();
-        for (int i = 0; i < numbers.length; i++) {
-            for (int j = 0; j < numbers[0].length; j++) {
-                if (numbers[i][j] == 0) {
-                    emptySpaces.add(new int[]{i, j});
-                }
-            }
-        }
-        if (emptySpaces.isEmpty()) {
-            System.out.println("doMoveDown is unachievable.");
-        } else {
-            int index = random.nextInt(emptySpaces.size());
-            int[] randomEmptySpace = emptySpaces.get(index);
-            int rand = random.nextInt(2);
-            if (rand == 0) {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 2;
-            } else {
-                numbers[randomEmptySpace[0]][randomEmptySpace[1]] = 4;
-            }
-        }
+        addNewPiece("Down");
         gameEnd();
     }
 

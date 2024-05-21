@@ -113,7 +113,7 @@ public class RegisterFrame extends JFrame {
 //            Scanner input = new Scanner(System.in);
             account = AccountField.getText();
             password = PasswordField.getText();
-            confirm = Confirm.getText();
+            confirm = PasswordField1.getText();
 
 
             if (account.isEmpty()) {
@@ -122,6 +122,8 @@ public class RegisterFrame extends JFrame {
 
             File file = new File("src/" + account + "_password.txt");
             try {
+                System.out.println("pass = " + password);
+                System.out.println("conf = " + confirm);
                 if (file.createNewFile() && password.equals(confirm)) {
                     FileWriter fileWriter = new FileWriter(file);
                     fileWriter.write(password);

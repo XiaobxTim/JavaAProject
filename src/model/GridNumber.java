@@ -4,6 +4,7 @@ import java.util.*;
 
 public class GridNumber {
     private final int X_COUNT;
+
     private final int Y_COUNT;
     private boolean lock;
     public boolean getLock() {

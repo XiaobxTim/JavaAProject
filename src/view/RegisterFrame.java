@@ -104,6 +104,7 @@ public class RegisterFrame extends JFrame {
             loginFrame.setVisible(true);
             Cancel.setFocusable(false);
         });
+        System.out.println("here");
         OK.addActionListener(e -> {
             // AccountField.getText()
 //            PasswordField.getText()

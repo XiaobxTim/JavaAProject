@@ -111,7 +111,7 @@ public class GamePanelForVisitor extends ListenerPanel {
             FailureForVisitor failureFrameForVisitor=new FailureForVisitor(400,500,model.getScore());
             failureFrameForVisitor.setVisible(true);
         }else {
-            System.out.println("Click VK_Left");
+            System.out.println("Click VK_Left!");
             final boolean[] isFirst = {true};
             Timer timer = new Timer(DELAY, e -> {
                 System.out.println("`!");

@@ -114,7 +114,7 @@ public class GamePanel extends ListenerPanel {
                     System.out.println("...");
                     getModel().addNewPiece("Left");
                     this.updateGridsNumber();
-                    System.out.println("here");
+                    System.out.println("here!");
                     this.afterMove();
                     int number=model.FindMaxNumber();
                     if (number>=model.getAim()){

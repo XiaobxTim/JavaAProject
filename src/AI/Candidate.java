@@ -5,9 +5,6 @@ public class Candidate {
     public int y;
     public int value;
 
-    public Candidate() {
-    }
-
     public Candidate(int x, int y, int value) {
         this.x = x;
         this.y = y;

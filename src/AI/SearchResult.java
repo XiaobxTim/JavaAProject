@@ -9,11 +9,6 @@ public class SearchResult {
     public SearchResult() {
     }
 
-    public SearchResult(int move, double score) {
-        this.move = move;
-        this.score = score;
-    }
-
     public SearchResult(int move, double score, int positions, int cutoffs) {
         this.move = move;
         this.score = score;

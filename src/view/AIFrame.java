@@ -9,6 +9,8 @@ import util.ColorMap;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -95,10 +97,33 @@ public class AIFrame extends JFrame{
         save.addActionListener(e -> {
 
         });
+        Timer timer= new Timer(1000/60, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int[][] model2=new int[4][4];
+                for (int i=0;i<model2.length;i++){
+                    for (int j=0;j<model2[0].length;j++){
+                        model2[i][j]=model.getNumber(i,j);
+                    }
+                }
+                GameState model1=new GameState(model2);
+                AI ai=new AI(model1);
+                int direction=ai.getBestMove();
+                switch (direction) {
+                    case 0 -> gamePanel.doMoveUp();
+                    case 1 -> gamePanel.doMoveRight();
+                    case 2 -> gamePanel.doMoveDown();
+                    default -> gamePanel.doMoveLeft();
+                }
+            }
+        });
+        timer.start();
         stop.addActionListener(e -> {
+            timer.stop();
             gamePanel.setEnabled(false);
         });
         begin.addActionListener(e -> {
+            timer.start();
             gamePanel.setEnabled(true);
             int[][] model2=new int[4][4];
             for (int i=0;i<model2.length;i++){

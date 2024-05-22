@@ -261,6 +261,28 @@ public class SelectModel extends JFrame {
             jPanel.revalidate();
             jPanel.repaint();
         }
+        if (selectValue.equals("AI Mode")){
+            jPanel.removeAll();
+            JLabel jLabel=new JLabel("AI Mode");
+            jPanel.add(jLabel,BorderLayout.NORTH);
+            icon1=null;
+            try{
+                icon1 = new ImageIcon(ImageIO.read((new File("src/classic.png"))));
+            }catch (IOException e){
+                e.getStackTrace();
+            }
+            JLabel jLabel1=new JLabel(icon1);
+            jPanel.add(jLabel1,BorderLayout.EAST);
+            JTextArea textArea=new JTextArea("An AI model is designed based on the minimax algorithm with alpha-beta pruning to achieve higher scores using AI.");
+            textArea.setEditable(false);
+            textArea.setLineWrap(true);
+            textArea.setWrapStyleWord(true);
+            DefaultCaret caret = (DefaultCaret)textArea.getCaret();
+            caret.setVisible(false);
+            jPanel.add(textArea);
+            jPanel.revalidate();
+            jPanel.repaint();
+        }
     }
 }
 class MyListMode extends AbstractListModel<String> {

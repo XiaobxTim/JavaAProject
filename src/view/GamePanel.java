@@ -65,8 +65,8 @@ public class GamePanel extends ListenerPanel {
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureForVisitor failureFrameForVisitor=new FailureForVisitor(400,500,model.getScore());
-            failureFrameForVisitor.setVisible(true);
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_RIGHT");
             final boolean[] isFirst = {true};
@@ -82,8 +82,8 @@ public class GamePanel extends ListenerPanel {
                     if (number>=model.getAim()){
                         JFrame gameframe = findParentFrame(this);
                         gameframe.setVisible(false);
-                        SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
-                        successForVisitor.setVisible(true);
+                        SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                        successFrame.setVisible(true);
                     }
                     model.setLock(false);
                     ((Timer) e.getSource()).stop();
@@ -100,8 +100,8 @@ public class GamePanel extends ListenerPanel {
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureForVisitor failureFrameForVisitor=new FailureForVisitor(400,500,model.getScore());
-            failureFrameForVisitor.setVisible(true);
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_Left");
             final boolean[] isFirst = {true};
@@ -120,8 +120,8 @@ public class GamePanel extends ListenerPanel {
                     if (number>=model.getAim()){
                         JFrame gameframe = findParentFrame(this);
                         gameframe.setVisible(false);
-                        SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
-                        successForVisitor.setVisible(true);
+                        SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                        successFrame.setVisible(true);
                     }
                     model.setLock(false);
                     ((Timer) e.getSource()).stop();
@@ -139,8 +139,8 @@ public class GamePanel extends ListenerPanel {
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureForVisitor failureFrameForVisitor=new FailureForVisitor(400,500,model.getScore());
-            failureFrameForVisitor.setVisible(true);
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_UP");
             final boolean[] isFirst = {true};
@@ -156,8 +156,8 @@ public class GamePanel extends ListenerPanel {
                     if (number>=model.getAim()){
                         JFrame gameframe = findParentFrame(this);
                         gameframe.setVisible(false);
-                        SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
-                        successForVisitor.setVisible(true);
+                        SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                        successFrame.setVisible(true);
                     }
                     model.setLock(false);
                     ((Timer) e.getSource()).stop();
@@ -174,8 +174,8 @@ public class GamePanel extends ListenerPanel {
         if (model.gameEnd()) {
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureForVisitor failureFrameForVisitor=new FailureForVisitor(400,500,model.getScore());
-            failureFrameForVisitor.setVisible(true);
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_DOWN");
             final boolean[] isFirst = {true};
@@ -191,8 +191,8 @@ public class GamePanel extends ListenerPanel {
                     if (number>=model.getAim()){
                         JFrame gameframe = findParentFrame(this);
                         gameframe.setVisible(false);
-                        SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
-                        successForVisitor.setVisible(true);
+                        SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                        successFrame.setVisible(true);
                     }
                     model.setLock(false);
                     ((Timer) e.getSource()).stop();

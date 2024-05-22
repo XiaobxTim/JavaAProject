@@ -27,9 +27,11 @@ public class GameFrame extends JFrame {
     private Image image;
     public JFrame jf;
     private GridNumber model;
+    private int count;
 
     public GameFrame(int width, int height,JFrame jFrame) {
         jf=jFrame;
+        count=0;
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
         }catch (IOException e){
@@ -83,20 +85,25 @@ public class GameFrame extends JFrame {
         Hint.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.CTRL_DOWN_MASK));
         Hint.addActionListener(e -> {
             gamePanel.setEnabled(true);
-            int[][] model2=new int[4][4];
-            for (int i=0;i<model2.length;i++){
-                for (int j=0;j<model2[0].length;j++){
-                    model2[i][j]=model.getNumber(i,j);
+            count++;
+            if (count<=3){
+                int[][] model2=new int[4][4];
+                for (int i=0;i<model2.length;i++){
+                    for (int j=0;j<model2[0].length;j++){
+                        model2[i][j]=model.getNumber(i,j);
+                    }
                 }
-            }
-            GameState model1=new GameState(model2);
-            AI ai=new AI(model1);
-            int direction=ai.getBestMove();
-            switch (direction) {
-                case 0 -> gamePanel.doMoveUp();
-                case 1 -> gamePanel.doMoveRight();
-                case 2 -> gamePanel.doMoveDown();
-                default -> gamePanel.doMoveLeft();
+                GameState model1=new GameState(model2);
+                AI ai=new AI(model1);
+                int direction=ai.getBestMove();
+                switch (direction) {
+                    case 0 -> JOptionPane.showMessageDialog(null,"Up");
+                    case 1 -> JOptionPane.showMessageDialog(null,"Right");
+                    case 2 -> JOptionPane.showMessageDialog(null,"Down");
+                    default -> JOptionPane.showMessageDialog(null,"Left");
+                }
+            }else {
+                JOptionPane.showMessageDialog(null,"No chances");
             }
         });
         restart.addActionListener(e -> {

@@ -115,6 +115,7 @@ public class GridNumber {
                     }
                 } else {
                     if (i != 0 && numbers[row][i - 1] == numbers[row][i] && !merged[row][i] && !merged[row][i - 1]) {
+                        score += numbers[row][i - 1];
                         numbers[row][i - 1] = 0;
                         numbers[row][i] *= 2;
                         merged[row][i] = true;
@@ -146,6 +147,7 @@ public class GridNumber {
                     }
                 } else {
                     if (i != numbers[row].length - 1  && numbers[row][i + 1] == numbers[row][i] && !merged[row][i] && !merged[row][i + 1]) {
+                        score += numbers[row][i + 1];
                         numbers[row][i + 1] = 0;
                         numbers[row][i] *= 2;
                         merged[row][i] = true;
@@ -177,6 +179,7 @@ public class GridNumber {
                     }
                 } else {
                     if (i != 0 && numbers[i - 1][row] == numbers[i][row] && !merged[i][row] && !merged[i - 1][row]) {
+                        score += numbers[i - 1][row];
                         numbers[i - 1][row] = 0;
                         numbers[i][row] *= 2;
                         merged[i][row] = true;
@@ -208,6 +211,7 @@ public class GridNumber {
                     }
                 } else {
                     if (i != numbers[row].length - 1  && numbers[i + 1][row] == numbers[i][row] && !merged[i][row] && !merged[i + 1][row]) {
+                        score += numbers[i + 1][row];
                         numbers[i + 1][row] = 0;
                         numbers[i][row] *= 2;
                         merged[i][row] = true;

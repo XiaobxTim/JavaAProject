@@ -51,7 +51,11 @@ public class CustomPanelForVisitor extends ListenerPanel{
         }
         repaint();
     }
-
+    public void updateScoreAndStep() {
+        model.setScore(model.getS());
+        this.stepLabel.setText(String.format("Step: %d", this.steps-1));
+        this.scoreLabel.setText(String.format("Score: %d", model.getScore()));
+    }
 
     /**
      * Implement the abstract method declared in ListenerPanel.

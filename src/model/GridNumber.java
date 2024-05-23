@@ -27,6 +27,7 @@ public class GridNumber {
     private int Coin;
     private int aim = 2048;
     private int[][] num;
+    private int s;
 
     static Random random = new Random();
 
@@ -102,6 +103,7 @@ public class GridNumber {
                     num[i][j] = numbers[i][j];
                 }
             }
+            s=score;
         }
         boolean res = false;
         for (int row = 0; row < numbers.length; row ++) {
@@ -134,6 +136,7 @@ public class GridNumber {
                     num[i][j] = numbers[i][j];
                 }
             }
+            s=score;
         }
         boolean res = false;
         for (int row = 0; row < numbers.length; row ++) {
@@ -166,6 +169,7 @@ public class GridNumber {
                     num[i][j] = numbers[i][j];
                 }
             }
+            s=score;
         }
         boolean res = false;
         for (int row = 0; row < numbers.length; row ++) {
@@ -198,6 +202,7 @@ public class GridNumber {
                     num[i][j] = numbers[i][j];
                 }
             }
+            s=score;
         }
         boolean res = false;
         for (int row = 0; row < numbers.length; row ++) {
@@ -253,6 +258,7 @@ public class GridNumber {
                 num[i][j] = numbers[i][j];
             }
         }
+        s=score;
         for (int i = 0; i < numbers.length; i++) {
             for (int j = numbers[0].length - 2; j >= 0; j--) {
                 int k = 1;
@@ -306,6 +312,7 @@ public class GridNumber {
                 num[i][j] = numbers[i][j];
             }
         }
+        s=score;
         for (int i = 0; i < numbers.length; i++) {
             for (int j = 1; j < numbers[0].length; j++) {
                 int k = 1;
@@ -358,6 +365,7 @@ public class GridNumber {
                 num[i][j] = numbers[i][j];
             }
         }
+        s=score;
         for (int j = 0; j < numbers[0].length; j++) {
             for (int i = 1; i < numbers.length; i++) {
                 int k = 1;
@@ -411,6 +419,7 @@ public class GridNumber {
                 num[i][j] = numbers[i][j];
             }
         }
+        s=score;
         for (int j = 0; j < numbers[0].length; j++) {
             for (int i = numbers.length - 2; i >= 0; i--) {
                 int k = 1;
@@ -500,6 +509,7 @@ public class GridNumber {
     public void setScore(int score) {
         this.score = score;
     }
+    public void setS(int s){this.s=s;}
 
     public void setCoin(int Coin) {
         this.Coin = Coin;
@@ -516,6 +526,7 @@ public class GridNumber {
     public int getScore() {
         return score;
     }
+    public int getS(){return s;}
 
     public int getCoin() {
         return Coin;

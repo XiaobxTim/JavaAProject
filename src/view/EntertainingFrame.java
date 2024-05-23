@@ -65,7 +65,6 @@ public class EntertainingFrame extends JFrame {
         JMenuItem stop=new JMenuItem("stop");
         JMenuItem begin=new JMenuItem("begin");
         JMenuItem setting=new JMenuItem("setting");
-        JMenuItem back=new JMenuItem("back");
         JMenuItem Hint=new JMenuItem("Hint");
         menu.add(menuItem);
         menu.add(props);
@@ -76,7 +75,6 @@ public class EntertainingFrame extends JFrame {
         props.add(crash);
         menu.add(stop);
         menu.add(begin);
-        menu.add(back);
         menu.add(Hint);
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
@@ -87,7 +85,6 @@ public class EntertainingFrame extends JFrame {
         stop.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.ALT_DOWN_MASK));
         begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
         setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
-        back.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_Z,KeyEvent.CTRL_DOWN_MASK));
         Hint.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.CTRL_DOWN_MASK));
         Hint.addActionListener(e -> {
             gamePanel.setEnabled(true);
@@ -125,14 +122,6 @@ public class EntertainingFrame extends JFrame {
         setting.addActionListener(e ->{
             int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
             model.setAim(aim);
-        });
-        back.addActionListener(e -> {
-            for (int i=0;i<4;i++){
-                for (int j=0;j<4;j++){
-                    model.setNumber(i,j,model.getNum(i,j));
-                    gamePanel.updateGridsNumber();
-                }
-            }
         });
         load.addActionListener(e -> {
             String string = JOptionPane.showInputDialog(this, "Input path:");

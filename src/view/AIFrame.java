@@ -115,20 +115,7 @@ public class AIFrame extends JFrame{
                 }
             }
         });
-        int number=model.FindMaxNumber();
-        if (number>=model.getAim()){
-            timer.stop();
-            this.setVisible(false);
-            SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
-            successFrame.setVisible(true);
-        } else if (model.gameEnd()){
-            timer.stop();
-            this.setVisible(false);
-            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
-            failureFrame.setVisible(true);
-        }else {
-            timer.start();
-        }
+        timer.start();
 
         stop.addActionListener(e -> {
             timer.stop();

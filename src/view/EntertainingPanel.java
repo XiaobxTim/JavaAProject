@@ -57,7 +57,6 @@ public class EntertainingPanel extends ListenerPanel{
         repaint();
     }
 
-
     /**
      * Implement the abstract method declared in ListenerPanel.
      * Do move right.

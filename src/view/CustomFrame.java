@@ -109,6 +109,8 @@ public class CustomFrame extends JFrame{
                     gamePanel.updateGridsNumber();
                 }
             }
+            model.setScore(model.getS());
+            gamePanel.updateScoreAndStep();
         });
         restart.addActionListener(e -> {
             setVisible(true);

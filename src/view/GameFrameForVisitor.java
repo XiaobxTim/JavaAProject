@@ -119,13 +119,14 @@ public class GameFrameForVisitor extends JFrame{
             model.setAim(aim);
         });
         back.addActionListener(e -> {
-
             for (int i=0;i<4;i++){
                 for (int j=0;j<4;j++){
                     model.setNumber(i,j,model.getNum(i,j));
                     gamePanel.updateGridsNumber();
                 }
             }
+            model.setScore(model.getS());
+            gamePanel.updateScoreAndStep();
         });
 
         this.controller = new GameControllerForVisitor(gamePanel, gamePanel.getModel());

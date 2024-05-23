@@ -127,6 +127,8 @@ public class GameFrame extends JFrame {
                     gamePanel.updateGridsNumber();
                 }
             }
+            model.setScore(model.getS());
+            gamePanel.updateScoreAndStep();
         });
         load.addActionListener(e -> {
             String string = JOptionPane.showInputDialog(this, "Input path:");

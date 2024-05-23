@@ -7,6 +7,8 @@ import util.ColorMap;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.File;
@@ -72,6 +74,13 @@ public class RestartFrameForVisitor extends JFrame{
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        JFrame gameFrame1=this;
+        gameFrame1.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                centerWindow(gameFrame1);
+            }
+        });
     }
     private JButton createButton(String name, Point location, int width, int height) {
         JButton button = new JButton(name);
@@ -88,5 +97,16 @@ public class RestartFrameForVisitor extends JFrame{
         label.setSize(width, height);
         this.add(label);
         return label;
+    }
+    private static void centerWindow(Window window) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension windowSize = window.getSize();
+
+        // 计算新位置，使得窗体在屏幕中央
+        int x = (screenSize.width - windowSize.width) / 2;
+        int y = (screenSize.height - windowSize.height) / 2;
+
+        // 设置窗体的新位置
+        window.setLocation(x, y);
     }
 }

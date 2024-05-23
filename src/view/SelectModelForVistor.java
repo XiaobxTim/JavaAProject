@@ -8,10 +8,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.DefaultCaret;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -104,6 +101,13 @@ public class SelectModelForVistor extends JFrame {
         });
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        JFrame gameFrame1=this;
+        gameFrame1.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                centerWindow(gameFrame1);
+            }
+        });
     }
     private JLabel createLabel(String name, Font font, Point location, int width, int height) {
         JLabel label = new JLabel(name);
@@ -167,7 +171,17 @@ public class SelectModelForVistor extends JFrame {
             jPanel.repaint();
         }
     }
+    private static void centerWindow(Window window) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension windowSize = window.getSize();
 
+        // 计算新位置，使得窗体在屏幕中央
+        int x = (screenSize.width - windowSize.width) / 2;
+        int y = (screenSize.height - windowSize.height) / 2;
+
+        // 设置窗体的新位置
+        window.setLocation(x, y);
+    }
 }
 class MyListModel extends AbstractListModel<String> {
     private String[] contents = {"Classic Mode", "Custom Mode"};

@@ -246,6 +246,13 @@ public class LoginFrame extends JFrame{
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        JFrame gameFrame=this;
+        gameFrame.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                centerWindow(gameFrame);
+            }
+        });
     }
     private JButton createButton(String name, Point location, int width, int height) {
         JButton button = new JButton(name);
@@ -320,5 +327,16 @@ public class LoginFrame extends JFrame{
             captcha.append(characters.charAt(random.nextInt(characters.length())));
         }
         return captcha.toString();
+    }
+    private static void centerWindow(Window window) {
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension windowSize = window.getSize();
+
+        // 计算新位置，使得窗体在屏幕中央
+        int x = (screenSize.width - windowSize.width) / 2;
+        int y = (screenSize.height - windowSize.height) / 2;
+
+        // 设置窗体的新位置
+        window.setLocation(x, y);
     }
 }

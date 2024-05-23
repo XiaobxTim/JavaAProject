@@ -37,6 +37,7 @@ public class AIPanel extends ListenerPanel{
         this.grids = new GridComponent[COUNT][COUNT];
         this.model = new GridNumber(COUNT, COUNT);
         initialGame();
+        this.account=account;
     }
 
     public GridNumber getModel() {

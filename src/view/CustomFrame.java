@@ -26,7 +26,7 @@ public class CustomFrame extends JFrame{
     private GridNumber model;
     private int count;
 
-    public CustomFrame(int width, int height,int size,JFrame jFrame) {
+    public CustomFrame(int width, int height,int size,JFrame jFrame,String account) {
         count=0;
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
@@ -45,7 +45,7 @@ public class CustomFrame extends JFrame{
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        gamePanel = new CustomPanel((int) (this.getHeight() * 0.65),size);
+        gamePanel = new CustomPanel((int) (this.getHeight() * 0.65),size,account);
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
         this.model=gamePanel.getModel();

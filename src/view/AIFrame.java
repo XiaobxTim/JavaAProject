@@ -29,7 +29,8 @@ public class AIFrame extends JFrame{
     private Image image;
     public JFrame jf;
     private GridNumber model;
-    public AIFrame(int width, int height,JFrame jFrame) {
+    private Timer timer;
+    public AIFrame(int width, int height,JFrame jFrame,String account) {
         jf=jFrame;
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
@@ -48,7 +49,7 @@ public class AIFrame extends JFrame{
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        gamePanel = new AIPanel((int) (this.getHeight() * 0.65));
+        gamePanel = new AIPanel((int) (this.getHeight() * 0.65),account);
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
         this.model=gamePanel.getModel();
@@ -95,9 +96,9 @@ public class AIFrame extends JFrame{
         save.addActionListener(e -> {
 
         });
-        Timer timer= new Timer(1000/60, e -> {
+        timer= new Timer(1000/60, e -> {
             int number=model.FindMaxNumber();
-            if (number < model.getAim() && !model.gameEnd()){
+            if (number < model.getAim()){
                 int[][] model2=new int[4][4];
                 for (int i=0;i<model2.length;i++){
                     for (int j=0;j<model2[0].length;j++){
@@ -108,11 +109,37 @@ public class AIFrame extends JFrame{
                 AI ai=new AI(model1);
                 int direction=ai.getBestMove();
                 switch (direction) {
-                    case 0 -> gamePanel.doMoveUp();
-                    case 1 -> gamePanel.doMoveRight();
-                    case 2 -> gamePanel.doMoveDown();
-                    default -> gamePanel.doMoveLeft();
+                    case 0 -> {
+                        try {
+                            gamePanel.doMoveUp();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                    case 1 -> {
+                        try {
+                            gamePanel.doMoveRight();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                    case 2 -> {
+                        try {
+                            gamePanel.doMoveDown();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                    default -> {
+                        try {
+                            gamePanel.doMoveLeft();
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
                 }
+            }else {
+                timer.stop();
             }
         });
         timer.start();
@@ -134,10 +161,34 @@ public class AIFrame extends JFrame{
             AI ai=new AI(model1);
             int direction=ai.getBestMove();
             switch (direction) {
-                case 0 -> gamePanel.doMoveUp();
-                case 1 -> gamePanel.doMoveRight();
-                case 2 -> gamePanel.doMoveDown();
-                default -> gamePanel.doMoveLeft();
+                case 0 -> {
+                    try {
+                        gamePanel.doMoveUp();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+                case 1 -> {
+                    try {
+                        gamePanel.doMoveRight();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+                case 2 -> {
+                    try {
+                        gamePanel.doMoveDown();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+                default -> {
+                    try {
+                        gamePanel.doMoveLeft();
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
             }
         });
 

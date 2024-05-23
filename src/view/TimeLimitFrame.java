@@ -11,8 +11,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.stream.Collectors;
 
 public class TimeLimitFrame extends JFrame{
     private GridNumber model;
@@ -29,7 +35,7 @@ public class TimeLimitFrame extends JFrame{
     private JMenuBar menuBar;
     private Image image;
     private int count;
-    public TimeLimitFrame(int width, int height,JFrame jFrame) {
+    public TimeLimitFrame(int width, int height,JFrame jFrame,String account) {
         count=0;
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
@@ -48,10 +54,10 @@ public class TimeLimitFrame extends JFrame{
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        gamePanel = new TimeLimitPanel((int) (this.getHeight() * 0.65));
+        gamePanel = new TimeLimitPanel((int) (this.getHeight() * 0.65),account);
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
-
+        this.model=gamePanel.getModel();
         menuBar=new JMenuBar();
         setJMenuBar(menuBar);
         JMenu menu=new JMenu("菜单");
@@ -155,6 +161,35 @@ public class TimeLimitFrame extends JFrame{
             } else {
                 ((Timer) e.getSource()).stop();
                 time.setText("Time's up!");
+                gamePanel.setEnabled(false);
+                File TimeLimitFile = new File("src/" + account + "_TimeLimitMode.txt");
+                if (TimeLimitFile.exists()){
+                    try (FileWriter fileWriter = new FileWriter(TimeLimitFile,true)) {
+                        fileWriter.write(Integer.toString(model.getScore()));
+                        fileWriter.write(System.lineSeparator());
+                    } catch (IOException exception) {
+                        exception.printStackTrace();
+                    }
+                    String filePath = "src/" + account + "_TimeLimitMode.txt";
+                    java.util.List<Integer> numbers = null;
+                    try {
+                        numbers = Files.lines(Paths.get(filePath)).map(line -> line.trim()).filter(line -> !line.isEmpty()).map(Integer::parseInt).collect(Collectors.toList());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Collections.sort(numbers,Collections.reverseOrder());
+                    try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
+                        for (Integer num : numbers) {
+                            writer.write(num.toString());
+                            writer.newLine();
+                        }
+                    } catch (IOException er) {
+                        er.printStackTrace();
+                    }
+                }
+                gameFrame.setVisible(false);
+                FailureFrame failureFrame=new FailureFrame(400,500,model.getScore(),account);
+                failureFrame.setVisible(true);
             }
             if (gamePanel.getModel().gameEnd()){
                 ((Timer)e.getSource()).stop();

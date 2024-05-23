@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class SelectModel extends JFrame {
@@ -30,7 +31,12 @@ public class SelectModel extends JFrame {
     private ImageIcon icon2;
     private String selectValue;
     private JPanel jPanel;
-    public SelectModel(int width, int height){
+    private File ClassicFile;
+    private File CustomFile;
+    private File TimeLimitFile;
+    private File EntertainingFile;
+    private File AIFile;
+    public SelectModel(int width, int height,String account){
         setFocusable(true);
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
@@ -115,33 +121,88 @@ public class SelectModel extends JFrame {
         OK.setContentAreaFilled(false);
         OK.addActionListener(e -> {
             if (selectValue.equals("Classic Mode")){
+                ClassicFile = new File("src/" + account + "_ClassicMode.txt");
+                if (!ClassicFile.exists()){
+                    try{
+                        System.out.println("create file");
+                        FileWriter fileWriter = new FileWriter(ClassicFile,true);
+                        fileWriter.write(System.lineSeparator());
+                        fileWriter.close();
+                    }catch (Exception exception){
+                        exception.printStackTrace();
+                    }
+                }
                 setVisible(false);
-                GameFrame gameFrame=new GameFrame(400,500,jFrame);
+                GameFrame gameFrame=new GameFrame(400,500,jFrame,account);
                 gameFrame.setVisible(true);
             }
             if (selectValue.equals("Custom Mode")){
+                CustomFile = new File("src/" + account + "_CustomMode.txt");
+                if (!CustomFile.exists()){
+                    try{
+                        System.out.println("create file");
+                        FileWriter fileWriter = new FileWriter(CustomFile,true);
+                        fileWriter.write(System.lineSeparator());
+                        fileWriter.close();
+                    }catch (Exception exception){
+                        exception.printStackTrace();
+                    }
+                }
                 setVisible(false);
                 int size = Integer.parseInt(JOptionPane.showInputDialog(this, "Input Size:"));
                 if (size<=10){
-                    CustomFrame customFrame=new CustomFrame(400,500,size,jFrame);
+                    CustomFrame customFrame=new CustomFrame(400,500,size,jFrame,account);
                     customFrame.setVisible(true);
                 }else {
                     JOptionPane.showMessageDialog(null,"Please input again");
                 }
             }
             if (selectValue.equals("TimeLimit Mode")){
+                TimeLimitFile = new File("src/" + account + "_TimeLimitMode.txt");
+                if (!TimeLimitFile.exists()){
+                    try{
+                        System.out.println("create file");
+                        FileWriter fileWriter = new FileWriter(TimeLimitFile,true);
+                        fileWriter.write(System.lineSeparator());
+                        fileWriter.close();
+                    }catch (Exception exception){
+                        exception.printStackTrace();
+                    }
+                }
                 setVisible(false);
-                TimeLimitFrame timeLimitFrame=new TimeLimitFrame(400,500,jFrame);
+                TimeLimitFrame timeLimitFrame=new TimeLimitFrame(400,500,jFrame,account);
                 timeLimitFrame.setVisible(true);
             }
             if (selectValue.equals("Entertaining Mode")){
+                EntertainingFile = new File("src/" + account + "_EntertainingMode.txt");
+                if (!EntertainingFile.exists()){
+                    try{
+                        System.out.println("create file");
+                        FileWriter fileWriter = new FileWriter(EntertainingFile,true);
+                        fileWriter.write(System.lineSeparator());
+                        fileWriter.close();
+                    }catch (Exception exception){
+                        exception.printStackTrace();
+                    }
+                }
                 setVisible(false);
-                EntertainingFrame entertainingFrame=new EntertainingFrame(400,500,jFrame);
+                EntertainingFrame entertainingFrame=new EntertainingFrame(400,500,jFrame,account);
                 entertainingFrame.setVisible(true);
             }
             if (selectValue.equals("AI Mode")){
+                AIFile = new File("src/" + account + "_AIMode.txt");
+                if (!AIFile.exists()){
+                    try{
+                        System.out.println("create file");
+                        FileWriter fileWriter = new FileWriter(AIFile,true);
+                        fileWriter.write(System.lineSeparator());
+                        fileWriter.close();
+                    }catch (Exception exception){
+                        exception.printStackTrace();
+                    }
+                }
                 setVisible(false);
-                AIFrame aiFrame=new AIFrame(400,500,jFrame);
+                AIFrame aiFrame=new AIFrame(400,500,jFrame,account);
                 aiFrame.setVisible(true);
             }
         });

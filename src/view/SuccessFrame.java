@@ -15,7 +15,7 @@ public class SuccessFrame extends JFrame{
     private JButton Yes;
     private JButton No;
     private Image image;
-    public SuccessFrame(int width,int height,int score){
+    public SuccessFrame(int width,int height,int score,String account){
         setFocusable(true);
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
@@ -48,7 +48,7 @@ public class SuccessFrame extends JFrame{
         Yes.setContentAreaFilled(false);
         this.Yes.addActionListener(e -> {
             setVisible(false);
-            SelectModel selectModel=new SelectModel(700,500);
+            SelectModel selectModel=new SelectModel(700,500,account);
             selectModel.setVisible(true);
         });
         this.No=createButton("No",new Point(220,280),100,50);

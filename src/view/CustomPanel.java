@@ -4,6 +4,15 @@ import model.GridNumber;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class CustomPanel extends ListenerPanel {
@@ -15,8 +24,9 @@ public class CustomPanel extends ListenerPanel {
     private int steps;
     private int score;
     private final int GRID_SIZE;
+    private String account;
 
-    public CustomPanel(int size,int COUNT) {
+    public CustomPanel(int size,int COUNT,String account) {
         this.setVisible(true);
         this.setFocusable(true);
         this.setLayout(null);
@@ -26,7 +36,7 @@ public class CustomPanel extends ListenerPanel {
         this.grids = new GridComponent[COUNT][COUNT];
         this.model = new GridNumber(COUNT, COUNT);
         initialGame();
-
+        this.account=account;
     }
 
     public GridNumber getModel() {
@@ -64,11 +74,31 @@ public class CustomPanel extends ListenerPanel {
      * Do move right.
      */
     @Override
-    public void doMoveRight() {
+    public void doMoveRight() throws IOException {
         if (model.gameEnd()) {
+            File CustomFile = new File("src/" + account + "_CustomMode.txt");
+            if (CustomFile.exists()){
+                try (FileWriter fileWriter = new FileWriter(CustomFile,true)) {
+                    fileWriter.write(Integer.toString(model.getScore()));
+                    fileWriter.write(System.lineSeparator());
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+                String filePath = "src/" + account + "_CustomMode.txt";
+                List<Integer> numbers = Files.lines(Paths.get(filePath)).map(line -> line.trim()).filter(line -> !line.isEmpty()).map(Integer::parseInt).collect(Collectors.toList());
+                Collections.sort(numbers,Collections.reverseOrder());
+                try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
+                    for (Integer num : numbers) {
+                        writer.write(num.toString());
+                        writer.newLine();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore(),account);
             failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_RIGHT");
@@ -77,19 +107,64 @@ public class CustomPanel extends ListenerPanel {
             this.afterMove();
             int number=model.FindMaxNumber();
             if (number>=model.getAim()){
+                File CustomFile = new File("src/" + account + "_CustomMode.txt");
+                if (CustomFile.exists()){
+                    try (FileWriter fileWriter = new FileWriter(CustomFile,true)) {
+                        fileWriter.write(Integer.toString(model.getScore()));
+                        fileWriter.write(System.lineSeparator());
+                    } catch (IOException exception) {
+                        exception.printStackTrace();
+                    }
+                    String filePath = "src/" + account + "_ClassicMode.txt";
+                    List<Integer> numbers = null;
+                    try {
+                        numbers = Files.lines(Paths.get(filePath)).map(line -> line.trim()).filter(line -> !line.isEmpty()).map(Integer::parseInt).collect(Collectors.toList());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Collections.sort(numbers,Collections.reverseOrder());
+                    try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
+                        for (Integer num : numbers) {
+                            writer.write(num.toString());
+                            writer.newLine();
+                        }
+                    } catch (IOException er) {
+                        er.printStackTrace();
+                    }
+                }
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
-                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore(),account);
                 successFrame.setVisible(true);
             }
         }
     }
     @Override
-    public void doMoveLeft() {
+    public void doMoveLeft() throws IOException {
         if (model.gameEnd()) {
+            File CustomFile = new File("src/" + account + "_CustomMode.txt");
+            if (CustomFile.exists()){
+                try (FileWriter fileWriter = new FileWriter(CustomFile,true)) {
+                    fileWriter.write(Integer.toString(model.getScore()));
+                    fileWriter.write(System.lineSeparator());
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+                String filePath = "src/" + account + "_CustomMode.txt";
+                List<Integer> numbers = Files.lines(Paths.get(filePath)).map(line -> line.trim()).filter(line -> !line.isEmpty()).map(Integer::parseInt).collect(Collectors.toList());
+                Collections.sort(numbers,Collections.reverseOrder());
+                try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
+                    for (Integer num : numbers) {
+                        writer.write(num.toString());
+                        writer.newLine();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore(),account);
             failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_Left");
@@ -98,19 +173,64 @@ public class CustomPanel extends ListenerPanel {
             this.afterMove();
             int number=model.FindMaxNumber();
             if (number>=model.getAim()){
+                File CustomFile = new File("src/" + account + "_CustomMode.txt");
+                if (CustomFile.exists()){
+                    try (FileWriter fileWriter = new FileWriter(CustomFile,true)) {
+                        fileWriter.write(Integer.toString(model.getScore()));
+                        fileWriter.write(System.lineSeparator());
+                    } catch (IOException exception) {
+                        exception.printStackTrace();
+                    }
+                    String filePath = "src/" + account + "_ClassicMode.txt";
+                    List<Integer> numbers = null;
+                    try {
+                        numbers = Files.lines(Paths.get(filePath)).map(line -> line.trim()).filter(line -> !line.isEmpty()).map(Integer::parseInt).collect(Collectors.toList());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Collections.sort(numbers,Collections.reverseOrder());
+                    try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
+                        for (Integer num : numbers) {
+                            writer.write(num.toString());
+                            writer.newLine();
+                        }
+                    } catch (IOException er) {
+                        er.printStackTrace();
+                    }
+                }
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
-                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore(),account);
                 successFrame.setVisible(true);
             }
         }
     }
     @Override
-    public void doMoveUp() {
+    public void doMoveUp() throws IOException {
         if (model.gameEnd()) {
+            File CustomFile = new File("src/" + account + "_CustomMode.txt");
+            if (CustomFile.exists()){
+                try (FileWriter fileWriter = new FileWriter(CustomFile,true)) {
+                    fileWriter.write(Integer.toString(model.getScore()));
+                    fileWriter.write(System.lineSeparator());
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+                String filePath = "src/" + account + "_CustomMode.txt";
+                List<Integer> numbers = Files.lines(Paths.get(filePath)).map(line -> line.trim()).filter(line -> !line.isEmpty()).map(Integer::parseInt).collect(Collectors.toList());
+                Collections.sort(numbers,Collections.reverseOrder());
+                try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
+                    for (Integer num : numbers) {
+                        writer.write(num.toString());
+                        writer.newLine();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore(),account);
             failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_UP");
@@ -119,19 +239,64 @@ public class CustomPanel extends ListenerPanel {
             this.afterMove();
             int number=model.FindMaxNumber();
             if (number>=model.getAim()){
+                File CustomFile = new File("src/" + account + "_CustomMode.txt");
+                if (CustomFile.exists()){
+                    try (FileWriter fileWriter = new FileWriter(CustomFile,true)) {
+                        fileWriter.write(Integer.toString(model.getScore()));
+                        fileWriter.write(System.lineSeparator());
+                    } catch (IOException exception) {
+                        exception.printStackTrace();
+                    }
+                    String filePath = "src/" + account + "_ClassicMode.txt";
+                    List<Integer> numbers = null;
+                    try {
+                        numbers = Files.lines(Paths.get(filePath)).map(line -> line.trim()).filter(line -> !line.isEmpty()).map(Integer::parseInt).collect(Collectors.toList());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Collections.sort(numbers,Collections.reverseOrder());
+                    try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
+                        for (Integer num : numbers) {
+                            writer.write(num.toString());
+                            writer.newLine();
+                        }
+                    } catch (IOException er) {
+                        er.printStackTrace();
+                    }
+                }
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
-                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore(),account);
                 successFrame.setVisible(true);
             }
         }
     }
     @Override
-    public void doMoveDown() {
+    public void doMoveDown() throws IOException {
         if (model.gameEnd()) {
+            File CustomFile = new File("src/" + account + "_CustomMode.txt");
+            if (CustomFile.exists()){
+                try (FileWriter fileWriter = new FileWriter(CustomFile,true)) {
+                    fileWriter.write(Integer.toString(model.getScore()));
+                    fileWriter.write(System.lineSeparator());
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+                String filePath = "src/" + account + "_CustomMode.txt";
+                List<Integer> numbers = Files.lines(Paths.get(filePath)).map(line -> line.trim()).filter(line -> !line.isEmpty()).map(Integer::parseInt).collect(Collectors.toList());
+                Collections.sort(numbers,Collections.reverseOrder());
+                try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
+                    for (Integer num : numbers) {
+                        writer.write(num.toString());
+                        writer.newLine();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
             JFrame gameframe = findParentFrame(this);
             gameframe.setVisible(false);
-            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore(),account);
             failureFrame.setVisible(true);
         }else {
             System.out.println("Click VK_DOWN");
@@ -140,9 +305,34 @@ public class CustomPanel extends ListenerPanel {
             this.afterMove();
             int number=model.FindMaxNumber();
             if (number>=model.getAim()){
+                File CustomFile = new File("src/" + account + "_CustomMode.txt");
+                if (CustomFile.exists()){
+                    try (FileWriter fileWriter = new FileWriter(CustomFile,true)) {
+                        fileWriter.write(Integer.toString(model.getScore()));
+                        fileWriter.write(System.lineSeparator());
+                    } catch (IOException exception) {
+                        exception.printStackTrace();
+                    }
+                    String filePath = "src/" + account + "_ClassicMode.txt";
+                    List<Integer> numbers = null;
+                    try {
+                        numbers = Files.lines(Paths.get(filePath)).map(line -> line.trim()).filter(line -> !line.isEmpty()).map(Integer::parseInt).collect(Collectors.toList());
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    Collections.sort(numbers,Collections.reverseOrder());
+                    try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
+                        for (Integer num : numbers) {
+                            writer.write(num.toString());
+                            writer.newLine();
+                        }
+                    } catch (IOException er) {
+                        er.printStackTrace();
+                    }
+                }
                 JFrame gameframe = findParentFrame(this);
                 gameframe.setVisible(false);
-                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+                SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore(),account);
                 successFrame.setVisible(true);
             }
         }

@@ -27,7 +27,7 @@ public class EntertainingFrame extends JFrame {
     private Image image;
     public JFrame jf;
     private int count;
-    public EntertainingFrame(int width, int height,JFrame jFrame) {
+    public EntertainingFrame(int width, int height,JFrame jFrame,String account) {
         jf=jFrame;
         count=0;
         try {
@@ -47,7 +47,7 @@ public class EntertainingFrame extends JFrame {
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        gamePanel = new EntertainingPanel((int) (this.getHeight() * 0.65));
+        gamePanel = new EntertainingPanel((int) (this.getHeight() * 0.65),account);
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
         this.model=gamePanel.getModel();

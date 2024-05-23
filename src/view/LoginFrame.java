@@ -188,7 +188,7 @@ public class LoginFrame extends JFrame{
                         if (jx.getText().equalsIgnoreCase(captchaLabel.getText())){
                             JOptionPane.showMessageDialog(this, "login Successfully");
                             setVisible(false);
-                            SelectModel selectModel=new SelectModel(700,500);
+                            SelectModel selectModel=new SelectModel(700,500,account);
                             selectModel.setVisible(true);
                         }else{
                             JOptionPane.showMessageDialog(this,"Wrong Captcha");

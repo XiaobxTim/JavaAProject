@@ -48,7 +48,7 @@ public class SuccessForVisitor extends JFrame{
         Yes.setContentAreaFilled(false);
         this.Yes.addActionListener(e -> {
             setVisible(false);
-            SelectModel selectModel=new SelectModel(700,500);
+            SelectModelForVistor selectModel=new SelectModelForVistor(700,500);
             selectModel.setVisible(true);
         });
         this.No=createButton("No",new Point(220,280),100,50);

@@ -79,25 +79,41 @@ public class CustomDirection extends JFrame {
 
         this.Right.addActionListener(e -> {
             Right.setFocusable(true);
-            gamePanel.doMoveRight();
+            try {
+                gamePanel.doMoveRight();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             Right.setFocusable(false);
             jFrame.setFocusable(true);
         });
         this.Left.addActionListener(e -> {
             Left.setFocusable(true);
-            gamePanel.doMoveLeft();
+            try {
+                gamePanel.doMoveLeft();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             Left.setFocusable(false);
             jFrame.setFocusable(true);
         });
         this.Up.addActionListener(e -> {
             Up.setFocusable(true);
-            gamePanel.doMoveUp();
+            try {
+                gamePanel.doMoveUp();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             Up.setFocusable(false);
             jFrame.setFocusable(true);
         });
         this.Down.addActionListener(e -> {
             Down.setFocusable(true);
-            gamePanel.doMoveDown();
+            try {
+                gamePanel.doMoveDown();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
             Down.setFocusable(false);
             jFrame.setFocusable(true);
         });

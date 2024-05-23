@@ -29,7 +29,7 @@ public class GameFrame extends JFrame {
     private GridNumber model;
     private int count;
 
-    public GameFrame(int width, int height,JFrame jFrame) {
+    public GameFrame(int width, int height,JFrame jFrame,String account) {
         jf=jFrame;
         count=0;
         try {
@@ -49,7 +49,7 @@ public class GameFrame extends JFrame {
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        gamePanel = new GamePanel((int) (this.getHeight() * 0.65));
+        gamePanel = new GamePanel((int) (this.getHeight() * 0.65),account);
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
         this.model=gamePanel.getModel();
@@ -154,6 +154,8 @@ public class GameFrame extends JFrame {
         gamePanel.setStepLabel(stepLabel);
         gamePanel.setScoreLabel(scoreLabel);
         gamePanel.setMaxscoreLabel(maxscoreLabel);
+
+
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

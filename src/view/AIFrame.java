@@ -2,6 +2,7 @@ package view;
 
 import AI.AI;
 import AI.GameState;
+import controller.AIController;
 import controller.GameController;
 import model.GridNumber;
 import util.ColorMap;
@@ -16,14 +17,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class AIFrame extends JFrame{
-    private GameController controller;
+    private AIController controller;
 
     private JLabel stepLabel;
     private JLabel scoreLabel;
     private JLabel maxscoreLabel;
     private JLabel jl1;
     private JLabel jl2;
-    private GamePanel gamePanel;
+    private AIPanel gamePanel;
     private JMenuBar menuBar;
     private Image image;
     public JFrame jf;
@@ -47,10 +48,11 @@ public class AIFrame extends JFrame{
         this.setLayout(null);
         this.setSize(width, height);
         ColorMap.InitialColorMap();
-        gamePanel = new GamePanel((int) (this.getHeight() * 0.65));
+        gamePanel = new AIPanel((int) (this.getHeight() * 0.65));
         gamePanel.setLocation(this.getHeight() / 15, this.getWidth() /4);
         this.add(gamePanel);
         this.model=gamePanel.getModel();
+
         menuBar=new JMenuBar();
         setJMenuBar(menuBar);
         JMenu menu=new JMenu("菜单");
@@ -68,6 +70,7 @@ public class AIFrame extends JFrame{
         menu.add(save);
         menu.add(stop);
         menu.add(begin);
+        menu.add(setting);
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
         load.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_L,KeyEvent.CTRL_DOWN_MASK));
@@ -77,13 +80,8 @@ public class AIFrame extends JFrame{
         setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
         restart.addActionListener(e -> {
             setVisible(true);
-            RestartFrame restartFrame=new RestartFrame(700,500, controller, gamePanel, gameFrame,jFrame);
-            restartFrame.setVisible(true);
-        });
-        menuItem.addActionListener(e -> {
-            setVisible(true);
-            DirectionFrame directionFrame=new DirectionFrame(300,250,gamePanel);
-            directionFrame.setVisible(true);
+            RestartAI restartAI=new RestartAI(700,500, controller, gamePanel, gameFrame,jFrame);
+            restartAI.setVisible(true);
         });
         setting.addActionListener(e ->{
             int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
@@ -97,9 +95,9 @@ public class AIFrame extends JFrame{
         save.addActionListener(e -> {
 
         });
-        Timer timer= new Timer(1000/60, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        Timer timer= new Timer(1000/60, e -> {
+            int number=model.FindMaxNumber();
+            if (number < model.getAim() && !model.gameEnd()){
                 int[][] model2=new int[4][4];
                 for (int i=0;i<model2.length;i++){
                     for (int j=0;j<model2[0].length;j++){
@@ -117,7 +115,21 @@ public class AIFrame extends JFrame{
                 }
             }
         });
-        timer.start();
+        int number=model.FindMaxNumber();
+        if (number>=model.getAim()){
+            timer.stop();
+            this.setVisible(false);
+            SuccessFrame successFrame=new SuccessFrame(400,500,model.getScore());
+            successFrame.setVisible(true);
+        } else if (model.gameEnd()){
+            timer.stop();
+            this.setVisible(false);
+            FailureFrame failureFrame=new FailureFrame(400,500,model.getScore());
+            failureFrame.setVisible(true);
+        }else {
+            timer.start();
+        }
+
         stop.addActionListener(e -> {
             timer.stop();
             gamePanel.setEnabled(false);
@@ -142,7 +154,7 @@ public class AIFrame extends JFrame{
             }
         });
 
-        this.controller = new GameController(gamePanel, gamePanel.getModel());
+        this.controller = new AIController(gamePanel, gamePanel.getModel());
         this.jl1=createLabel("2048",new Font("serif",Font.ITALIC|Font.BOLD,35),new Point(20,20),70,50);
         this.jl2=createLabel("Join the numbers and get to the 2048 tile!",new Font("serif",Font.PLAIN,16),new Point(30,65),270,50);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(190, 20), 80, 50);

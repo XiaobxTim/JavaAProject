@@ -23,7 +23,7 @@ public class AI {
         double smoothWeight = 0.1, //平滑性权重系数
                 monoWeight = 1.3, //单调性权重系数
                 emptyWeight = 2.7, //空格数权重系数
-                maxWeight = 1.0; //最大数权重系数
+                maxWeight = 0.5; //最大数权重系数
         return grid.smoothness() * smoothWeight
                 + grid.monotonicity() * monoWeight
                 + Math.log(getEmptyNum(grid.getCellMatrix())) * emptyWeight

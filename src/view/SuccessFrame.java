@@ -36,7 +36,7 @@ public class SuccessFrame extends JFrame{
         this.NameLabel=createLabel("CONGRADULATION",new Font("serif", Font.ITALIC|Font.BOLD,30),new Point(50,80),300,50);
         NameLabel.setForeground(Color.BLACK);
         String str="Your final score is "+score;
-        this.jl=createLabel(str,new Font("serif", Font.ITALIC|Font.BOLD,15),new Point(80,150),400,50);
+        this.jl=createLabel(str,new Font("serif", Font.ITALIC|Font.BOLD,20),new Point(90,150),400,50);
         jl.setForeground(Color.BLACK);
         this.jl1=createLabel("PLAY AGAIN?",new Font("serif", Font.ITALIC|Font.BOLD,25),new Point(110,210),200,50);
         jl1.setForeground(Color.BLACK);

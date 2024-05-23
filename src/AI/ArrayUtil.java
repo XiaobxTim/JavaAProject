@@ -1,7 +1,6 @@
 package AI;
 
 public class ArrayUtil {
-
     public static int getMax(int[][] matrix) {
         int max = 0;
         for (int[] aMatrix : matrix)

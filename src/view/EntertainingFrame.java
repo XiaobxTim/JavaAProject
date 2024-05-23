@@ -172,9 +172,9 @@ public class EntertainingFrame extends JFrame {
         this.controller = new EntertainingController(gamePanel, gamePanel.getModel());
         this.jl1=createLabel("2048",new Font("serif",Font.ITALIC|Font.BOLD,35),new Point(20,20),70,50);
         this.jl2=createLabel("Join the numbers and get to the 2048 tile!",new Font("serif",Font.PLAIN,16),new Point(30,65),270,50);
-        this.CoinLabel = createLabel("Coin", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(190, 20), 80, 50);
-        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(100, 20), 80, 50);
-        this.maxscoreLabel = createLabel("Maxscore", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(280, 20), 90, 50);
+        this.CoinLabel = createLabel("Coin", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(280, 20), 100, 50);
+        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(150, 15), 100, 25);
+        this.maxscoreLabel = createLabel("Maxscore", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(150, 45), 100, 25);
         gamePanel.setCoinLabel(CoinLabel);
         gamePanel.setScoreLabel(scoreLabel);
         gamePanel.setMaxscoreLabel(maxscoreLabel);

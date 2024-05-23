@@ -124,20 +124,24 @@ public class RegisterFrame extends JFrame {
             }
 
             File file = new File("src/" + account + "_password.txt");
-            try {
-                System.out.println("pass = " + password);
-                System.out.println("conf = " + confirm);
-                if (file.createNewFile() && password.equals(confirm)) {
-                    FileWriter fileWriter = new FileWriter(file);
-                    fileWriter.write(password);
-                    fileWriter.close();
-                    JOptionPane.showMessageDialog(this, "OK!");
-                } else {
-                    System.out.println("create failed");
-                    JOptionPane.showMessageDialog(this, "Fail!");
+            if (file.exists()){
+                JOptionPane.showMessageDialog(null,"The account has already been registered");
+            }else {
+                try {
+                    System.out.println("pass = " + password);
+                    System.out.println("conf = " + confirm);
+                    if (file.createNewFile() && password.equals(confirm)) {
+                        FileWriter fileWriter = new FileWriter(file);
+                        fileWriter.write(password);
+                        fileWriter.close();
+                        JOptionPane.showMessageDialog(this, "OK!");
+                    } else {
+                        System.out.println("create failed");
+                        JOptionPane.showMessageDialog(this, "Fail!");
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
-            } catch (Exception exception){
-                exception.printStackTrace();
             }
 
         });

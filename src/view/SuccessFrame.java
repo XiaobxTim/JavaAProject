@@ -49,6 +49,7 @@ public class SuccessFrame extends JFrame{
         Yes.setOpaque(false);
         Yes.setContentAreaFilled(false);
         this.Yes.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             setVisible(false);
             SelectModel selectModel=new SelectModel(700,500,account);
             selectModel.setVisible(true);
@@ -59,6 +60,7 @@ public class SuccessFrame extends JFrame{
         No.setOpaque(false);
         No.setContentAreaFilled(false);
         this.No.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             this.dispose();
         });
         this.setLocationRelativeTo(null);

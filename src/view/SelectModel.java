@@ -117,6 +117,8 @@ public class SelectModel extends JFrame {
         OK.setOpaque(false);
         OK.setContentAreaFilled(false);
         OK.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
+//            playSound("ClickButton.wav");
             if (selectValue.equals("Classic Mode")){
                 ClassicFile = new File("src/" + account + "_ClassicMode.txt");
                 if (!ClassicFile.exists()){

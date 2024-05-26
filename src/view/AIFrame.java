@@ -143,10 +143,12 @@ public class AIFrame extends JFrame{
         timer.start();
 
         stop.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             timer.stop();
             gamePanel.setEnabled(false);
         });
         begin.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             timer.start();
             gamePanel.setEnabled(true);
             int[][] model2=new int[4][4];

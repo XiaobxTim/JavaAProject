@@ -87,6 +87,7 @@ public class TimeLimitFrame extends JFrame{
         back.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_Z,KeyEvent.CTRL_DOWN_MASK));
         Hint.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.CTRL_DOWN_MASK));
         Hint.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             gamePanel.setEnabled(true);
             count++;
             if (count<=3){
@@ -110,6 +111,7 @@ public class TimeLimitFrame extends JFrame{
             }
         });
         back.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             for (int i=0;i<4;i++){
                 for (int j=0;j<4;j++){
                     model.setNumber(i,j,model.getNum(i,j));
@@ -120,25 +122,30 @@ public class TimeLimitFrame extends JFrame{
             gamePanel.updateScoreAndStep();
         });
         restart.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             setVisible(true);
             RestartTimeLimit restartTimeLimit=new RestartTimeLimit(700,500, controller, gamePanel, gameFrame,jFrame);
             restartTimeLimit.setVisible(true);
         });
         menuItem.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             setVisible(true);
             TimeLimitDirection timeLimitDirection=new TimeLimitDirection(300,250,gamePanel);
             timeLimitDirection.setVisible(true);
         });
         setting.addActionListener(e ->{
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
             model.setAim(aim);
         });
         load.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             String string = JOptionPane.showInputDialog(this, "Input path:");
             System.out.println(string);
             gamePanel.requestFocusInWindow();
         });
         save.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
 
         });
 
@@ -197,10 +204,12 @@ public class TimeLimitFrame extends JFrame{
         // 启动Timer
         timer.start();
         stop.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             gamePanel.setEnabled(false);
             timer.stop();
         });
         begin.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             gamePanel.setEnabled(true);
             timer.start();
         });

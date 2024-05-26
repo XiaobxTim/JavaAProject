@@ -78,24 +78,28 @@ public class DirectionFrameForVisitor extends JFrame{
         Down.setContentAreaFilled(false);
 
         this.Right.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             Right.setFocusable(true);
             gamePanel.doMoveRight();
             Right.setFocusable(false);
             jFrame.setFocusable(true);
         });
         this.Left.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             Left.setFocusable(true);
             gamePanel.doMoveLeft();
             Left.setFocusable(false);
             jFrame.setFocusable(true);
         });
         this.Up.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             Up.setFocusable(true);
             gamePanel.doMoveUp();
             Up.setFocusable(false);
             jFrame.setFocusable(true);
         });
         this.Down.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             Down.setFocusable(true);
             gamePanel.doMoveDown();
             Down.setFocusable(false);

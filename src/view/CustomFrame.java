@@ -82,6 +82,7 @@ public class CustomFrame extends JFrame{
         menu.add(Hint);
         Hint.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.CTRL_DOWN_MASK));
         Hint.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             gamePanel.setEnabled(true);
             count++;
             if (count<=3){
@@ -105,6 +106,7 @@ public class CustomFrame extends JFrame{
             }
         });
         back.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             for (int i=0;i<4;i++){
                 for (int j=0;j<4;j++){
                     model.setNumber(i,j,model.getNum(i,j));
@@ -115,31 +117,38 @@ public class CustomFrame extends JFrame{
             gamePanel.updateScoreAndStep();
         });
         restart.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             setVisible(true);
             RestartCustom restartCustom=new RestartCustom(700,500, controller, gamePanel, gameFrame,jFrame);
             restartCustom.setVisible(true);
         });
         menuItem.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             setVisible(true);
             CustomDirection customDirection=new CustomDirection(300,250,gamePanel);
             customDirection.setVisible(true);
         });
         setting.addActionListener(e ->{
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
             model.setAim(aim);
         });
         load.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             String string = JOptionPane.showInputDialog(this, "Input path:");
             System.out.println(string);
             gamePanel.requestFocusInWindow();
         });
         save.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
 
         });
         stop.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             gamePanel.setEnabled(false);
         });
         begin.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             gamePanel.setEnabled(true);
         });
 

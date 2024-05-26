@@ -14,6 +14,7 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 
 public class GamePanel extends ListenerPanel {
@@ -333,7 +334,7 @@ public class GamePanel extends ListenerPanel {
                 }
                 String filePath = "src/" + account + "_ClassicMode.txt";
                 List<Integer> numbers = Files.lines(Paths.get(filePath)).map(line -> line.trim()).filter(line -> !line.isEmpty()).map(Integer::parseInt).collect(Collectors.toList());
-                Collections.sort(numbers);
+                Collections.sort(numbers,Collections.reverseOrder());
                 try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
                     for (Integer num : numbers) {
                         writer.write(num.toString());
@@ -375,7 +376,7 @@ public class GamePanel extends ListenerPanel {
                             } catch (IOException ex) {
                                 throw new RuntimeException(ex);
                             }
-                            Collections.sort(numbers);
+                            Collections.sort(numbers,Collections.reverseOrder());
                             try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(filePath))) {
                                 for (Integer num : numbers) {
                                     writer.write(num.toString());
@@ -404,6 +405,13 @@ public class GamePanel extends ListenerPanel {
             this.steps++;
             this.stepLabel.setText(String.format("Step: %d", this.steps));
             this.scoreLabel.setText(String.format("Score: %d", model.getScore()));
+            String filePath = "src/" + account + "_ClassicMode.txt"; // 替换为你的文件路径
+            try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+                String firstLine = lines.findFirst().orElse("0");
+                this.maxscoreLabel.setText(String.format("MaxScore: %s",firstLine));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

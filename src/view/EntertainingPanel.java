@@ -13,6 +13,7 @@ import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class EntertainingPanel extends ListenerPanel{
     private final int COUNT = 4;
@@ -394,6 +395,13 @@ public class EntertainingPanel extends ListenerPanel{
             this.steps++;
             this.CoinLabel.setText(String.format("Coin: %d", model.getCoin()));
             this.scoreLabel.setText(String.format("Score: %d", model.getScore()));
+            String filePath = "src/" + account + "_EntertainingMode.txt"; // 替换为你的文件路径
+            try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+                String firstLine = lines.findFirst().orElse("0");
+                this.maxscoreLabel.setText(String.format("MaxScore: %s",firstLine));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

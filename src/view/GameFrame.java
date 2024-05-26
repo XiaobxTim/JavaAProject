@@ -74,6 +74,7 @@ public class GameFrame extends JFrame {
         menu.add(save);
         menu.add(stop);
         menu.add(begin);
+        menu.add(setting);
         menu.add(back);
         menu.add(Hint);
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));

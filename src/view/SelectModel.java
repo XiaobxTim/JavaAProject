@@ -123,7 +123,6 @@ public class SelectModel extends JFrame {
                     try{
                         System.out.println("create file");
                         FileWriter fileWriter = new FileWriter(ClassicFile,true);
-                        fileWriter.write(System.lineSeparator());
                         fileWriter.close();
                     }catch (Exception exception){
                         exception.printStackTrace();
@@ -139,7 +138,6 @@ public class SelectModel extends JFrame {
                     try{
                         System.out.println("create file");
                         FileWriter fileWriter = new FileWriter(CustomFile,true);
-                        fileWriter.write(System.lineSeparator());
                         fileWriter.close();
                     }catch (Exception exception){
                         exception.printStackTrace();
@@ -160,7 +158,6 @@ public class SelectModel extends JFrame {
                     try{
                         System.out.println("create file");
                         FileWriter fileWriter = new FileWriter(TimeLimitFile,true);
-                        fileWriter.write(System.lineSeparator());
                         fileWriter.close();
                     }catch (Exception exception){
                         exception.printStackTrace();
@@ -176,7 +173,6 @@ public class SelectModel extends JFrame {
                     try{
                         System.out.println("create file");
                         FileWriter fileWriter = new FileWriter(EntertainingFile,true);
-                        fileWriter.write(System.lineSeparator());
                         fileWriter.close();
                     }catch (Exception exception){
                         exception.printStackTrace();
@@ -192,7 +188,6 @@ public class SelectModel extends JFrame {
                     try{
                         System.out.println("create file");
                         FileWriter fileWriter = new FileWriter(AIFile,true);
-                        fileWriter.write(System.lineSeparator());
                         fileWriter.close();
                     }catch (Exception exception){
                         exception.printStackTrace();

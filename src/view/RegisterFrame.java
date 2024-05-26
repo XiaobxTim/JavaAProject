@@ -100,6 +100,7 @@ public class RegisterFrame extends JFrame {
         Cancel.setContentAreaFilled(false);
 
         Cancel.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             Cancel.setFocusable(true);
             setVisible(false);
             LoginFrame loginFrame=new LoginFrame(700,500);
@@ -108,6 +109,7 @@ public class RegisterFrame extends JFrame {
         });
         System.out.println("here");
         OK.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             // AccountField.getText()
 //            PasswordField.getText()
             String account;

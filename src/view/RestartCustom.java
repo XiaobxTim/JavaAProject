@@ -50,6 +50,7 @@ public class RestartCustom extends JFrame{
         CancelBtn.setContentAreaFilled(false);
 
         ConfirmBtn.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             ConfirmBtn.setFocusable(true);
             this.dispose();
             gameFrame.setVisible(false);
@@ -66,6 +67,7 @@ public class RestartCustom extends JFrame{
             }
         });
         CancelBtn.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             CancelBtn.setFocusable(true);
             this.dispose();
             CancelBtn.setFocusable(false);

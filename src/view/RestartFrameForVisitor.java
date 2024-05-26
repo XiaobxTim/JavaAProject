@@ -50,6 +50,7 @@ public class RestartFrameForVisitor extends JFrame{
         CancelBtn.setOpaque(false);
         CancelBtn.setContentAreaFilled(false);
         ConfirmBtn.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             ConfirmBtn.setFocusable(true);
             this.dispose();
             jFrame.setVisible(false);
@@ -67,6 +68,7 @@ public class RestartFrameForVisitor extends JFrame{
             }
         });
         CancelBtn.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             CancelBtn.setFocusable(true);
             this.dispose();
             CancelBtn.setFocusable(false);

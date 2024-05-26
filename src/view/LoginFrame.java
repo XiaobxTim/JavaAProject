@@ -164,6 +164,7 @@ public class LoginFrame extends JFrame{
         });
 
         Register.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             Register.setFocusable(true);
             setVisible(false);
             RegisterFrame registerFrame=new RegisterFrame(700,500);
@@ -172,6 +173,7 @@ public class LoginFrame extends JFrame{
         });
         //监听login
         Login.addActionListener(e ->{
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             String account;
             String password;
 
@@ -204,6 +206,7 @@ public class LoginFrame extends JFrame{
             }
         });
         jl3.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             setVisible(true);
             String account=JOptionPane.showInputDialog("Please input your account");
             File file=new File("src/"+account+"_password.txt");

@@ -75,6 +75,7 @@ public class SelectModelForVistor extends JFrame {
         OK.setOpaque(false);
         OK.setContentAreaFilled(false);
         OK.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             if (selectValue.equals("Classic Mode")){
                 setVisible(false);
                 GameFrameForVisitor gameFrameForVisitor=new GameFrameForVisitor(400,500);

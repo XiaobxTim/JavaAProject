@@ -42,8 +42,10 @@ public class StartFrame extends JFrame {
         VisitorLogin.setFont(font);
         VisitorLogin.setForeground(Color.BLACK);
         VisitorLogin.setOpaque(false);
+
         VisitorLogin.setContentAreaFilled(false);
         this.VisitorLogin.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             setVisible(true);
             SelectModelForVistor selectModelForVistor=new SelectModelForVistor(700,500);
             selectModelForVistor.setVisible(true);
@@ -54,6 +56,7 @@ public class StartFrame extends JFrame {
         PlayerLogin.setOpaque(false);
         PlayerLogin.setContentAreaFilled(false);
         this.PlayerLogin.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             setVisible(true);
             
             LoginFrame loginFrame=new LoginFrame(700,500);

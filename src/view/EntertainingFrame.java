@@ -89,6 +89,7 @@ public class EntertainingFrame extends JFrame {
         setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
         Hint.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.CTRL_DOWN_MASK));
         Hint.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             gamePanel.setEnabled(true);
             count++;
             if (count<=3){
@@ -112,25 +113,30 @@ public class EntertainingFrame extends JFrame {
             }
         });
         restart.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             setVisible(true);
             RestartEntertaining restartEntertaining=new RestartEntertaining(700,500, controller, gamePanel, gameFrame,jFrame);
             restartEntertaining.setVisible(true);
         });
         menuItem.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             setVisible(true);
             EntertainingDirection entertainingDirection=new EntertainingDirection(300,250,gamePanel);
             entertainingDirection.setVisible(true);
         });
         setting.addActionListener(e ->{
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
             model.setAim(aim);
         });
         load.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             String string = JOptionPane.showInputDialog(this, "Input path:");
             System.out.println(string);
             gamePanel.requestFocusInWindow();
         });
         change.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             if (model.getCoin()>=30){
                 int i= Integer.parseInt(JOptionPane.showInputDialog("input row"));
                 int j= Integer.parseInt(JOptionPane.showInputDialog("input col"));
@@ -146,6 +152,7 @@ public class EntertainingFrame extends JFrame {
             }
         });
         crash.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             if (model.getCoin()>=30){
                 int i= Integer.parseInt(JOptionPane.showInputDialog("input row"));
                 int j= Integer.parseInt(JOptionPane.showInputDialog("input col"));
@@ -160,12 +167,15 @@ public class EntertainingFrame extends JFrame {
             }
         });
         save.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
 
         });
         stop.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             gamePanel.setEnabled(false);
         });
         begin.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             gamePanel.setEnabled(true);
         });
 

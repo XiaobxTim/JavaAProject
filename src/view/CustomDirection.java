@@ -78,6 +78,8 @@ public class CustomDirection extends JFrame {
         Down.setContentAreaFilled(false);
 
         this.Right.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
+
             Right.setFocusable(true);
             try {
                 gamePanel.doMoveRight();
@@ -88,6 +90,7 @@ public class CustomDirection extends JFrame {
             jFrame.setFocusable(true);
         });
         this.Left.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             Left.setFocusable(true);
             try {
                 gamePanel.doMoveLeft();
@@ -98,6 +101,7 @@ public class CustomDirection extends JFrame {
             jFrame.setFocusable(true);
         });
         this.Up.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             Up.setFocusable(true);
             try {
                 gamePanel.doMoveUp();
@@ -108,6 +112,7 @@ public class CustomDirection extends JFrame {
             jFrame.setFocusable(true);
         });
         this.Down.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             Down.setFocusable(true);
             try {
                 gamePanel.doMoveDown();

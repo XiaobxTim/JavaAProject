@@ -8,12 +8,17 @@ import util.ColorMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class CustomFrame extends JFrame{
     private CustomController controller;
@@ -64,6 +69,45 @@ public class CustomFrame extends JFrame{
         JMenuItem setting=new JMenuItem("setting");
         JMenuItem back=new JMenuItem("back");
         JMenuItem Hint=new JMenuItem("Hint");
+        JMenuItem Rank=new JMenuItem("Rank");
+        Rank.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.SHIFT_DOWN_MASK));
+        Rank.addActionListener(e -> {
+            this.setVisible(true);
+            String filePath = "src/" + account + "_CustomMode.txt";
+            JList<String> list = new JList<>();
+            ArrayList<String> lines = readFirstTenLines(filePath);
+            DefaultListModel<String> model = new DefaultListModel<>();
+            for (String line : lines) {
+                model.addElement(line);
+            }
+            list.setModel(model);
+            list.setFixedCellHeight(50);
+            list.setFont(list.getFont().deriveFont(22.0f));
+            list.setCellRenderer(new DefaultListCellRenderer() {
+                @Override
+                public Component getListCellRendererComponent(
+                        JList<?> list,
+                        Object value,
+                        int index,
+                        boolean isSelected,
+                        boolean cellHasFocus) {
+
+                    // 调用父类的实现以获取基本的渲染组件
+                    super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+                    // 设置文本居中（水平和垂直）
+                    setHorizontalAlignment(JLabel.CENTER);
+                    setVerticalAlignment(JLabel.CENTER);
+
+                    // 如果你想在文本周围添加一些空白，可以添加EmptyBorder
+                    setBorder(new EmptyBorder(5, 10, 5, 10)); // 上、左、下、右的空白
+
+                    return this;
+                }
+            });
+            Rank rank=new Rank(400,500,list);
+            rank.setVisible(true);
+        });
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
         load.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_L,KeyEvent.CTRL_DOWN_MASK));
@@ -80,6 +124,7 @@ public class CustomFrame extends JFrame{
         menu.add(begin);
         menu.add(back);
         menu.add(Hint);
+        menu.add(Rank);
         Hint.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.CTRL_DOWN_MASK));
         Hint.addActionListener(e -> {
             ClickSound.playSound(getClass(),  "ClickButton.wav");
@@ -155,9 +200,9 @@ public class CustomFrame extends JFrame{
         this.controller = new CustomController(gamePanel, gamePanel.getModel());
         this.jl1=createLabel("2048",new Font("serif",Font.ITALIC|Font.BOLD,35),new Point(20,20),70,50);
         this.jl2=createLabel("Join the numbers and get to the 2048 tile!",new Font("serif",Font.PLAIN,16),new Point(30,65),270,50);
-        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(150, 15), 100, 25);
+        this.scoreLabel = createLabel("Score", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(100, 15), 150, 25);
         this.stepLabel = createLabel("Start", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(280, 20), 100, 50);
-        this.maxscoreLabel = createLabel("Maxscore", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(150, 45), 100, 25);
+        this.maxscoreLabel = createLabel("Maxscore", new Font("serif", Font.ITALIC|Font.BOLD, 15), new Point(100, 45), 150, 25);
         gamePanel.setStepLabel(stepLabel);
         gamePanel.setScoreLabel(scoreLabel);
         gamePanel.setMaxscoreLabel(maxscoreLabel);
@@ -199,5 +244,19 @@ public class CustomFrame extends JFrame{
 
         // 设置窗体的新位置
         window.setLocation(x, y);
+    }
+    private static ArrayList<String> readFirstTenLines(String filePath) {
+        ArrayList<String> lines = new ArrayList<>();
+        try (BufferedReader reader = Files.newBufferedReader(Paths.get(filePath))) {
+            String line;
+            int count = 0;
+            while ((line = reader.readLine()) != null && count < 10) {
+                lines.add(line);
+                count++;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return lines;
     }
 }

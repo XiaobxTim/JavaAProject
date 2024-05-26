@@ -4,6 +4,7 @@ import util.ColorMap;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.text.DefaultCaret;
@@ -57,6 +58,28 @@ public class SelectModel extends JFrame {
         this.add(js);
         jl.setFixedCellHeight(50);
         jl.setFont(jl.getFont().deriveFont(22.0f));
+        jl.setCellRenderer(new DefaultListCellRenderer() {
+            @Override
+            public Component getListCellRendererComponent(
+                    JList<?> list,
+                    Object value,
+                    int index,
+                    boolean isSelected,
+                    boolean cellHasFocus) {
+
+                // 调用父类的实现以获取基本的渲染组件
+                super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+                // 设置文本居中（水平和垂直）
+                setHorizontalAlignment(JLabel.CENTER);
+                setVerticalAlignment(JLabel.CENTER);
+
+                // 如果你想在文本周围添加一些空白，可以添加EmptyBorder
+                setBorder(new EmptyBorder(5, 10, 5, 10)); // 上、左、下、右的空白
+
+                return this;
+            }
+        });
         JFrame jFrame=this;
 
         this.selectMode = createLabel("Please Select Mode", new Font("serif", Font.ITALIC, 45), new Point(150, 10), 500, 50);

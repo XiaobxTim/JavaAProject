@@ -197,6 +197,7 @@ public class EntertainingFrame extends JFrame {
                             gamePanel.setCoin(Integer.parseInt(fileReader.readLine()));
                             gamePanel.updateCoin(gamePanel.getCoin());
                             model.setScore(gamePanel.getScore());
+                            model.setCoin(gamePanel.getCoin());
                         } catch (IOException ex) {
                             ex.printStackTrace();
                             JOptionPane.showMessageDialog(null,"Wrong Path!");

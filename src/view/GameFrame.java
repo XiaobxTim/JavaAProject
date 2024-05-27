@@ -265,7 +265,7 @@ public class GameFrame extends JFrame {
                     }
                     fileWriter.write(Integer.toString(model.getScore()));
                     fileWriter.write(System.lineSeparator());
-                    fileWriter.write(Integer.toString(model.getStep()));
+                    fileWriter.write(Integer.toString(gamePanel.getStep()));
                     fileWriter.write(System.lineSeparator());
                 } catch (IOException ex) {
                     ex.printStackTrace();

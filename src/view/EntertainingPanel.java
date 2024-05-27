@@ -81,7 +81,7 @@ public class EntertainingPanel extends ListenerPanel{
     }
     public void updateCoin(int coins) {
         model.setScore(model.getS());
-        this.CoinLabel.setText(String.format("Step: %d", coins));
+        this.CoinLabel.setText(String.format("Coin: %d", coins));
     }
     /**
      * Implement the abstract method declared in ListenerPanel.

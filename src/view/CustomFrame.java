@@ -72,7 +72,7 @@ public class CustomFrame extends JFrame{
         Rank.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.SHIFT_DOWN_MASK));
         Rank.addActionListener(e -> {
             this.setVisible(true);
-            String filePath = "src/" + account + "_CustomMode.txt";
+            String filePath = "src/" + account +size+ "_CustomMode.txt";
             JList<String> list = new JList<>();
             ArrayList<String> lines = readFirstTenLines(filePath);
             DefaultListModel<String> model = new DefaultListModel<>();

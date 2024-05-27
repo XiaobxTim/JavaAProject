@@ -158,19 +158,19 @@ public class SelectModel extends JFrame {
                 gameFrame.setVisible(true);
             }
             if (selectValue.equals("Custom Mode")){
-                CustomFile = new File("src/" + account + "_CustomMode.txt");
-                if (!CustomFile.exists()){
-                    try{
-                        System.out.println("create file");
-                        FileWriter fileWriter = new FileWriter(CustomFile,true);
-                        fileWriter.close();
-                    }catch (Exception exception){
-                        exception.printStackTrace();
-                    }
-                }
                 setVisible(false);
                 int size = Integer.parseInt(JOptionPane.showInputDialog(this, "Input Size:"));
                 if (size<=10){
+                    CustomFile = new File("src/" + account +size+ "_CustomMode.txt");
+                    if (!CustomFile.exists()){
+                        try{
+                            System.out.println("create file");
+                            FileWriter fileWriter = new FileWriter(CustomFile,true);
+                            fileWriter.close();
+                        }catch (Exception exception){
+                            exception.printStackTrace();
+                        }
+                    }
                     CustomFrame customFrame=new CustomFrame(400,500,size,jFrame,account);
                     customFrame.setVisible(true);
                 }else {

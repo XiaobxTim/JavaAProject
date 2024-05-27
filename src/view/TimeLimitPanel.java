@@ -73,6 +73,14 @@ public class TimeLimitPanel extends ListenerPanel {
         this.stepLabel.setText(String.format("Step: %d", this.steps-1));
         this.scoreLabel.setText(String.format("Score: %d", model.getScore()));
     }
+    public void updateScore(int score) {
+        model.setScore(model.getS());
+        this.scoreLabel.setText(String.format("Score: %d", score));
+    }
+    public void updateStep(int steps) {
+        model.setScore(model.getS());
+        this.stepLabel.setText(String.format("Step: %d", steps));
+    }
 
     /**
      * Implement the abstract method declared in ListenerPanel.
@@ -422,6 +430,14 @@ public class TimeLimitPanel extends ListenerPanel {
     }
     public void setScoreLabel(JLabel scoreLabel){ this.scoreLabel = scoreLabel; }
     public void setMaxscoreLabel(JLabel maxscoreLabel){ this.maxscoreLabel = maxscoreLabel;}
+    public void setStep(int steps){this.steps=steps;}
+    public int getStep(){return steps;}
+    public void setScore(int score) {
+        this.score = score;
+    }
+    public int getScore() {
+        return score;
+    }
     private JFrame findParentFrame(Component comp) {
         if (comp == null) {
             return null;

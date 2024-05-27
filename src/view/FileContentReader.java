@@ -3,7 +3,6 @@ package view;
 import java.io.BufferedReader;//读取字符、数组和行
 import java.io.FileReader;
 import java.io.IOException;
-
 public class FileContentReader {
 
     public static String readFile(String filePath) {

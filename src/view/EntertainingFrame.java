@@ -14,12 +14,11 @@ import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class EntertainingFrame extends JFrame {
     private EntertainingController controller;
@@ -177,7 +176,40 @@ public class EntertainingFrame extends JFrame {
         load.addActionListener(e -> {
             ClickSound.playSound(getClass(),  "ClickButton.wav");
             String string = JOptionPane.showInputDialog(this, "Input path:");
-            System.out.println(string);
+            String filePath="src/"+account+"_content of EntertainingMode.txt";
+            File file=new File(filePath);
+            if (file.exists()){
+                try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+                    String firstLine = lines.findFirst().orElse("0");
+                    if (string.equals(firstLine)){
+                        String line;
+                        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
+                            if ((line=fileReader.readLine())!=null){
+                            }
+                            for (int i=0;i<model.getX_COUNT();i++){
+                                for (int j=0;j<model.getY_COUNT();j++){
+                                    model.setNumber(i,j,Integer.parseInt(fileReader.readLine()));
+                                }
+                            }
+                            gamePanel.updateGridsNumber();
+                            gamePanel.setScore(Integer.parseInt(fileReader.readLine()));
+                            gamePanel.updateScore(gamePanel.getScore());
+                            gamePanel.setCoin(Integer.parseInt(fileReader.readLine()));
+                            gamePanel.updateCoin(gamePanel.getCoin());
+                            model.setScore(gamePanel.getScore());
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(null,"Wrong Path!");
+                        }
+                    }else {
+                        JOptionPane.showMessageDialog(null,"Path is not right!");
+                    }
+                } catch (IOException er) {
+                    er.printStackTrace();
+                }
+            }else {
+                JOptionPane.showMessageDialog(null,"Have not saved before!");
+            }
             gamePanel.requestFocusInWindow();
         });
         change.addActionListener(e -> {
@@ -213,7 +245,54 @@ public class EntertainingFrame extends JFrame {
         });
         save.addActionListener(e -> {
             ClickSound.playSound(getClass(),  "ClickButton.wav");
-
+            String string = JOptionPane.showInputDialog(this, "Input path:");
+            String filePath="src/"+account+"_content of EntertainingMode.txt";
+            File file=new File(filePath);
+            if (file.exists()){
+                try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+                    String firstLine = lines.findFirst().orElse("0");
+                    if (string.equals(firstLine)){
+                        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePath))) {
+                            fileWriter.write(string);
+                            fileWriter.write(System.lineSeparator());
+                            for (int i=0;i<model.getX_COUNT();i++){
+                                for (int j=0;j<model.getY_COUNT();j++){
+                                    fileWriter.write(Integer.toString(model.getNumber(i,j)));
+                                    fileWriter.write(System.lineSeparator());
+                                }
+                            }
+                            fileWriter.write(Integer.toString(model.getScore()));
+                            fileWriter.write(System.lineSeparator());
+                            fileWriter.write(Integer.toString(gamePanel.getCoin()));
+                            fileWriter.write(System.lineSeparator());
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                            System.err.println("Error occurred while writing to the file.");
+                        }
+                    }else {
+                        JOptionPane.showMessageDialog(null,"Path is not right!");
+                    }
+                } catch (IOException er) {
+                    er.printStackTrace();
+                }
+            }else {
+                try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePath))) {
+                    fileWriter.write(string);
+                    fileWriter.write(System.lineSeparator());
+                    for (int i=0;i<model.getX_COUNT();i++){
+                        for (int j=0;j<model.getY_COUNT();j++){
+                            fileWriter.write(Integer.toString(model.getNumber(i,j)));
+                            fileWriter.write(System.lineSeparator());
+                        }
+                    }
+                    fileWriter.write(Integer.toString(model.getScore()));
+                    fileWriter.write(System.lineSeparator());
+                    fileWriter.write(Integer.toString(model.getCoin()));
+                    fileWriter.write(System.lineSeparator());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
         });
         stop.addActionListener(e -> {
             ClickSound.playSound(getClass(),  "ClickButton.wav");

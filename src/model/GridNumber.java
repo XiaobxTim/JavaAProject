@@ -24,6 +24,7 @@ public class GridNumber {
 
     private int[][] numbers;
     private int score;
+    private int step;
     private int Coin;
     private int aim = 2048;
     private int[][] num;
@@ -509,6 +510,7 @@ public class GridNumber {
     public void setScore(int score) {
         this.score = score;
     }
+    public void setStep(int step){this.step=step;}
     public void setS(int s){this.s=s;}
 
     public void setCoin(int Coin) {
@@ -522,6 +524,7 @@ public class GridNumber {
     public int getAim() {
         return aim;
     }
+    public int getStep(){return step;}
 
     public int getScore() {
         return score;

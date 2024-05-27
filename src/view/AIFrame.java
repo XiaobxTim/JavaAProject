@@ -12,12 +12,11 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 public class AIFrame extends JFrame{
     private AIController controller;
@@ -85,60 +84,6 @@ public class AIFrame extends JFrame{
         begin.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_B,KeyEvent.ALT_DOWN_MASK));
         setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
         Rank.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.SHIFT_DOWN_MASK));
-        Rank.addActionListener(e -> {
-            this.setVisible(true);
-            String filePath = "src/" + account + "_AIMode.txt";
-            JList<String> list = new JList<>();
-            ArrayList<String> lines = readFirstTenLines(filePath);
-            DefaultListModel<String> model = new DefaultListModel<>();
-            for (String line : lines) {
-                model.addElement(line);
-            }
-            list.setModel(model);
-            list.setFixedCellHeight(50);
-            list.setFont(list.getFont().deriveFont(22.0f));
-            list.setCellRenderer(new DefaultListCellRenderer() {
-                @Override
-                public Component getListCellRendererComponent(
-                        JList<?> list,
-                        Object value,
-                        int index,
-                        boolean isSelected,
-                        boolean cellHasFocus) {
-
-                    // 调用父类的实现以获取基本的渲染组件
-                    super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-
-                    // 设置文本居中（水平和垂直）
-                    setHorizontalAlignment(JLabel.CENTER);
-                    setVerticalAlignment(JLabel.CENTER);
-
-                    // 如果你想在文本周围添加一些空白，可以添加EmptyBorder
-                    setBorder(new EmptyBorder(5, 10, 5, 10)); // 上、左、下、右的空白
-
-                    return this;
-                }
-            });
-            Rank rank=new Rank(400,500,list);
-            rank.setVisible(true);
-        });
-        restart.addActionListener(e -> {
-            setVisible(true);
-            RestartAI restartAI=new RestartAI(700,500, controller, gamePanel, gameFrame,jFrame);
-            restartAI.setVisible(true);
-        });
-        setting.addActionListener(e ->{
-            int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
-            model.setAim(aim);
-        });
-        load.addActionListener(e -> {
-            String string = JOptionPane.showInputDialog(this, "Input path:");
-            System.out.println(string);
-            gamePanel.requestFocusInWindow();
-        });
-        save.addActionListener(e -> {
-
-        });
         timer= new Timer(1000/60, e -> {
             int number=model.FindMaxNumber();
             if (number < model.getAim()){
@@ -233,6 +178,149 @@ public class AIFrame extends JFrame{
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
+                }
+            }
+        });
+        Rank.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
+            this.setVisible(true);
+            String filePath = "src/" + account + "_AIMode.txt";
+            JList<String> list = new JList<>();
+            ArrayList<String> lines = readFirstTenLines(filePath);
+            DefaultListModel<String> model = new DefaultListModel<>();
+            for (String line : lines) {
+                model.addElement(line);
+            }
+            list.setModel(model);
+            list.setFixedCellHeight(50);
+            list.setFont(list.getFont().deriveFont(22.0f));
+            list.setCellRenderer(new DefaultListCellRenderer() {
+                @Override
+                public Component getListCellRendererComponent(
+                        JList<?> list,
+                        Object value,
+                        int index,
+                        boolean isSelected,
+                        boolean cellHasFocus) {
+
+                    // 调用父类的实现以获取基本的渲染组件
+                    super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+
+                    // 设置文本居中（水平和垂直）
+                    setHorizontalAlignment(JLabel.CENTER);
+                    setVerticalAlignment(JLabel.CENTER);
+
+                    // 如果你想在文本周围添加一些空白，可以添加EmptyBorder
+                    setBorder(new EmptyBorder(5, 10, 5, 10)); // 上、左、下、右的空白
+
+                    return this;
+                }
+            });
+            Rank rank=new Rank(400,500,list);
+            rank.setVisible(true);
+        });
+        restart.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
+            timer.stop();
+            setVisible(true);
+            RestartAI restartAI=new RestartAI(700,500, controller, gamePanel, gameFrame,jFrame);
+            restartAI.setVisible(true);
+        });
+        setting.addActionListener(e ->{
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
+            timer.stop();
+            int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
+            model.setAim(aim);
+        });
+        load.addActionListener(e -> {
+            timer.stop();
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
+            String string = JOptionPane.showInputDialog(this, "Input path:");
+            String filePath="src/"+account+"_content of AIMode.txt";
+            File file=new File(filePath);
+            if (file.exists()){
+                try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+                    String firstLine = lines.findFirst().orElse("0");
+                    if (string.equals(firstLine)){
+                        String line;
+                        try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
+                            if ((line=fileReader.readLine())!=null){
+                            }
+                            for (int i=0;i<model.getX_COUNT();i++){
+                                for (int j=0;j<model.getY_COUNT();j++){
+                                    model.setNumber(i,j,Integer.parseInt(fileReader.readLine()));
+                                }
+                            }
+                            gamePanel.updateGridsNumber();
+                            gamePanel.setScore(Integer.parseInt(fileReader.readLine()));
+                            gamePanel.updateScore(gamePanel.getScore());
+                            gamePanel.setStep(Integer.parseInt(fileReader.readLine()));
+                            gamePanel.updateStep(gamePanel.getStep());
+                            model.setScore(gamePanel.getScore());
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                            JOptionPane.showMessageDialog(null,"Wrong Path!");
+                        }
+                    }else {
+                        JOptionPane.showMessageDialog(null,"Path is not right!");
+                    }
+                } catch (IOException er) {
+                    er.printStackTrace();
+                }
+            }else {
+                JOptionPane.showMessageDialog(null,"Have not saved before!");
+            }
+            gamePanel.requestFocusInWindow();
+        });
+        save.addActionListener(e -> {
+            timer.stop();
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
+            String string = JOptionPane.showInputDialog(this, "Input path:");
+            String filePath="src/"+account+"_content of AIMode.txt";
+            File file=new File(filePath);
+            if (file.exists()){
+                try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+                    String firstLine = lines.findFirst().orElse("0");
+                    if (string.equals(firstLine)){
+                        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePath))) {
+                            fileWriter.write(string);
+                            fileWriter.write(System.lineSeparator());
+                            for (int i=0;i<model.getX_COUNT();i++){
+                                for (int j=0;j<model.getY_COUNT();j++){
+                                    fileWriter.write(Integer.toString(model.getNumber(i,j)));
+                                    fileWriter.write(System.lineSeparator());
+                                }
+                            }
+                            fileWriter.write(Integer.toString(model.getScore()));
+                            fileWriter.write(System.lineSeparator());
+                            fileWriter.write(Integer.toString(gamePanel.getStep()));
+                            fileWriter.write(System.lineSeparator());
+                        } catch (IOException ex) {
+                            ex.printStackTrace();
+                            System.err.println("Error occurred while writing to the file.");
+                        }
+                    }else {
+                        JOptionPane.showMessageDialog(null,"Path is not right!");
+                    }
+                } catch (IOException er) {
+                    er.printStackTrace();
+                }
+            }else {
+                try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePath))) {
+                    fileWriter.write(string);
+                    fileWriter.write(System.lineSeparator());
+                    for (int i=0;i<model.getX_COUNT();i++){
+                        for (int j=0;j<model.getY_COUNT();j++){
+                            fileWriter.write(Integer.toString(model.getNumber(i,j)));
+                            fileWriter.write(System.lineSeparator());
+                        }
+                    }
+                    fileWriter.write(Integer.toString(model.getScore()));
+                    fileWriter.write(System.lineSeparator());
+                    fileWriter.write(Integer.toString(model.getStep()));
+                    fileWriter.write(System.lineSeparator());
+                } catch (IOException ex) {
+                    ex.printStackTrace();
                 }
             }
         });

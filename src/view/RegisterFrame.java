@@ -126,6 +126,7 @@ public class RegisterFrame extends JFrame {
             }
 
             File file = new File("src/" + account + "_password.txt");
+            File arrayToFile = new File("src/" + account + "_content.txt");
             if (file.exists()){
                 JOptionPane.showMessageDialog(null,"The account has already been registered");
             }else {
@@ -135,6 +136,8 @@ public class RegisterFrame extends JFrame {
                     if (file.createNewFile() && password.equals(confirm)) {
                         FileWriter fileWriter = new FileWriter(file);
                         fileWriter.write(password);
+                        FileWriter fileWriterArray = new FileWriter(arrayToFile);
+                        fileWriterArray.write(password);//这块输入数组，把password改掉，但我我不大会这个
                         fileWriter.close();
                         JOptionPane.showMessageDialog(this, "OK!");
                     } else {

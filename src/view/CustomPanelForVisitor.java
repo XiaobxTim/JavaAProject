@@ -138,45 +138,74 @@ public class CustomPanelForVisitor extends ListenerPanel{
     }
     @Override
     public void doMoveUp() {
+        if (model.getLock())
+            return ;
+        model.setLock(true);
         if (model.gameEnd()) {
-            JFrame frame = findParentFrame(this);
-            frame.setVisible(false);
+            JFrame gameframe = findParentFrame(this);
+            gameframe.setVisible(false);
             FailureForVisitor failureFrameForVisitor=new FailureForVisitor(400,500,model.getScore());
             failureFrameForVisitor.setVisible(true);
         }else {
             System.out.println("Click VK_UP");
-            this.model.moveUp();
-            this.updateGridsNumber();
-            this.afterMove();
-            int number=model.FindMaxNumber();
-            if (number>=model.getAim()){
-                JFrame gameframe = findParentFrame(this);
-                gameframe.setVisible(false);
-                SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
-                successForVisitor.setVisible(true);
-            }
+            final boolean[] isFirst = {true};
+            Timer timer = new Timer(DELAY, e -> {
+                boolean moved = getModel().moveUpStep(isFirst[0]);
+                isFirst[0] = false;
+                updateGridsNumber();
+                if (!moved) {
+                    getModel().addNewPiece("Up");
+                    this.updateGridsNumber();
+                    this.afterMove();
+                    int number=model.FindMaxNumber();
+                    if (number>=model.getAim()){
+                        JFrame gameframe = findParentFrame(this);
+                        gameframe.setVisible(false);
+                        SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
+                        successForVisitor.setVisible(true);
+                    }
+                    model.setLock(false);
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
         }
     }
     @Override
     public void doMoveDown() {
+        if (model.getLock())
+            return ;
+        model.setLock(true);
         if (model.gameEnd()) {
-            JFrame frame = findParentFrame(this);
-            frame.setVisible(false);
+            JFrame gameframe = findParentFrame(this);
+            gameframe.setVisible(false);
             FailureForVisitor failureFrameForVisitor=new FailureForVisitor(400,500,model.getScore());
             failureFrameForVisitor.setVisible(true);
         }else {
             System.out.println("Click VK_DOWN");
-            this.model.moveDown();
-            this.updateGridsNumber();
-            this.afterMove();
-            int number=model.FindMaxNumber();
-            if (number>=model.getAim()){
-                JFrame gameframe = findParentFrame(this);
-                gameframe.setVisible(false);
-                SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
-                successForVisitor.setVisible(true);
-            }
+            final boolean[] isFirst = {true};
+            Timer timer = new Timer(DELAY, e -> {
+                boolean moved = getModel().moveDownStep(isFirst[0]);
+                isFirst[0] = false;
+                updateGridsNumber();
+                if (!moved) {
+                    getModel().addNewPiece("Down");
+                    this.updateGridsNumber();
+                    this.afterMove();
+                    int number=model.FindMaxNumber();
+                    if (number>=model.getAim()){
+                        JFrame gameframe = findParentFrame(this);
+                        gameframe.setVisible(false);
+                        SuccessForVisitor successForVisitor=new SuccessForVisitor(400,500,model.getScore());
+                        successForVisitor.setVisible(true);
+                    }
+                    model.setLock(false);
+                    ((Timer) e.getSource()).stop();
+                }
+            });
+            timer.start();
         }
+
     }
 
     public void afterMove() {

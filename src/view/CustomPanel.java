@@ -18,7 +18,7 @@ import java.util.stream.Stream;
 
 public class CustomPanel extends ListenerPanel {
     private GridComponent[][] grids;
-    private int DELAY=100;
+    private int DELAY = 100;
     private GridNumber model;
     private JLabel stepLabel;
     private JLabel scoreLabel;
@@ -116,6 +116,7 @@ public class CustomPanel extends ListenerPanel {
         }else {
             System.out.println("Click VK_RIGHT");
             final boolean[] isFirst = {true};
+            System.out.println("hi");
             Timer timer = new Timer(DELAY, e -> {
                 boolean moved = getModel().moveRightStep(isFirst[0]);
                 isFirst[0] = false;

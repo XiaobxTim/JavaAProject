@@ -46,6 +46,15 @@ public class ClickSound extends JFrame {
             // 打开音频输入流到剪辑
             clip.open(audioInputStream);
 
+//            audioClip.open(audioStream);
+
+//            // 获取音量控制
+//            FloatControl volumeControl = (FloatControl) audioClip.getControl(FloatControl.Type.MASTER_GAIN);
+//
+//            // 设置音量大小（范围：最小值到最大值）
+//            float volume = -10.0f; // 例如：降低10分贝
+//            volumeControl.setValue(volume);
+
             // 开始播放声音
             clip.start();
         } catch (UnsupportedAudioFileException | IOException | LineUnavailableException ex) {

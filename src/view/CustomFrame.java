@@ -177,25 +177,25 @@ public class CustomFrame extends JFrame{
             int aim= Integer.parseInt(JOptionPane.showInputDialog("Please input the aim of the game"));
             model.setAim(aim);
         });
-        load.addActionListener(e -> {
+        load.addActionListener(e -> {//
             ClickSound.playSound(getClass(),  "ClickButton.wav");
             String string = JOptionPane.showInputDialog(this, "Input path:");
             String filePath="src/"+account+size+"_content of CustomMode.txt";
             File file=new File(filePath);
             if (file.exists()){
-                try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
+                try (Stream<String> lines = Files.lines(Paths.get(filePath))) {//判断第一行是否符合
                     String firstLine = lines.findFirst().orElse("0");
                     if (string.equals(firstLine)){
                         String line;
                         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
-                            if ((line=fileReader.readLine())!=null){
+                            if ((line=fileReader.readLine())!=null){//跳过第一行数据，对后面进行覆盖
                             }
                             for (int i=0;i<model.getX_COUNT();i++){
                                 for (int j=0;j<model.getY_COUNT();j++){
                                     model.setNumber(i,j,Integer.parseInt(fileReader.readLine()));
                                 }
                             }
-                            gamePanel.updateGridsNumber();
+                            gamePanel.updateGridsNumber();//更新
                             gamePanel.setScore(Integer.parseInt(fileReader.readLine()));
                             gamePanel.updateScore(gamePanel.getScore());
                             gamePanel.setStep(Integer.parseInt(fileReader.readLine()));
@@ -220,23 +220,23 @@ public class CustomFrame extends JFrame{
             ClickSound.playSound(getClass(),  "ClickButton.wav");
             String string = JOptionPane.showInputDialog(this, "Input path:");
             String filePath="src/"+account+size+"_content of CustomMode.txt";
-            File file=new File(filePath);
+            File file=new File(filePath);//保存输入路径
             if (file.exists()){
                 try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
-                    String firstLine = lines.findFirst().orElse("0");
-                    if (string.equals(firstLine)){
+                    String firstLine = lines.findFirst().orElse("0");//保存输入路径
+                    if (string.equals(firstLine)){//判断存在考虑覆盖
                         try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePath))) {
                             fileWriter.write(string);
                             fileWriter.write(System.lineSeparator());
-                            for (int i=0;i<model.getX_COUNT();i++){
+                            for (int i=0;i<model.getX_COUNT();i++){//遍历
                                 for (int j=0;j<model.getY_COUNT();j++){
                                     fileWriter.write(Integer.toString(model.getNumber(i,j)));
                                     fileWriter.write(System.lineSeparator());
                                 }
                             }
-                            fileWriter.write(Integer.toString(model.getScore()));
+                            fileWriter.write(Integer.toString(model.getScore()));//保存已经获得的分数
                             fileWriter.write(System.lineSeparator());
-                            fileWriter.write(Integer.toString(gamePanel.getStep()));
+                            fileWriter.write(Integer.toString(gamePanel.getStep()));//保存步数//保存倒计时时间和//金币数
                             fileWriter.write(System.lineSeparator());
                         } catch (IOException ex) {
                             ex.printStackTrace();
@@ -248,7 +248,7 @@ public class CustomFrame extends JFrame{
                 } catch (IOException er) {
                     er.printStackTrace();
                 }
-            }else {
+            }else {//第一次保存
                 try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(filePath))) {
                     fileWriter.write(string);
                     fileWriter.write(System.lineSeparator());

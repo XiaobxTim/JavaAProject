@@ -208,7 +208,7 @@ public class SelectModel extends JFrame {
                 entertainingFrame.setVisible(true);
             }
             if (selectValue.equals("AI Mode")){
-                ClickSound.playSound(getClass(),  "AiBackgroundMusic.wav");
+
                 AIFile = new File("src/" + account + "_AIMode.txt");
                 if (!AIFile.exists()){
                     try{

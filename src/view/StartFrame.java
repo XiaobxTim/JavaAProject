@@ -18,6 +18,7 @@ public class StartFrame extends JFrame {
     private JLabel NameLabel;
     private Image image;
     public StartFrame(int width,int height){
+        ClickSound.playSound(getClass(),  "BackgroundMusic.wav");
         setFocusable(true);
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));
@@ -40,8 +41,8 @@ public class StartFrame extends JFrame {
         Font font=new Font("serif",Font.BOLD,20);
         this.VisitorLogin=createButton("VisitorLogin",new Point(100,200),500,50);
         VisitorLogin.setFont(font);
-        VisitorLogin.setForeground(Color.BLACK);
-        VisitorLogin.setOpaque(false);
+        VisitorLogin.setForeground(Color.BLACK);//字体颜色
+        VisitorLogin.setOpaque(false);//不设置任何背景，false是透明色
 
         VisitorLogin.setContentAreaFilled(false);
         this.VisitorLogin.addActionListener(e -> {

@@ -194,18 +194,36 @@ public class GameFrame extends JFrame {
                         String line;
                         try (BufferedReader fileReader = new BufferedReader(new FileReader(filePath))) {
                             if ((line=fileReader.readLine())!=null){
-                            }
+                            }//读完第一行不做任何操作
                             for (int i=0;i<model.getX_COUNT();i++){
                                 for (int j=0;j<model.getY_COUNT();j++){
-                                    model.setNumber(i,j,Integer.parseInt(fileReader.readLine()));
+                                    String num1=fileReader.readLine();
+                                    if (num1!=null){
+                                        model.setNumber(i,j,Integer.parseInt(num1));
+                                    }else {
+                                        JOptionPane.showMessageDialog(null,"Damage of file");
+                                        restart.doClick();
+                                    }
                                 }
                             }
                             gamePanel.updateGridsNumber();
-                            gamePanel.setScore(Integer.parseInt(fileReader.readLine()));
-                            gamePanel.updateScore(gamePanel.getScore());
-                            gamePanel.setStep(Integer.parseInt(fileReader.readLine()));
-                            gamePanel.updateStep(gamePanel.getStep());
-                            model.setScore(gamePanel.getScore());
+                            String num2=fileReader.readLine();
+                            if (num2!=null){
+                                gamePanel.setScore(Integer.parseInt(num2));
+                                gamePanel.updateScore(gamePanel.getScore());
+                                model.setScore(gamePanel.getScore());
+                            }else {
+                                JOptionPane.showMessageDialog(null,"Damage of file");
+                                restart.doClick();
+                            }
+                            String num3=fileReader.readLine();
+                            if (num3!=null){
+                                gamePanel.setStep(Integer.parseInt(num3));
+                                gamePanel.updateStep(gamePanel.getStep());
+                            }else {
+                                JOptionPane.showMessageDialog(null,"Damage of file");
+                                restart.doClick();
+                            }
                         } catch (IOException ex) {
                             ex.printStackTrace();
                             JOptionPane.showMessageDialog(null,"Wrong Path!");

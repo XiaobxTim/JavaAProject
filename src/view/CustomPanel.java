@@ -422,7 +422,7 @@ public class CustomPanel extends ListenerPanel {
             String filePath = "src/" + account + "_CustomMode.txt"; // 替换为你的文件路径
             try (Stream<String> lines = Files.lines(Paths.get(filePath))) {
                 String firstLine = lines.findFirst().orElse("0");
-                this.maxscoreLabel.setText(String.format("MaxScore: %s",firstLine));
+                this.maxscoreLabel.setText(String.format("MaxScore: %s",firstLine));//rank中的firstline
             } catch (IOException e) {
                 e.printStackTrace();
             }

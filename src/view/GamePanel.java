@@ -113,6 +113,7 @@ public class GamePanel extends ListenerPanel {
             FailureFrame failureFrame=new FailureFrame(400,500,model.getScore(),account);
             failureFrame.setVisible(true);
         }else {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             System.out.println("Click VK_RIGHT");
             final boolean[] isFirst = {true};
             Timer timer = new Timer(DELAY, e -> {
@@ -193,6 +194,7 @@ public class GamePanel extends ListenerPanel {
             FailureFrame failureFrame=new FailureFrame(400,500,model.getScore(),account);
             failureFrame.setVisible(true);
         }else {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             System.out.println("Click VK_Left");
             final boolean[] isFirst = {true};
             Timer timer = new Timer(DELAY, e -> {
@@ -277,6 +279,7 @@ public class GamePanel extends ListenerPanel {
             FailureFrame failureFrame=new FailureFrame(400,500,model.getScore(),account);
             failureFrame.setVisible(true);
         }else {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             System.out.println("Click VK_UP");
             final boolean[] isFirst = {true};
             Timer timer = new Timer(DELAY, e -> {
@@ -357,6 +360,7 @@ public class GamePanel extends ListenerPanel {
             FailureFrame failureFrame=new FailureFrame(400,500,model.getScore(),account);
             failureFrame.setVisible(true);
         }else {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
             System.out.println("Click VK_DOWN");
             final boolean[] isFirst = {true};
             Timer timer = new Timer(DELAY, e -> {

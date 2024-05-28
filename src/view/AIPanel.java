@@ -46,6 +46,7 @@ public class AIPanel extends ListenerPanel{
     }
 
     public void initialGame() {
+        ClickSound.playSound(getClass(),  "aiBackgroundMusic.wav");
         this.steps = 0;
         for (int i = 0; i < grids.length; i++) {
             for (int j = 0; j < grids[i].length; j++) {

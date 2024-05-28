@@ -15,7 +15,7 @@ public class ClickSound extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("1");
-//                playSound(getClass(),  "ClickButton.wav");
+                playSound(getClass(),  "AiBackgroundMusic.wav");
             }
         });
 

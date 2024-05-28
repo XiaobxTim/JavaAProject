@@ -1,4 +1,6 @@
 package AI;
+import view.ClickSound;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -10,6 +12,7 @@ public class AI {
     public AI(GameState grid) {
         this.grid = new GameState(grid.getCellMatrix());
     }
+
 
     private int getEmptyNum(int[][] matrix) {
         int sum = 0;

@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 public class TimeLimitFrame extends JFrame{
     private GridNumber model;
-    private final int TotalTime=1800;
+    private final int TotalTime=1200;
     private int countdownSeconds=TotalTime;
     private TimeLimitController controller;
     private JLabel stepLabel;

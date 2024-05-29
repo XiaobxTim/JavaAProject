@@ -18,7 +18,7 @@ public class StartFrame extends JFrame {
     private JLabel NameLabel;
     private Image image;
     public StartFrame(int width,int height){
-        ClickSound.playSound(getClass(),  "BackgroundMusic.wav");
+        ClickSoundLoop.playSound(getClass(),  "BackgroundBasic.wav");
         setFocusable(true);
         try {
             image= ImageIO.read(new File("src/微信图片_20240513134449.jpg"));

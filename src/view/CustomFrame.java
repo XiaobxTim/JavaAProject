@@ -207,6 +207,7 @@ public class CustomFrame extends JFrame{
                                 gamePanel.setScore(Integer.parseInt(num2));
                                 gamePanel.updateScore(gamePanel.getScore());
                             }else {
+                                System.out.println("hahah");
                                 JOptionPane.showMessageDialog(null,"Damage of file");
                                 restart.doClick();
                             }

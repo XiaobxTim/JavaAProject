@@ -211,7 +211,6 @@ public class GameFrame extends JFrame {
                             if (num2!=null){
                                 gamePanel.setScore(Integer.parseInt(num2));
                                 gamePanel.updateScore(gamePanel.getScore());
-                                model.setScore(gamePanel.getScore());
                             }else {
                                 JOptionPane.showMessageDialog(null,"Damage of file");
                                 restart.doClick();
@@ -224,6 +223,7 @@ public class GameFrame extends JFrame {
                                 JOptionPane.showMessageDialog(null,"Damage of file");
                                 restart.doClick();
                             }
+                            model.setScore(gamePanel.getScore());
                         } catch (IOException ex) {
                             ex.printStackTrace();
                             JOptionPane.showMessageDialog(null,"Wrong Path!");

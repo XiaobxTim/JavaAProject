@@ -259,16 +259,34 @@ public class TimeLimitFrame extends JFrame{
                             }
                             for (int i=0;i<model.getX_COUNT();i++){
                                 for (int j=0;j<model.getY_COUNT();j++){
-                                    model.setNumber(i,j,Integer.parseInt(fileReader.readLine()));
+                                    String num1=fileReader.readLine();
+                                    if (num1!=null){
+                                        model.setNumber(i,j,Integer.parseInt(num1));
+                                    }else {
+                                        JOptionPane.showMessageDialog(null,"Damage of file");
+                                        restart.doClick();
+                                    }
                                 }
                             }
                             gamePanel.updateGridsNumber();
-                            gamePanel.setScore(Integer.parseInt(fileReader.readLine()));
-                            gamePanel.updateScore(gamePanel.getScore());
-                            countdownSeconds= Integer.parseInt(fileReader.readLine());
-                            time.setText("Time: " + countdownSeconds + "s");
+                            String num2=fileReader.readLine();
+                            if (num2!=null){
+                                gamePanel.setScore(Integer.parseInt(num2));
+                                gamePanel.updateScore(gamePanel.getScore());
+                            }else {
+                                JOptionPane.showMessageDialog(null,"Damage of file");
+                                restart.doClick();
+                            }
+                            String num3=fileReader.readLine();
+                            if (num3!=null){
+                                countdownSeconds= Integer.parseInt(num3);
+                                time.setText("Time: " + countdownSeconds + "s");
+                                timer.start();
+                            }else {
+                                JOptionPane.showMessageDialog(null,"Damage of file");
+                                restart.doClick();
+                            }
                             model.setScore(gamePanel.getScore());
-                            timer.start();
                         } catch (IOException ex) {
                             ex.printStackTrace();
                             JOptionPane.showMessageDialog(null,"Wrong Path!");

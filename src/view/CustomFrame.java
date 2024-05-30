@@ -69,6 +69,7 @@ public class CustomFrame extends JFrame{
         JMenuItem back=new JMenuItem("back");
         JMenuItem Hint=new JMenuItem("Hint");
         JMenuItem Rank=new JMenuItem("Rank");
+        JMenuItem Dispose=new JMenuItem("Dispose");
         Rank.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.SHIFT_DOWN_MASK));
         Rank.addActionListener(e -> {
             this.setVisible(true);
@@ -124,7 +125,19 @@ public class CustomFrame extends JFrame{
         menu.add(back);
         menu.add(Hint);
         menu.add(Rank);
+        menu.add(Dispose);
         Hint.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.CTRL_DOWN_MASK));
+        Dispose.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.ALT_DOWN_MASK));
+        Dispose.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
+            String filePath="src/"+account+"_content of ClassicMode.txt";
+            File file=new File(filePath);
+            if (file.exists()){
+                file.delete();
+            }else {
+                JOptionPane.showMessageDialog(null,"Haven't saved yet");
+            }
+        });
         Hint.addActionListener(e -> {
             ClickSound.playSound(getClass(),  "ClickButton.wav");
             gamePanel.setEnabled(true);

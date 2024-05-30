@@ -84,6 +84,8 @@ public class EntertainingFrame extends JFrame {
         menu.add(begin);
         menu.add(Hint);
         menu.add(Rank);
+        JMenuItem Dispose=new JMenuItem("Dispose");
+        menu.add(Dispose);
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
         load.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_L,KeyEvent.CTRL_DOWN_MASK));
@@ -95,6 +97,17 @@ public class EntertainingFrame extends JFrame {
         setting.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_S,KeyEvent.SHIFT_DOWN_MASK));
         Hint.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.CTRL_DOWN_MASK));
         Rank.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.SHIFT_DOWN_MASK));
+        Dispose.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.ALT_DOWN_MASK));
+        Dispose.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
+            String filePath="src/"+account+"_content of ClassicMode.txt";
+            File file=new File(filePath);
+            if (file.exists()){
+                file.delete();
+            }else {
+                JOptionPane.showMessageDialog(null,"Haven't saved yet");
+            }
+        });
         Rank.addActionListener(e -> {
             this.setVisible(true);
             String filePath = "src/" + account + "_EntertainingMode.txt";

@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 
 public class TimeLimitFrame extends JFrame{
     private GridNumber model;
-    private final int TotalTime=1200;
+    private final int TotalTime=300;
     private int countdownSeconds=TotalTime;
     private TimeLimitController controller;
     private JLabel stepLabel;
@@ -79,6 +79,8 @@ public class TimeLimitFrame extends JFrame{
         menu.add(back);
         menu.add(Hint);
         menu.add(Rank);
+        JMenuItem Dispose=new JMenuItem("Dispose");
+        menu.add(Dispose);
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
         load.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_L,KeyEvent.CTRL_DOWN_MASK));
@@ -89,6 +91,17 @@ public class TimeLimitFrame extends JFrame{
         back.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_Z,KeyEvent.CTRL_DOWN_MASK));
         Hint.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.CTRL_DOWN_MASK));
         Rank.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.SHIFT_DOWN_MASK));
+        Dispose.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.ALT_DOWN_MASK));
+        Dispose.addActionListener(e -> {
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
+            String filePath="src/"+account+"_content of ClassicMode.txt";
+            File file=new File(filePath);
+            if (file.exists()){
+                file.delete();
+            }else {
+                JOptionPane.showMessageDialog(null,"Haven't saved yet");
+            }
+        });
         Rank.addActionListener(e -> {
             this.setVisible(true);
             String filePath = "src/" + account + "_TimeLimitMode.txt";

@@ -76,6 +76,8 @@ public class AIFrame extends JFrame{
         menu.add(begin);
         menu.add(setting);
         menu.add(Rank);
+        JMenuItem Dispose=new JMenuItem("Dispose");
+        menu.add(Dispose);
         menuItem.setAccelerator(KeyStroke.getKeyStroke((char) KeyEvent.VK_D,KeyEvent.CTRL_DOWN_MASK));
         restart.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_R,KeyEvent.CTRL_DOWN_MASK));
         load.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_L,KeyEvent.CTRL_DOWN_MASK));
@@ -340,6 +342,18 @@ public class AIFrame extends JFrame{
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+            }
+        });
+        Dispose.setAccelerator(KeyStroke.getKeyStroke((char)KeyEvent.VK_H,KeyEvent.ALT_DOWN_MASK));
+        Dispose.addActionListener(e -> {
+            timer.stop();
+            ClickSound.playSound(getClass(),  "ClickButton.wav");
+            String filePath="src/"+account+"_content of ClassicMode.txt";
+            File file=new File(filePath);
+            if (file.exists()){
+                file.delete();
+            }else {
+                JOptionPane.showMessageDialog(null,"Haven't saved yet");
             }
         });
 
